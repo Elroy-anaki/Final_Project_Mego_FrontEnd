@@ -1,15 +1,11 @@
 import React from "react";
 import { Formik } from "formik";
 import { useMutation } from "@tanstack/react-query";
-import * as Yup from "yup";
 import axios from "axios";
+import validationSignInSchema from "../../../schemas/signInSchema";
+import { Link } from "react-router-dom";
 
-const validationSchema = Yup.object({
-  userEmail: Yup.string().email("Invalid email address").required("Invalid email address"),
-  userPassword: Yup.string()
-    .min(5, "Must have at least 5 characters")
-    .required("Must have at least 5 characters"),
-});
+
 
 const initialUserValuse = {
   userEmail: "",
@@ -38,9 +34,9 @@ function SignIn() {
   });
 
   return (
-    <div className="font-[sans-serif] bg-white max-w-4xl flex items-center justify-center items mx-auto rounded-lg h-screen">
+    <div className=" font-[sans-serif] bg-white max-w-4xl flex items-center justify-center items mx-auto rounded-xl my-14 border-2 border-rose-400">
       <div className="grid grid- md:grid-cols-3 items-center shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-xl overflow-hidden ">
-        <div className="max-md:order-1 flex flex-col justify-center space-y-16 max-md:mt-16 min-h-full bg-gradient-to-r from-rose-500 to-rose-700 lg:px-8 px-4 py-4">
+        <div className="max-md:order-1 flex flex-col justify-center space-y-16 max-md:mt-16 min-h-full bg-gradient-to-r from-gray-500 to-gray-700 lg:px-8 px-4 py-4">
           <div>
             <h4 className="text-white text-center text-3xl font-semibold">
               Welcome!
@@ -52,7 +48,7 @@ function SignIn() {
         </div>
         <Formik
           initialValues={initialUserValuse}
-          validationSchema={validationSchema}
+          validationSchema={validationSignInSchema}
           onSubmit={async (values, actions) => {
             alert("yes")
             signIn(values);
@@ -120,12 +116,22 @@ function SignIn() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 px-4 tracking-wider text-lg rounded-md text-white font-semibold  bg-gradient-to-r from-rose-800 to-rose-600  hover:bg-gradient-to-r hover:from-rose-500 hover:to-rose-400 "
+                  className="w-full py-3 px-4 tracking-wider text-lg rounded-md text-white font-semibold  bg-gradient-to-r from-gray-800 to-gray-600  hover:bg-gradient-to-r hover:from-rose-500 hover:to-rose-400 "
                 >
                   {isSubmitting ? "inProccess..." : "Sign In"}
                 </button>
               </div>
+              <div className="w-3/4 mx-auto flex justify-center gap-3 my-3">
+              <p>Oh No, Forgot Your Password?</p>
+              <Link
+              to={'/auth/forgot-password'}
+              className="text-rose-700"
+              >
+              Reset here
+              </Link>
+              </div>
             </form>
+            
           )}
         </Formik>
       </div>

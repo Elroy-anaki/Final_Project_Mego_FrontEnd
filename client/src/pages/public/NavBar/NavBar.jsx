@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaSignInAlt } from "react-icons/fa";
+// import { FaSignInAlt } from "react-icons/fa";
 
 
 function NavBar() {
@@ -102,7 +102,7 @@ function NavBar() {
           </Link>
           <div className='flex items-center'>
             <Link 
-              to={'/'} 
+              to={'/auth/sign-in'} 
               className="mr-2 text-gray-700 
                          hover:text-rose-700 
                          font-semibold 
@@ -110,12 +110,12 @@ function NavBar() {
             >
               Sign In
             </Link>
-            <FaSignInAlt 
+            {/* <FaSignInAlt 
               size={20} 
               className="text-rose-600 
                          hover:text-rose-800 
                          transition-colors" 
-            />
+            /> */}
           </div>
         </div>
         <button 

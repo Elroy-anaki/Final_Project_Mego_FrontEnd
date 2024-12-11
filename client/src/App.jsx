@@ -9,6 +9,8 @@ import {
 import NavBar from "./pages/public/NavBar/NavBar";
 import Home from "./pages/public/Home/Home";
 import About from "./pages/public/About/About";
+import SignIn from './forms/Auth/SignIn/SignIn';
+import ForgotPassword from "./forms/Auth/ForgotPassword/ForgotPassword";
 
 function Root() {
   return (
@@ -27,12 +29,14 @@ function App() {
         <Route path="home"  element={<Home />} />
         <Route path="about" element={<About/>}/>
 
-        {/* Public Routes */}
-        <Route path="auth" element={true && <Outlet />}>
-          <Route index element={<NavBar />} />
+        {/* { Public Routes } */}
+         <Route path="/auth" element={true && <Outlet />}>
+          <Route index element={<SignIn />} /> 
+          <Route path="sign-in" element={<SignIn />} /> 
+          <Route path="forgot-password" element={<ForgotPassword />} /> 
 
 
-        </Route>
+        </Route> 
 
       </Route>))
 
