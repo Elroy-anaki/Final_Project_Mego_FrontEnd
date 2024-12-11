@@ -5,45 +5,42 @@ import * as Yup from "yup";
 import axios from "axios";
 
 const validationSchema = Yup.object({
-  userEmail: Yup.string().email("Invalid email address").required("must"),
+  userEmail: Yup.string().email("Invalid email address").required("Invalid email address"),
   userPassword: Yup.string()
     .min(5, "Must have at least 5 characters")
-    .required("must"),
+    .required("Must have at least 5 characters"),
 });
 
 const initialUserValuse = {
   userEmail: "",
   userPassword: "",
 };
+
 function SignIn() {
-  const { mutate , isError , isSuccess , data} = useMutation({
+  const { mutate:signIn} = useMutation({
     mutationKey: ["signIn"],
     mutationFn: async (userData) => {
-      await axios.post(`http://localhost:3000/users/sign-in`,userData,{ withCredentials: true });
+      try {
+        const {data} = await axios.post(`http://localhost:3000/users/sign-in`,userData,{ withCredentials: true });
+      console.log(data)
+      return data;
+      } catch (error) {
+        throw error
+      }
+      
     },
-    onSuccess(data){
-        alert ( "success")
+    onSuccess: (data) => {
+      alert(data.msg)
     },
-    onError(){
-        alert("noooot")
+    onError: (error) => {
+      console.log(error.response.data)
     }
   });
-  const sendToServer = async (newUserData) => {
-    console.log(newUserData);
-    try {
-      
-      mutate(newUserData)
-
-      
-    } catch (error) {
-      console.log("ERROR", error);
-    }
-  };
 
   return (
     <div className="font-[sans-serif] bg-white max-w-4xl flex items-center justify-center items mx-auto rounded-lg h-screen">
       <div className="grid grid- md:grid-cols-3 items-center shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-xl overflow-hidden ">
-        <div className="max-md:order-1 flex flex-col justify-center space-y-16 max-md:mt-16 min-h-full bg-gradient-to-r from-sky-950 to-sky-800 lg:px-8 px-4 py-4">
+        <div className="max-md:order-1 flex flex-col justify-center space-y-16 max-md:mt-16 min-h-full bg-gradient-to-r from-rose-500 to-rose-700 lg:px-8 px-4 py-4">
           <div>
             <h4 className="text-white text-center text-3xl font-semibold">
               Welcome!
@@ -56,11 +53,10 @@ function SignIn() {
         <Formik
           initialValues={initialUserValuse}
           validationSchema={validationSchema}
-          onSubmit={async (valuse, actions) => {
-            alert("yes");
-            console.log("aaannn", valuse);
-            console.log(actions);
-            await sendToServer(valuse);
+          onSubmit={async (values, actions) => {
+            alert("yes")
+            signIn(values);
+            actions.resetForm()
           }}
         >
           {({
@@ -78,7 +74,7 @@ function SignIn() {
             >
               <div className="mb-6">
                 <h3 className="text-gray-800 text-2xl font-bold">
-                  Hi Employee, Sign In Please 😀
+                  Welcome Back ! 😀
                 </h3>
               </div>
               <div className=" ">
@@ -89,6 +85,7 @@ function SignIn() {
                     id="userEmail"
                     name="userEmail"
                     type="email"
+                    placeholder="exapmle@gmail.com"
                     value={values.userEmail}
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -107,6 +104,7 @@ function SignIn() {
                     id="userPassword"
                     name="userPassword"
                     type="password"
+                    placeholder="*******"
                     value={values.userPassword}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -121,8 +119,8 @@ function SignIn() {
               <div className="flex flex-col ">
                 <button
                   type="submit"
-                  // disabled={isSubmitting}
-                  className="w-full py-3 px-4 tracking-wider text-lg rounded-md text-white font-semibold  bg-gradient-to-r from-sky-900 via-sky-700 to-sky-900 hover:text-gray-300  focus:outline-none"
+                  disabled={isSubmitting}
+                  className="w-full py-3 px-4 tracking-wider text-lg rounded-md text-white font-semibold  bg-gradient-to-r from-rose-800 to-rose-600  hover:bg-gradient-to-r hover:from-rose-500 hover:to-rose-400 "
                 >
                   {isSubmitting ? "inProccess..." : "Sign In"}
                 </button>
