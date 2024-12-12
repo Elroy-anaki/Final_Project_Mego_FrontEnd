@@ -5,12 +5,11 @@ import React from "react";
 import Meal from "./Meal";
 
 function Meals() {
+
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: ["get_menu"],
     queryFn: async () =>
-      await axios.get("http://localhost:3000/meals//get-all-meals", {
-        withCredentials: true,
-      }),
+      await axios.get("/meals/get-all-meals"),
     select: (data) => data.data.data,
   });
 

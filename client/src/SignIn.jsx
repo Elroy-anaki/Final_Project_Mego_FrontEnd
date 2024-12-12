@@ -21,7 +21,7 @@ function SignIn() {
     mutationKey: ["signIn"],
     mutationFn: async (userData) => {
       try {
-        const {data} = await axios.post(`http://localhost:3000/users/sign-in`,userData,{ withCredentials: true });
+        const {data} = await axios.post(`/users/sign-in`,userData,{ withCredentials: true });
       console.log(data)
       return data;
       } catch (error) {

@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios from "axios";
 import { Formik } from "formik";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-import { validationSchema } from '../schemas/singUpSchema';
+import { validationSchema } from '../../../schemas/singUpSchema';
 import Input from './Input';
 
 
@@ -15,7 +15,7 @@ function SingUp() {
 
   const { mutate } = useMutation({
     mutationKey: ["SingUp"],
-    mutationFn: async (data) => (await axios.post("http://localhost:3000/users/sign-up", data, { withCredentials: true })),
+    mutationFn: async (data) => (await axios.post("/users/sign-up", data)),
     onSuccess: (data) => (console.log(data.data)),
     onError: (error) => (console.log(error))
   });
@@ -24,7 +24,7 @@ function SingUp() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br  flex items-center justify-center p-4">
+    <div className=" bg-gradient-to-br  flex items-center justify-center">
 
       <Formik
         initialValues={{

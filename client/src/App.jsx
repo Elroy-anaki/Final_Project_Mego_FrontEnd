@@ -9,6 +9,7 @@ import {
 import NavBar from "./pages/public/NavBar/NavBar";
 import Home from "./pages/public/Home/Home";
 import About from "./pages/public/About/About";
+import SignUp from './forms/Auth/SingUp/SingUp'
 import SignIn from './forms/Auth/SignIn/SignIn';
 import ForgotPassword from "./forms/Auth/ForgotPassword/ForgotPassword";
 import Menu from "./pages/public/menu/Menu";
@@ -36,6 +37,7 @@ function App() {
          <Route path="/auth" element={true && <Outlet />}>
           <Route index element={<SignIn />} /> 
           <Route path="sign-in" element={<SignIn />} /> 
+          <Route path="sign-up" element={<SignUp />} /> 
           <Route path="forgot-password" element={<ForgotPassword />} /> 
 
 

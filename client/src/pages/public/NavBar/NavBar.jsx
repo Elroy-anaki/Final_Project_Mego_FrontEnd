@@ -91,7 +91,7 @@ function NavBar() {
                       duration-300">
         <div className='flex items-center'>
           <Link 
-            to={'/'} 
+            to={'/auth/sign-up'} 
             className="pr-3 mr-3 border-r border-rose-300 
                        text-rose-700 
                        hover:text-rose-900 
