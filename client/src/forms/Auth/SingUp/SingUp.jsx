@@ -1,24 +1,20 @@
 
-import React, { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import axios from "axios";
+import React, { useContext, useState } from 'react';
+
 import { Formik } from "formik";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { validationSchema } from '../../../schemas/singUpSchema';
 import Input from './Input';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 
 function SingUp() {
+  const { signUp } = useContext(AuthContext)
 
   const [showPassword, setShowPassword] = useState(false);
 
 
-  const { mutate } = useMutation({
-    mutationKey: ["SingUp"],
-    mutationFn: async (data) => (await axios.post("/users/sign-up", data)),
-    onSuccess: (data) => (console.log(data.data)),
-    onError: (error) => (console.log(error))
-  });
+
 
 
 
@@ -35,7 +31,7 @@ function SingUp() {
         validationSchema={validationSchema}
         onSubmit={async (values, actions) => {
           console.log(values);
-          mutate(values);
+          signUp(values)
           actions.resetForm()
         }}
       >
