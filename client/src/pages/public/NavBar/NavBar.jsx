@@ -44,7 +44,7 @@ function NavBar() {
           </li>
           <li>
             <Link 
-              to={'/'} 
+              to={'/menu'} 
               className="block text-xl py-2 px-3 text-rose-600 hover:text-rose-800 
                          font-medium tracking-wide 
                          transition-all duration-300 

@@ -11,12 +11,14 @@ import Home from "./pages/public/Home/Home";
 import About from "./pages/public/About/About";
 import SignIn from './forms/Auth/SignIn/SignIn';
 import ForgotPassword from "./forms/Auth/ForgotPassword/ForgotPassword";
+import Menu from "./pages/public/menu/Menu";
 
 function Root() {
   return (
     <div >
         <NavBar />
         <Outlet />
+        
     </div>
   )
 }
@@ -28,6 +30,7 @@ function App() {
         <Route index  element={<Home />} />
         <Route path="home"  element={<Home />} />
         <Route path="about" element={<About/>}/>
+        <Route path="menu" element={<Menu/>} /> 
 
         {/* { Public Routes } */}
          <Route path="/auth" element={true && <Outlet />}>

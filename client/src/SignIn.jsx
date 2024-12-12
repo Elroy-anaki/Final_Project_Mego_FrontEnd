@@ -120,7 +120,7 @@ function SignIn() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 px-4 tracking-wider text-lg rounded-md text-white font-semibold  bg-gradient-to-r from-rose-800 to-rose-600  hover:bg-gradient-to-r hover:from-rose-500 hover:to-rose-400 "
+                  className="w-full py-3 px-4 tracking-wider text-lg rounded-md text-black font-semibold  bg-gradient-to-r from-rose-800 to-rose-600  hover:bg-gradient-to-r hover:from-rose-500 hover:to-rose-400 "
                 >
                   {isSubmitting ? "inProccess..." : "Sign In"}
                 </button>
