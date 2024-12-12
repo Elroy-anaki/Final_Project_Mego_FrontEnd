@@ -2,21 +2,24 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { MdOutlineTableBar } from "react-icons/md";
-
+import {RestaurantContex} from '../../../contexts/RestaurantContex'
 
 function NavBar() {
-  const { isAuth, signOut } = useContext(AuthContext);
+  const { isAuth, signOut, user } = useContext(AuthContext);
+  const {restaurant} = useContext(RestaurantContex)
 
   return (
-    <nav className="w-full bg-gradient-to-r from-rose-50 to-gray-50 shadow-md">
-      <div className="max-w-screen-2xl w-11/12 mx-auto flex justify-between items-center py-4">
+    <nav className="w-full bg-gradient-to-r from-orange-300 to-orange-100 shadow-md">
+      <div className="max-w-screen-2xl w-11/12 mx-auto flex justify-between items-center py-5">
       <div className='flex justify-center gap-5'>
-      <Link to="/" className="transition-transform hover:scale-105">
+      <Link to="/" className="transition-transform hover:scale-105 flex justify-center items-center gap-4">
           <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="h-10 w-auto"
+            src={restaurant?.restaurantLogo}
+            className="h-12 w-auto rounded-full"
             alt="Flowbite Logo"
-          />
+            />
+            <p className='text-xl text-gray-500'>{restaurant?.restaurantName}</p>
+            <p className='text-xl text-gray-500'>{user?.userName}</p>
         </Link>
       <MdOutlineTableBar className='text-orange-500 cursor-pointer' size={42} />
       </div>

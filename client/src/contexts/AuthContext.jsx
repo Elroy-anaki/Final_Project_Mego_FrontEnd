@@ -2,12 +2,15 @@ import { createContext } from "react";
 import { useQuery, useMutation } from '@tanstack/react-query';
 import axios from "axios";
 import { useState, } from "react";
+import RestaurantProvider from "./RestaurantContex";
+
 
 
 export const AuthContext = createContext()
 
 function AuthProvider({ children }) {
     const [isAuth, setIsAuth] = useState(false)
+    const [user, setUser] = useState(null)
 
 
     const { data, error, isLoading } = useQuery({
@@ -18,6 +21,7 @@ function AuthProvider({ children }) {
                 console.log("data", data);
                 console.log(data.success);
                 setIsAuth(data.success)
+                setUser(data.data.payload)
                 return data;
 
             } catch (error) {
@@ -69,14 +73,18 @@ function AuthProvider({ children }) {
         setIsAuth,
         signUp,
         signIn,
-        signOut
+        signOut,
+        user
 
     }
 
     return (
-        <AuthContext.Provider value={authGlobalState}>
-            {children}
-        </AuthContext.Provider>
+        <RestaurantProvider>
+            <AuthContext.Provider value={authGlobalState}>
+                {children}
+            </AuthContext.Provider>
+        </RestaurantProvider>
+
     )
 }
 export default AuthProvider;
