@@ -12,7 +12,7 @@ import About from "./pages/public/About/About";
 import SignUp from './forms/Auth/SingUp/SingUp'
 import SignIn from './forms/Auth/SignIn/SignIn';
 import ForgotPassword from "./forms/Auth/ForgotPassword/ForgotPassword";
-import Menu from "./pages/public/menu/Menu";
+import Menu from "./pages/public/catgoriseMenu/Menu";
 
 function Root() {
   return (
