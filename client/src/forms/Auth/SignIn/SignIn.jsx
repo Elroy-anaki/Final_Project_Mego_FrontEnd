@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import validationSignInSchema from "../../../schemas/signInSchema";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
+import { notifyError, notifySuccess } from "../../../lib/Toasts";
 
 
 
@@ -14,6 +15,7 @@ const initialUserValuse = {
 function SignIn() {
   const { signIn } = useContext(AuthContext)
   const navigate = useNavigate()
+  
 
   return (
     <div className="bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center py-16">
@@ -21,10 +23,19 @@ function SignIn() {
         initialValues={initialUserValuse}
         validationSchema={validationSignInSchema}
         onSubmit={async (values, actions) => {
-          signIn(values);
-          actions.resetForm();
-          navigate('/')
+          try {
+            const res = await signIn(values);
+            console.log("res", res)
+            actions.resetForm()
+            notifySuccess('Welcome!')
+            navigate('/')
 
+            
+          } catch (error) {
+            console.log(error)
+            notifyError(error.response.data.msg)
+            
+          }
         }}
       >
         {({

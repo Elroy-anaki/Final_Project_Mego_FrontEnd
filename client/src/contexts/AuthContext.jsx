@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, } from "react";
 import RestaurantProvider from "./RestaurantContex";
 import { notifyError, notifySuccess } from "../lib/Toasts";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -14,8 +15,7 @@ function AuthProvider({ children }) {
     const [isAuth, setIsAuth] = useState(false)
     const [user, setUser] = useState(null)
 
-
-    const { data, error, isLoading } = useQuery({
+    const { data } = useQuery({
         queryKey: ['verifyToken'],
         queryFn: async () => {
             try {
@@ -30,20 +30,17 @@ function AuthProvider({ children }) {
                 console.log("error", error);
                 throw error;
             }
-
         },
         staleTime: 1000 * 60
     });
 
-    const { mutate: signIn } = useMutation({
+    const { mutateAsync: signIn } = useMutation({
         mutationKey: ["signIn"],
         mutationFn: async (data) => (await axios.post(`/users/sign-in`, data)),
         onSuccess: (data) => {
-            console.log("SSSS", data.data.data.userName)
+            console.log(data.data.data.userName)
             setIsAuth(true)
             setUser(data.data.data)
-
-            console.log(data.data.msg)
         },
         onError: (error) => {
             console.log(error.response.data)
@@ -90,13 +87,13 @@ function AuthProvider({ children }) {
     })
 
     const authGlobalState = {
+        user,
         isAuth,
         setIsAuth,
         signUp,
         signIn,
         signOut,
         verifyEmail,
-        user
     }
 
     return (

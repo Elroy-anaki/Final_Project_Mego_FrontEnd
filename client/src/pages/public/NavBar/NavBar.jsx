@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { MdOutlineTableBar } from "react-icons/md";
 import {RestaurantContex} from '../../../contexts/RestaurantContex'
+import { PiSignOut } from "react-icons/pi";
+
 
 function NavBar() {
   const { isAuth, signOut, user } = useContext(AuthContext);
@@ -11,7 +13,7 @@ function NavBar() {
 
   return (
     <nav className="w-full bg-gradient-to-r from-gray-900 via-gray-700 to-gray-800  ">
-      <div className="max-w-screen-2xl w-11/12 mx-auto flex justify-between items-center py-5 ">
+      <div className="max-w-screen-2xl w-11/12 mx-auto flex justify-between items-center py-3 ">
         {/* Logo and Restaurant Info */}
         <div className="flex items-center gap-6">
           <Link
@@ -19,16 +21,18 @@ function NavBar() {
             className="transition-transform hover:scale-105 flex items-center gap-4"
           >
             <img
+            loading='lazy'
               src={restaurant?.restaurantLogo}
               className="h-14 w-auto rounded-full shadow-md"
               alt="Restaurant Logo"
             />
-            <div className='flex items-center gap-5'>
+            
+          </Link>
+          <div className='flex items-center gap-5'>
               <p className="text-2xl font-bold text-white">
                 {isAuth ? `Hi, ${user?.userName}` :restaurant?.restaurantName}
               </p>
             </div>
-          </Link>
           <MdOutlineTableBar
             className="text-white cursor-pointer hover:text-orange-500 transition-colors"
             size={42}
@@ -75,9 +79,11 @@ function NavBar() {
                 navigate('/')
                 
               }}
-              className=" hover:text-white   font-semibold"
+              className=" hover:text-white flex gap-2 justify-center items-center   font-semibold"
             >
-              {'Sign Out =>'}
+              Sign Out 
+              <PiSignOut size={20}/>
+
             </button>
           ) : (
             <>
