@@ -6,13 +6,15 @@ import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { validationSchema } from '../../../schemas/singUpSchema';
 import Input from './Input';
 import { AuthContext } from '../../../contexts/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function SingUp() {
-  const { signUp } = useContext(AuthContext)
 
+  const { signUp } = useContext(AuthContext)
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
 
 
 
@@ -32,8 +34,9 @@ function SingUp() {
         validationSchema={validationSchema}
         onSubmit={async (values, actions) => {
           console.log(values);
-          signUp(values)
-          actions.resetForm()
+          signUp(values);
+          actions.resetForm();
+          navigate('/auth/sign-in')
         }}
       >
         {({

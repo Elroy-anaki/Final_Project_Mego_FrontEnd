@@ -3,6 +3,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import axios from "axios";
 import { useState, } from "react";
 import RestaurantProvider from "./RestaurantContex";
+import { notifyError, notifySuccess } from "../lib/Toasts";
 
 
 
@@ -38,8 +39,9 @@ function AuthProvider({ children }) {
         mutationKey: ["signIn"],
         mutationFn: async (data) => (await axios.post(`/users/sign-in`, data)),
         onSuccess: (data) => {
+            console.log("SSSS", data.data.data.userName)
             setIsAuth(true)
-            setUser(data.data.userName)
+            setUser(data.data.data)
 
             console.log(data.data.msg)
         },
@@ -51,8 +53,14 @@ function AuthProvider({ children }) {
     const { mutate: signUp } = useMutation({
         mutationKey: ["SingUp"],
         mutationFn: async (data) => (await axios.post("/users/sign-up", data)),
-        onSuccess: (data) => (console.log(data.data)),
-        onError: (error) => (console.log(error))
+        onSuccess: (data) => {
+            console.log(data.data)
+            notifySuccess('Welcome! Check your email...')
+        },
+        onError: (error) => {
+            console.log(error)
+            notifyError(error)
+        }
     });
 
     const { refetch: signOut, data: signOutData, } = useQuery({
@@ -69,6 +77,16 @@ function AuthProvider({ children }) {
         },
         enabled: false,
 
+    });
+
+    const { mutate: verifyEmail } = useMutation({
+        mutationKey: ['verifyEmail'],
+        mutationFn: async (userId) => (await axios.get(`/auth/email-verification?userId=${userId}&type=user`)),
+        onSuccess: (data) => {
+            notifySuccess("verify")
+            console.log(data)
+        },
+        onError: (error) => console.log(error),
     })
 
     const authGlobalState = {
@@ -77,8 +95,8 @@ function AuthProvider({ children }) {
         signUp,
         signIn,
         signOut,
+        verifyEmail,
         user
-
     }
 
     return (

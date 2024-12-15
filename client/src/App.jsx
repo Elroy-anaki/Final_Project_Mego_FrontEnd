@@ -14,6 +14,7 @@ import SignIn from './forms/Auth/SignIn/SignIn';
 import ForgotPassword from "./forms/Auth/ForgotPassword/ForgotPassword";
 import OrderPlace from "./pages/public/OrderPlace/OrderPlace";
 import MenuBoard from "./pages/public/Menu/MenuBoard";
+import EmailVerification from "./forms/Auth/EmailVerification/EmailVerification";
 
 
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="sign-in" element={<SignIn />} /> 
           <Route path="sign-up" element={<SignUp />} /> 
           <Route path="forgot-password" element={<ForgotPassword />} /> 
+          <Route path="email-verification/:userId" element={<EmailVerification />} /> 
 
 
         </Route> 

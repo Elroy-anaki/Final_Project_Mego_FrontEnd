@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { MdOutlineTableBar } from "react-icons/md";
 import {RestaurantContex} from '../../../contexts/RestaurantContex'
@@ -7,6 +7,7 @@ import {RestaurantContex} from '../../../contexts/RestaurantContex'
 function NavBar() {
   const { isAuth, signOut, user } = useContext(AuthContext);
   const {restaurant} = useContext(RestaurantContex)
+  const navigate = useNavigate()
 
   return (
     <nav className="w-full bg-gradient-to-r from-gray-900 via-gray-700 to-gray-800  ">
@@ -69,7 +70,11 @@ function NavBar() {
           {isAuth ? (
             
             <button
-              onClick={signOut}
+              onClick={() => {
+                signOut()
+                navigate('/')
+                
+              }}
               className=" hover:text-white   font-semibold"
             >
               {'Sign Out =>'}
