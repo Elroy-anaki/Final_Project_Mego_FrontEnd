@@ -12,6 +12,7 @@ import About from "./pages/public/About/About";
 import SignUp from './forms/Auth/SingUp/SingUp'
 import SignIn from './forms/Auth/SignIn/SignIn';
 import ForgotPassword from "./forms/Auth/ForgotPassword/ForgotPassword";
+import OrderPlace from "./pages/public/OrderPlace/OrderPlace";
 import MenuBoard from "./pages/public/Menu/MenuBoard";
 
 
@@ -19,7 +20,7 @@ import MenuBoard from "./pages/public/Menu/MenuBoard";
 
 function Root() {
   return (
-    <div >
+    <div className="flex flex-col" >
         <NavBar />
         <Outlet />
         
@@ -34,6 +35,7 @@ function App() {
         <Route index  element={<Home />} />
         <Route path="home"  element={<Home />} />
         <Route path="about" element={<About/>}/>
+        <Route path="order-place" element={<OrderPlace/>}/>
         <Route path="menu" element={<MenuBoard/>} /> 
 
         {/* { Public Routes } */}

@@ -1,30 +1,27 @@
 
-import React, { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import axios from "axios";
+import React, { useContext, useState } from 'react';
+
 import { Formik } from "formik";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { validationSchema } from '../../../schemas/singUpSchema';
 import Input from './Input';
+import { AuthContext } from '../../../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 
 function SingUp() {
+  const { signUp } = useContext(AuthContext)
 
   const [showPassword, setShowPassword] = useState(false);
 
 
-  const { mutate } = useMutation({
-    mutationKey: ["SingUp"],
-    mutationFn: async (data) => (await axios.post("/users/sign-up", data)),
-    onSuccess: (data) => (console.log(data.data)),
-    onError: (error) => (console.log(error))
-  });
+
 
 
 
 
   return (
-    <div className=" bg-gradient-to-br  flex items-center justify-center">
+    <div className=" bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800  flex items-center justify-center py-3">
 
       <Formik
         initialValues={{
@@ -35,7 +32,7 @@ function SingUp() {
         validationSchema={validationSchema}
         onSubmit={async (values, actions) => {
           console.log(values);
-          mutate(values);
+          signUp(values)
           actions.resetForm()
         }}
       >
@@ -46,7 +43,7 @@ function SingUp() {
           handleChange,
           handleSubmit
         }) => (
-          <form onSubmit={handleSubmit} className="relative bg-white/95 backdrop-blur-sm max-w-xl w-full mx-auto shadow-2xl p-8 rounded-3xl mt-2">
+          <form onSubmit={handleSubmit} className="relative bg-white/95 backdrop-blur-sm max-w-xl w-full mx-auto shadow-2xl border-t-4 border-orange-500 p-8 rounded-3xl ">
 
             <div className="mb-12 text-center">
               <h3 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
@@ -113,9 +110,9 @@ function SingUp() {
 
               <p className="text-center text-gray-600 text-sm">
                 Already have an account?{" "}
-                <a href="javascript:void(0);" className="text-orange-500 font-semibold hover:text-orange-600">
+                <Link to={'/auth/sign-in'} className="text-orange-500 font-semibold hover:text-orange-600">
                   Sign in
-                </a>
+                </Link>
               </p>
             </div>
           </form>
