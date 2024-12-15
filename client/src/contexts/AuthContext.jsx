@@ -40,6 +40,7 @@ function AuthProvider({ children }) {
         onSuccess: (data) => {
             setIsAuth(true)
             setUser(data.data.userName)
+
             console.log(data.data.msg)
         },
         onError: (error) => {
