@@ -12,7 +12,10 @@ import About from "./pages/public/About/About";
 import SignUp from './forms/Auth/SingUp/SingUp'
 import SignIn from './forms/Auth/SignIn/SignIn';
 import ForgotPassword from "./forms/Auth/ForgotPassword/ForgotPassword";
-import Menu from "./pages/public/menu/Menu";
+import MenuBoard from "./pages/public/Menu/MenuBoard";
+
+
+
 
 function Root() {
   return (
@@ -31,7 +34,7 @@ function App() {
         <Route index  element={<Home />} />
         <Route path="home"  element={<Home />} />
         <Route path="about" element={<About/>}/>
-        <Route path="menu" element={<Menu/>} /> 
+        <Route path="menu" element={<MenuBoard/>} /> 
 
         {/* { Public Routes } */}
          <Route path="/auth" element={true && <Outlet />}>
