@@ -27,10 +27,10 @@ function MenuBoard() {
   return (
     
     <div className='flex min-h-screen'>
-        <div className='w-1/4 bg-gray-100 min-h-screen flex flex-col px-2 py-2 shadow-2xl' >
-      <SideBar Catgorise={data}/>
+        <div className='w-1/6 bg-gray-100 min-h-screen flex flex-col  shadow-2xl' >
+      <SideBar categories={data}/>
       </div>
-        <div className='w-3/4 min-h-screen flex flex-col px-2 py-2 shadow-2xl' >
+        <div className='w-5/6 min-h-screen flex flex-col px-2 py-2 shadow-2xl' >
       <Meals/>
       </div>
     </div>

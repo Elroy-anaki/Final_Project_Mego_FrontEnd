@@ -7,6 +7,7 @@ export const MenuContext = createContext()
 
 function MenuContexts({ children }) {
     const [menu, setMenu] = useState([]);
+    const [chosenCategory, setChosenCategory] = useState('') 
 
 
     const { mutate:getMutateCategory } = useMutation({
@@ -29,8 +30,10 @@ function MenuContexts({ children }) {
 
     const menuGloblaState = {
         menu,
+        chosenCategory,
         setMenu,
-        getMutateCategory
+        getMutateCategory,
+        setChosenCategory
     }
 
     return (

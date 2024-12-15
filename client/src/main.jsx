@@ -9,19 +9,18 @@ import MenuProvider from './Contexts/MenuContexts.jsx'
 
 
 
-const qoeryCllient = new QueryClient()
+const queryClient = new QueryClient()
+
 createRoot(document.getElementById('root')).render(
-  <QueryClientProvider client={qoeryCllient}>
-    <MenuProvider>
-    <AuthProvider>
-    <App />
-    </AuthProvider>
-    <ReactQueryDevtools initialIsOpen={false}/>
-          </MenuProvider>
-
-
-
-)
+  <QueryClientProvider client={queryClient}>
+      <MenuProvider>
+          <AuthProvider>
+              <App />
+          </AuthProvider>
+      </MenuProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
+);
 
 
 axios.defaults.baseURL = 'http://localhost:3000';

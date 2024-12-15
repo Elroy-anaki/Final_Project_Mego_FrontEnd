@@ -46,20 +46,22 @@ function Meal({ key, meal }) {
   return (
     <div
       key={key}
-      className="max-w-sm w-72 h-96 mx-auto overflow-hidden rounded-2xl shadow-xl bg-gradient-to-b from-white to-amber-100 transform hover:scale-105 transition-transform duration-300"
+      className="max-w-sm w-72 h-72 mx-auto
+      overflow-hidden rounded-2xl shadow-xl bg-gradient-to-b from-white to-amber-100 
+      transform hover:scale-105 transition-transform duration-300 mb-5"
     >
       {/* Image Section */}
-      <div className="relative h-48">
+      <div className=" h-36">
         <img
           onClick={() => alert(meal._id)}
           src={meal.mealImage}
           alt={meal.mealName}
-          className="w-full h-full object-cover rounded-t-2xl cursor-pointer"
+          className="w-full h-full object-cover rounded-t-2xl cursor-pointer "
         />
       </div>
 
       {/* Details Section */}
-      <div className="p-6 flex flex-col justify-between h-48">
+      <div className="p-6 flex flex-col justify-between">
         <div>
           <h3 className="text-xl font-bold text-amber-900 mb-2 truncate">
             {meal.mealName}

@@ -9,6 +9,7 @@ import RestaurantProvider from "./RestaurantContex";
 export const AuthContext = createContext()
 
 function AuthProvider({ children }) {
+
     const [isAuth, setIsAuth] = useState(false)
     const [user, setUser] = useState(null)
 
@@ -18,7 +19,7 @@ function AuthProvider({ children }) {
         queryFn: async () => {
             try {
                 const { data } = await axios.get('/auth/verify-token');
-                console.log("data", data);
+                console.log("data", data);  
                 console.log(data.success);
                 setIsAuth(data.success)
                 setUser(data.data.payload)
@@ -38,6 +39,7 @@ function AuthProvider({ children }) {
         mutationFn: async (data) => (await axios.post(`/users/sign-in`, data)),
         onSuccess: (data) => {
             setIsAuth(true)
+            setUser(data.data.userName)
             console.log(data.data.msg)
         },
         onError: (error) => {

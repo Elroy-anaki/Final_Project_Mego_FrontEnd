@@ -1,12 +1,13 @@
 import React from 'react'
-import ImageCube from './ImageCube'
+import Category from './Category'
 
-function Sidebar( { Catgorise }) {
+function Sidebar( { categories }) {
     return (
         
           
-          <div>
-            {Catgorise.map((cat) => <ImageCube {...cat}/>)}
+          <div
+          className='space-y-0.5'>
+            {categories.map((cat) => <Category {...cat}/>)}
           </div>
           
         
