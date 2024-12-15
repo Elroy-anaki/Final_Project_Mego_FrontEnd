@@ -1,20 +1,25 @@
+import { lazy } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   Outlet,
   RouterProvider,
-  Navigate,
 } from "react-router-dom";
-import NavBar from "./pages/public/NavBar/NavBar";
-import Home from "./pages/public/Home/Home";
-import About from "./pages/public/About/About";
-import SignUp from './forms/Auth/SingUp/SingUp'
-import SignIn from './forms/Auth/SignIn/SignIn';
-import ForgotPassword from "./forms/Auth/ForgotPassword/ForgotPassword";
-import OrderPlace from "./pages/public/OrderPlace/OrderPlace";
-import MenuBoard from "./pages/public/Menu/MenuBoard";
-import EmailVerification from "./forms/Auth/EmailVerification/EmailVerification";
+
+// Import Public Pages
+const NavBar = lazy(() => import("./pages/public/NavBar/NavBar"));
+const Home = lazy(() => import("./pages/public/Home/Home"));
+const About = lazy(() => import("./pages/public/About/About"));
+const OrderPlace = lazy(() => import("./pages/public/OrderPlace/OrderPlace"));
+const MenuBoard = lazy(() => import("./pages/public/Menu/MenuBoard"));
+
+// Import Auth Components
+const SignUp = lazy(() => import('./forms/Auth/SingUp/SingUp'));
+const SignIn = lazy(() => import('./forms/Auth/SignIn/SignIn'));
+const ForgotPassword = lazy(() => import("./forms/Auth/ForgotPassword/ForgotPassword"));
+const EmailVerification = lazy(() => import("./forms/Auth/EmailVerification/EmailVerification"))
+const ProfileModal =  lazy(() => import("./modals/ProfileModal"));
 
 
 
@@ -24,6 +29,8 @@ function Root() {
     <div className="flex flex-col" >
         <NavBar />
         <Outlet />
+        {/* Modals */}
+        <ProfileModal/>
         
     </div>
   )

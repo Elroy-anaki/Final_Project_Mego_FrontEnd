@@ -7,7 +7,7 @@ import { notifyError, notifySuccess } from "../../../lib/Toasts";
 
 
 
-const initialUserValuse = {
+const initialUserValues = {
   userEmail: "",
   userPassword: "",
 };
@@ -20,12 +20,11 @@ function SignIn() {
   return (
     <div className="bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center py-16">
       <Formik
-        initialValues={initialUserValuse}
+        initialValues={initialUserValues}
         validationSchema={validationSignInSchema}
         onSubmit={async (values, actions) => {
           try {
-            const res = await signIn(values);
-            console.log("res", res)
+            await signIn(values);
             actions.resetForm()
             notifySuccess('Welcome!')
             navigate('/')
