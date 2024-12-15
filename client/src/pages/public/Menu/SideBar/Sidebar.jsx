@@ -1,16 +1,15 @@
 import React from 'react'
 import ImageCube from './ImageCube'
 
-export default function CategoriseSideBar( { Catgorise }) {
+function Sidebar( { Catgorise }) {
     return (
         
           
-          <div className=' '>
+          <div>
             {Catgorise.map((cat) => <ImageCube {...cat}/>)}
           </div>
           
         
       )
 }
-
-
+export default Sidebar

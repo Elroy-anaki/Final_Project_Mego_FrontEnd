@@ -4,14 +4,17 @@ import App from './App.jsx'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import axios from 'axios'
+import MenuProvider from './Contexts/MenuContexts.jsx'
+
 
 
 const qoeryCllient = new QueryClient()
 createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={qoeryCllient}>
-
-    <App />
-    <ReactQueryDevtools initialIsOpen={false}/>
+    <MenuProvider>
+      <App />
+    </MenuProvider>
+    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 )
 
