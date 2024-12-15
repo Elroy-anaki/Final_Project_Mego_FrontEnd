@@ -9,8 +9,8 @@ function NavBar() {
   const {restaurant} = useContext(RestaurantContex)
 
   return (
-    <nav className="w-full bg-gradient-to-r from-gray-900 to-gray-800 shadow-lg">
-      <div className="max-w-screen-2xl w-11/12 mx-auto flex justify-between items-center py-5">
+    <nav className="w-full bg-gradient-to-r from-gray-900 via-gray-700 to-gray-800  ">
+      <div className="max-w-screen-2xl w-11/12 mx-auto flex justify-between items-center py-5 ">
         {/* Logo and Restaurant Info */}
         <div className="flex items-center gap-6">
           <Link
@@ -22,15 +22,14 @@ function NavBar() {
               className="h-14 w-auto rounded-full shadow-md"
               alt="Restaurant Logo"
             />
-            <div>
-              <p className="text-2xl font-bold text-orange-800">
-                {restaurant?.restaurantName}
+            <div className='flex items-center gap-5'>
+              <p className="text-2xl font-bold text-white">
+                {isAuth ? `Hi, ${user?.userName}` :restaurant?.restaurantName}
               </p>
-              <p className="text-lg text-gray-700">{user?.userName}</p>
             </div>
           </Link>
           <MdOutlineTableBar
-            className="text-orange-700 cursor-pointer hover:text-orange-500 transition-colors"
+            className="text-white cursor-pointer hover:text-orange-500 transition-colors"
             size={42}
           />
         </div>
@@ -42,7 +41,7 @@ function NavBar() {
               <li key={index}>
                 <Link
                   to={`/${item.toLowerCase().replace(' ', '-')}`}
-                  className="block text-lg py-2 px-4 text-orange-800 hover:text-white 
+                  className="block text-lg py-2 px-4 text-white hover:text-white 
                              font-medium tracking-wide 
                              transition-all duration-300 
                              hover:bg-orange-500 
@@ -57,30 +56,30 @@ function NavBar() {
   
         {/* Authentication Buttons */}
         <div
-          className="flex items-center gap-4 
-                      bg-gradient-to-r from-orange-200 to-amber-200 
-                      border border-orange-400 
+          className={`flex items-center gap-4 
+                      ${isAuth ? ' bg-rose-600 text-white':'bg-gradient-to-r from-orange-700 to-amber-400 text-white'} 
                       rounded-lg 
-                      px-4 py-2 
+                      px-4 py-2
+                      hover:px-6
                       shadow-md 
                       hover:shadow-lg 
                       transition-all 
-                      duration-300"
+                      duration-300`}
         >
           {isAuth ? (
+            
             <button
               onClick={signOut}
-              className="text-orange-800 hover:text-orange-600 font-semibold"
+              className=" hover:text-white   font-semibold"
             >
-              Log Out
+              {'Sign Out =>'}
             </button>
           ) : (
             <>
               <Link
                 to="/auth/sign-up"
-                className="pr-4 border-r border-orange-400 
-                         text-orange-800 
-                         hover:text-orange-600 
+                className="pr-4 border-r 
+                hover:text-black 
                          font-semibold 
                          transition-colors"
               >
@@ -88,8 +87,9 @@ function NavBar() {
               </Link>
               <Link
                 to="/auth/sign-in"
-                className="text-orange-800 
-                           hover:text-orange-600 
+                className="
+                                           hover:text-black 
+
                            font-semibold 
                            transition-colors"
               >
@@ -101,7 +101,7 @@ function NavBar() {
             data-collapse-toggle="navbar-sticky"
             type="button"
             className="p-2 w-10 h-10 flex items-center justify-center 
-                       text-orange-700 
+                       text-white
                        rounded-full 
                        hover:bg-orange-300 
                        focus:outline-none 

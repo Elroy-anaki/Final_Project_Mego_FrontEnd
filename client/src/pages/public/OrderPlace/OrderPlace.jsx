@@ -4,14 +4,13 @@ import Select from './Select'
 function OrderPlace() {
     return (
         <div
-        className='bg-gradient-to-br from-gray-800 to-gray-700 p-28'>
-
-        <div
-            className='relative shadow-2xl rounded-xl h-72 w-4/5 mx-auto my-16 bg-gradient-to-br from-gray-800 via-gray-900 to-black text-white'
-        >
-            <h2 className='text-center text-3xl font-bold text-amber-500 py-4'>
+        className='bg-gradient-to-br from-gray-800 to-gray-700 pb-48 '>
+<h2 className='text-center text-3xl font-bold text-amber-500 py-4'>
                 Welcome to Our Restaurant!
             </h2>
+        <div
+            className='relative shadow-2xl rounded-xl h-56 py-2 w-4/5 mx-auto my-16 bg-gradient-to-br from-gray-800 via-gray-900 to-black text-white'
+        >
             <div
                 className='flex justify-between items-center px-6 mt-6'
             >

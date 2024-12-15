@@ -17,7 +17,7 @@ import OrderPlace from "./pages/public/OrderPlace/OrderPlace";
 
 function Root() {
   return (
-    <div >
+    <div className="flex flex-col" >
         <NavBar />
         <Outlet />
         
