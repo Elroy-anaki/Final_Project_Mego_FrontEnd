@@ -28,7 +28,7 @@ function MealModal() {
                         <div>
                             <div className="flex flex-col justify-between">
                                 <div>
-                                    <div className="flex justify-between items-start gap-2 mb-6">
+                                    <div className="flex justify-between items-start gap-2 mb-4">
                                         <h1 className="text-3xl font-extrabold text-gray-800">
                                             {meal?.mealName}
                                         </h1>
@@ -46,7 +46,7 @@ function MealModal() {
 
 
 
-                            <p className="text-xl font-semibold text-amber-600 mb-2">
+                            <p className="text-3xl font-semibold text-amber-600 mb-2">
                                 ₪{meal?.mealPrice}
                             </p>
 
@@ -55,14 +55,14 @@ function MealModal() {
                                 <span className="text-amber-500 font-bold">5.0</span>
                                 <span className="text-gray-600 font-medium">Calories:</span>
 
-                                <a onClick={() => { setIsOpen((prev) => !prev) }}
-                                    className="text-blue-600 underline hover:text-blue-800">
+                                <span onClick={() => { setIsOpen((prev) => !prev) }}
+                                    className="text-amber-500 cursor-pointer font-semibold">
                                     {meal?.amoutnOfCalories}
-                                </a>
+                                </span>
                             </div>
                             {isOpen && (<CaloriesSlider calories={meal?.amoutnOfCalories} setIsOpen={setIsOpen} />)}
 
-                            <p className="font-semibold text-lg text-gray-700 mb-1"> Ingredients: </p>
+                            <p className="font-semibold text-lg text-gray-700 mb-4"> Ingredients: </p>
 
                             <div className="flex flex-wrap gap-2">
                                 {meal?.ingredients?.map((ingredient, index) => (
@@ -84,8 +84,8 @@ function MealModal() {
                     </div>
                 </div>
 
-                <div className="p-1 bg-gray-50 border-t border-gray-200 flex justify-center">
-                    <AddButton text="Add Meal" fun={() => alert(meal.mealPrice)} className="w-full max-w-xs" />
+                <div className="p-5 text-xl font-semibold bg-gray-50 border-t border-gray-100 flex justify-center">
+                    <AddButton text="I Hungry 😋" fun={() => alert(meal.mealPrice)} className="w-full max-w-xs" />
                 </div>
             </dialog>
         </div>

@@ -5,7 +5,7 @@ import AddButton  from './AddButton.jsx';
 
 function Meal({ key, meal }) {
 
-  const { setMeal} = useContext(MenuContext)
+  const { setMeal } = useContext(MenuContext)
   
   return (
     <div
@@ -16,6 +16,7 @@ function Meal({ key, meal }) {
     >
       <div className=" h-36">
         <img
+        loading='lazy'
           onClick={() =>{ 
             // alert(meal._id);
             setMeal(meal);
