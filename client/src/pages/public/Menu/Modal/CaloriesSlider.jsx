@@ -14,7 +14,7 @@ function CaloriesSlider({ calories, setIsOpen }) {
     return (
         <div 
         onClick={()=>{setIsOpen(prev => !prev)}}
-        className="w-full flex flex-col items-center gap-2 mb-6">
+        className="w-full flex flex-col items-center gap-2 mb-2">
             <div className="relative w-full h-4 rounded-full bg-gradient-to-r from-green-500 via-yellow-500 to-red-500">
                 <div
                     className="absolute top-0 h-4 w-1 bg-black rounded"
