@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { MenuContext } from '../../../../Contexts/MenuContexts';
+import { MenuContext } from '../../../../Contexts/MenuContext';
 import { IoClose } from 'react-icons/io5';
 import CaloriesSlider from './CaloriesSlider';
 import AddButton from '../Meals/AddButton';

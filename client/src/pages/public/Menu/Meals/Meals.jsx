@@ -1,6 +1,6 @@
 import React ,{ useContext } from "react";
 import Meal from "./Meal";
-import { MenuContext } from '../../../../Contexts/MenuContexts'
+import { MenuContext } from '../../../../Contexts/MenuContext'
 
 function Meals({}) {
 

@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Select({left, data, label}) {
+  
     const numberOfEaters = []
     for(let i = 2; i <= left; i++)numberOfEaters.push(i)
         console.log(numberOfEaters);

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { MenuContext } from '../../../../Contexts/MenuContexts'
+import { MenuContext } from '../../../../Contexts/MenuContext'
 
 
 function Category({ _id ,categoryName , categoryImage }) {

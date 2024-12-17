@@ -4,7 +4,9 @@ import axios from "axios";
 import { useState, } from "react";
 import RestaurantProvider from "./RestaurantContex";
 import { notifyError, notifySuccess } from "../lib/Toasts";
-import { useNavigate } from 'react-router-dom';
+import MenuProvider from './MenuContext'
+import OrderDetailsProvider from "./OrderDetailsContext";
+import TableProvider from "./TableContext";
 
 
 
@@ -31,7 +33,8 @@ function AuthProvider({ children }) {
                 throw error;
             }
         },
-        staleTime: 1000 * 60
+        staleTime: 1000 * 60000,
+        refetchOnMount: false
     });
 
     const { mutateAsync: signIn } = useMutation({
@@ -100,11 +103,18 @@ function AuthProvider({ children }) {
     }
 
     return (
-        <RestaurantProvider>
-            <AuthContext.Provider value={authGlobalState}>
-                {children}
-            </AuthContext.Provider>
-        </RestaurantProvider>
+        <AuthContext.Provider value={authGlobalState}>
+            <RestaurantProvider>
+                <MenuProvider>
+                    <OrderDetailsProvider>
+                        <TableProvider>
+                            {children}
+                        </TableProvider>
+                    </OrderDetailsProvider>
+                </MenuProvider>
+            </RestaurantProvider>
+        </AuthContext.Provider>
+
 
     )
 }

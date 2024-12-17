@@ -5,7 +5,7 @@ import axios from "axios";
 export const MenuContext = createContext()
 
 
-function MenuContexts({ children }) {
+function MenuProvider({ children }) {
     const [menu, setMenu] = useState([]);
     const [meal, setMeal] = useState(null);
     const [chosenCategory, setChosenCategory] = useState('') 
@@ -24,11 +24,6 @@ function MenuContexts({ children }) {
         }
     });
 
-
-
-
-
-
     const menuGloblaState = {
         menu,
         meal,
@@ -45,7 +40,7 @@ function MenuContexts({ children }) {
         </MenuContext.Provider >
     )
 }
-export default MenuContexts
+export default MenuProvider
 
 
 
