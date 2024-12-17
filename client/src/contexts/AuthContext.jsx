@@ -20,8 +20,8 @@ function AuthProvider({ children }) {
         queryFn: async () => {
             try {
                 const { data } = await axios.get('/auth/verify-token');
-                console.log("data", data);  
-                console.log(data.success);
+                console.log("data", data);
+                console.log(data.data.payload);
                 setIsAuth(data.success)
                 setUser(data.data.payload)
                 return data;
@@ -40,6 +40,7 @@ function AuthProvider({ children }) {
         onSuccess: (data) => {
             console.log(data.data.data.userName)
             setIsAuth(true)
+            console.log(data.data.data)
             setUser(data.data.data)
         },
         onError: (error) => {
@@ -84,7 +85,9 @@ function AuthProvider({ children }) {
             console.log(data)
         },
         onError: (error) => console.log(error),
-    })
+    });
+
+
 
     const authGlobalState = {
         user,

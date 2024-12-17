@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 
 import { Formik } from "formik";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-import { validationSchema } from '../../../schemas/singUpSchema';
+import { validationSingUpSchema } from '../../../schemas/userForms';
 import Input from './Input';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
@@ -31,7 +31,7 @@ function SingUp() {
           userEmail: "",
           userPassword: "",
         }}
-        validationSchema={validationSchema}
+        validationSchema={validationSingUpSchema}
         onSubmit={async (values, actions) => {
           console.log(values);
           signUp(values);
