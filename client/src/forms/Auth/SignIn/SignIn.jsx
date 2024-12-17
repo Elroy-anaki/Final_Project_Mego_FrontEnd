@@ -1,29 +1,38 @@
 import React, { useContext } from "react";
 import { Formik } from "formik";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import validationSignInSchema from "../../../schemas/signInSchema";
-import { Link } from "react-router-dom";
+import {validationSignInSchema} from "../../../schemas/userForms";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
+import { notifyError, notifySuccess } from "../../../lib/Toasts";
 
 
 
-const initialUserValuse = {
+const initialUserValues = {
   userEmail: "",
   userPassword: "",
 };
 
 function SignIn() {
   const { signIn } = useContext(AuthContext)
+  const navigate = useNavigate()
+  
 
   return (
     <div className="bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center py-16">
       <Formik
-        initialValues={initialUserValuse}
+        initialValues={initialUserValues}
         validationSchema={validationSignInSchema}
         onSubmit={async (values, actions) => {
-          signIn(values);
-          actions.resetForm();
+          try {
+            await signIn(values);
+            actions.resetForm()
+            notifySuccess('Welcome!')
+            navigate('/')
+
+          } catch (error) {
+            console.log(error)
+            notifyError(error.response.data.msg)
+          }
         }}
       >
         {({

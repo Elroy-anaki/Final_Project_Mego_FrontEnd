@@ -1,16 +1,19 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { MdOutlineTableBar } from "react-icons/md";
-import {RestaurantContex} from '../../../contexts/RestaurantContex'
+import { RestaurantContex } from '../../../contexts/RestaurantContex'
+import { PiSignOut } from "react-icons/pi";
+
 
 function NavBar() {
   const { isAuth, signOut, user } = useContext(AuthContext);
-  const {restaurant} = useContext(RestaurantContex)
+  const { restaurant } = useContext(RestaurantContex)
+  const navigate = useNavigate()
 
   return (
     <nav className="w-full bg-gradient-to-r from-gray-900 via-gray-700 to-gray-800  ">
-      <div className="max-w-screen-2xl w-11/12 mx-auto flex justify-between items-center py-5 ">
+      <div className="max-w-screen-2xl w-11/12 mx-auto flex justify-between items-center py-3 ">
         {/* Logo and Restaurant Info */}
         <div className="flex items-center gap-6">
           <Link
@@ -18,22 +21,27 @@ function NavBar() {
             className="transition-transform hover:scale-105 flex items-center gap-4"
           >
             <img
+              loading='lazy'
               src={restaurant?.restaurantLogo}
               className="h-14 w-auto rounded-full shadow-md"
               alt="Restaurant Logo"
             />
-            <div className='flex items-center gap-5'>
-              <p className="text-2xl font-bold text-white">
-                {isAuth ? `Hi, ${user?.userName}` :restaurant?.restaurantName}
-              </p>
-            </div>
+
           </Link>
+          <div className='flex items-center gap-5'>
+
+            {isAuth ? <p 
+            onClick={()=> document.getElementById('profileModal').showModal()}
+            className="text-2xl font-bold text-white cursor-pointer">{user?.userName} </p> 
+            : <p className="text-2xl font-bold text-white cursor-pointer">{restaurant?.restaurantName}</p>}
+
+          </div>
           <MdOutlineTableBar
             className="text-white cursor-pointer hover:text-orange-500 transition-colors"
             size={42}
           />
         </div>
-  
+
         {/* Center Navigation Links */}
         <div id="navbar-sticky" className="absolute left-1/2 transform -translate-x-1/2">
           <ul className="flex gap-8">
@@ -53,11 +61,11 @@ function NavBar() {
             ))}
           </ul>
         </div>
-  
+
         {/* Authentication Buttons */}
         <div
           className={`flex items-center gap-4 
-                      ${isAuth ? ' bg-rose-600 text-white':'bg-gradient-to-r from-orange-700 to-amber-400 text-white'} 
+                      ${isAuth ? ' bg-rose-600 text-white' : 'bg-gradient-to-r from-orange-700 to-amber-400 text-white'} 
                       rounded-lg 
                       px-4 py-2
                       hover:px-6
@@ -67,12 +75,18 @@ function NavBar() {
                       duration-300`}
         >
           {isAuth ? (
-            
+
             <button
-              onClick={signOut}
-              className=" hover:text-white   font-semibold"
+              onClick={() => {
+                signOut()
+                navigate('/')
+
+              }}
+              className=" hover:text-white flex gap-2 justify-center items-center   font-semibold"
             >
-              {'Sign Out =>'}
+              Sign Out
+              <PiSignOut size={20} />
+
             </button>
           ) : (
             <>
@@ -131,7 +145,7 @@ function NavBar() {
       </div>
     </nav>
   );
-  
+
 }
 
 export default NavBar;

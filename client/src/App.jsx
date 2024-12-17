@@ -1,11 +1,26 @@
+import { lazy } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   Outlet,
   RouterProvider,
-  Navigate,
 } from "react-router-dom";
+
+// Import Public Pages
+const NavBar = lazy(() => import("./pages/public/NavBar/NavBar"));
+const Home = lazy(() => import("./pages/public/Home/Home"));
+const About = lazy(() => import("./pages/public/About/About"));
+const OrderPlace = lazy(() => import("./pages/public/OrderPlace/OrderPlace"));
+const MenuBoard = lazy(() => import("./pages/public/Menu/MenuBoard"));
+
+// Import Auth Components
+const SignUp = lazy(() => import('./forms/Auth/SingUp/SingUp'));
+const SignIn = lazy(() => import('./forms/Auth/SignIn/SignIn'));
+const ForgotPassword = lazy(() => import("./forms/Auth/ForgotPassword/ForgotPassword"));
+const EmailVerification = lazy(() => import("./forms/Auth/EmailVerification/EmailVerification"))
+const ProfileModal =  lazy(() => import("./modals/ProfileModal"));
+
 import NavBar from "./pages/public/NavBar/NavBar";
 import Home from "./pages/public/Home/Home";
 import About from "./pages/public/About/About";
@@ -24,6 +39,10 @@ function Root() {
       <div className="flex flex-col" >
         <NavBar />
         <Outlet />
+        {/* Modals */}
+        <ProfileModal/>
+        
+    </div>
 
       </div>
       <MealModal />
@@ -42,6 +61,12 @@ function App() {
         <Route path="menu" element={<MenuBoard />} />
 
         {/* { Public Routes } */}
+         <Route path="/auth" element={true && <Outlet />}>
+          <Route index element={<SignIn />} /> 
+          <Route path="sign-in" element={<SignIn />} /> 
+          <Route path="sign-up" element={<SignUp />} /> 
+          <Route path="forgot-password" element={<ForgotPassword />} /> 
+          <Route path="email-verification/:userId" element={<EmailVerification />} /> 
         <Route path="/auth" element={true && <Outlet />}>
           <Route index element={<SignIn />} />
           <Route path="sign-in" element={<SignIn />} />
