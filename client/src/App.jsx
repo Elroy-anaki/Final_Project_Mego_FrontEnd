@@ -18,6 +18,7 @@ const MenuBoard = lazy(() => import("./pages/public/Menu/MenuBoard"));
 const SignUp = lazy(() => import('./forms/Auth/SingUp/SingUp'));
 const SignIn = lazy(() => import('./forms/Auth/SignIn/SignIn'));
 const ForgotPassword = lazy(() => import("./forms/Auth/ForgotPassword/ForgotPassword"));
+const ResetPassword = lazy(()=> import("./forms/Auth/ResetPassword/ResetPassword"))
 const EmailVerification = lazy(() => import("./forms/Auth/EmailVerification/EmailVerification"))
 const ProfileModal = lazy(() => import("./modals/ProfileModal"));
 const MealModal = lazy(() => import('./pages/public/Menu/Modal/MealModal'))
@@ -55,6 +56,7 @@ function App() {
           <Route path="sign-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset-password" element={<ResetPassword />} />
           <Route path="email-verification/:userId" element={<EmailVerification />} />
         </Route>
       </Route>
