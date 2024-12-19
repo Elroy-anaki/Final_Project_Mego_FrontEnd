@@ -11,8 +11,8 @@ function ForgotPassword() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/auth/forgot-user-password",
-        { email: e.target.email.value }
+        "http://localhost:3000/auth/forgot-password",
+        { email: e.target.email.value ,premission: 'user' }
       );
       console.log(data);
     } catch (error) {
