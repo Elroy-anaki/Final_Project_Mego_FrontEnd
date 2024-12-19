@@ -1,58 +1,105 @@
-import { createContext, useEffect } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useState } from "react";
+import { AuthContext } from "./AuthContext";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 export const TableContext = createContext();
 
 function TableProvider({ children }) {
-  const [table, setTable] = useState([]);
 
-  function addMealToTable(meal) {
-    if (table.length > 0) {
-      const exist = table.find((m) => m.mealId === meal._id);
+    const {user, isAuth} = useContext(AuthContext)
+
+    
+    const { mutateAsync: getTableByUserId } = useMutation({
+        mutationKey:['getTableByUserId'],
+        mutationFn: async (userId) => axios.get(`/tables/get-by-user-id/${userId}`),
+        onSuccess: (data) => {
+            return data.data
+        },
+        retry: 1
+    })
+    const [table, setTable] = useState(null);
+
+    useEffect(() => {
+        const fetchTables = async () => {
+            if (isAuth && user) {
+              try {
+                const { data } = await getTableByUserId(user._id);
+                setTable(data.data);
+                console.log("user", user)
+              } catch (error) {
+                console.error("Failed to fetch tables:", error);
+              }
+            } else {
+              setTable(null);
+            }
+          };
+
+          fetchTables();
+
+    }, [user, isAuth])
+
+    useEffect(() => {
+        console.log(table)
+    },[table])
+
+  // Actions
+  function addMealToTable(mealId) {
+    if (table.meals.length > 0) {
+      const exist = table.meals.find((m) => m.mealId === mealId);
       console.log("Existing meal:", exist);
       if (!exist) {
-        setTable([...table, { mealId: meal._id, quantity: 1 }]);
+        setTable({...table, meals:[{ mealId: mealId._id, quantity: 1 }]});
       } else {
         const newTable = table.map((m) => {
-          if (m.mealId === meal._id) {
+          if (m.mealId === mealId) {
             return { mealId: m.mealId, quantity: m.quantity + 1 };
           }
           return m;
         });
         setTable(newTable);
       }
-    } else setTable([{ mealId: meal._id, quantity: 1 }]);
+    } else setTable([{ mealId: mealId._id, quantity: 1 }]);
   }
-  function deleteMealFromTable(meal) {
-    const exist = table.find((m) => m.mealId === meal._id);
+
+  function decreaseQuantity(mealId) {
+    
+    const exist = table.meals.find((m) => m.id._id === mealId);
+    
+    if (!exist) return;
+  
     if (exist.quantity > 1) {
-      const newTable = table.map((m) => {
-        if (m.mealId === meal._id) {
-          return { mealId: m.mealId, quantity: m.quantity - 1 };
+      const updatedMeals = table.meals.map((m) => {
+        if (m.id._id === mealId) {
+          return { ...m, quantity: m.quantity - 1 };
         }
         return m;
       });
-      console.log(meal);
-      setTable(newTable);
+  
+      setTable({
+        ...table,
+        meals: updatedMeals
+      });
     } else {
-      const newTable = table.filter((m) => m.mealId !== meal._id);
-      setTable(newTable);
+      const updatedMeals = table.meals.filter((m) => m.id._id !== mealId);
+      setTable({
+        ...table,
+        meals: updatedMeals
+      });
     }
   }
-
   function clearTable() {
     setTable([]);
   }
+  useEffect(() => {console.log("tableEEEEE", table)}, [table])
 
-  useEffect(() => {
-    console.log("table", table);
-  }, [table]);
 
   const tableGlobalState = {
     table,
     setTable,
     addMealToTable,
-    deleteMealFromTable,
+    decreaseQuantity,
     clearTable,
   };
 

@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { useQuery, useMutation } from '@tanstack/react-query';
 import axios from "axios";
 import { useState, } from "react";
@@ -34,7 +34,8 @@ function AuthProvider({ children }) {
             }
         },
         staleTime: 1000 * 60000,
-        refetchOnMount: false
+        refetchOnMount: false,
+        retry: 1
     });
 
     const { mutateAsync: signIn } = useMutation({
@@ -90,6 +91,9 @@ function AuthProvider({ children }) {
         onError: (error) => console.log(error),
     });
 
+    useEffect(()=>{
+        console.log(user)
+    })
 
 
     const authGlobalState = {
