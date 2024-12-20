@@ -1,106 +1,108 @@
 import { createContext, useContext, useEffect } from "react";
 import { useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 export const TableContext = createContext();
 
+
 function TableProvider({ children }) {
+  const queryClient = useQueryClient()
 
-    const {user, isAuth} = useContext(AuthContext)
+  const { user, isAuth } = useContext(AuthContext)
+  const [toggle, setToggle] = useState(false)
 
-    
-    const { mutateAsync: getTableByUserId } = useMutation({
-        mutationKey:['getTableByUserId'],
-        mutationFn: async (userId) => axios.get(`/tables/get-by-user-id/${userId}`),
-        onSuccess: (data) => {
-            return data.data
-        },
-        retry: 1
-    })
-    const [table, setTable] = useState(null);
 
-    useEffect(() => {
-        const fetchTables = async () => {
-            if (isAuth && user) {
-              try {
-                const { data } = await getTableByUserId(user._id);
-                setTable(data.data);
-                console.log("user", user)
-              } catch (error) {
-                console.error("Failed to fetch tables:", error);
-              }
-            } else {
-              setTable(null);
-            }
-          };
+  const { mutateAsync: getTableByUserId } = useMutation({
+    mutationKey: ['getTableByUserId'],
+    mutationFn: async (userId) => axios.get(`tables/get-table-by-user-id/${userId}`),
+    onSuccess: (data) => {
+      return data.data
+    },
+    retry: 1
+  })
+  const [table, setTable] = useState(null);
+  const [tableMeals, setTableMeals] = useState(null)
 
-          fetchTables();
+  useEffect(() => {
+    const fetchTables = async () => {
+      if (isAuth && user) {
+        try {
+          const { data } = await getTableByUserId(user._id);
+          setTable(data.data);
+          console.log("user", user)
+        } catch (error) {
+          console.error("Failed to fetch tables:", error);
+        }
+      } else {
+        setTable(null);
+      }
+    };
 
-    }, [user, isAuth])
+    fetchTables();
 
-    useEffect(() => {
-        console.log(table)
-    },[table])
+  }, [user, isAuth, toggle])
+
+  useEffect(() => {
+    console.log(table)
+    setTableMeals(table ? table.meals : null)
+  }, [table])
 
   // Actions
-  function addMealToTable(mealId) {
-    if (table.meals.length > 0) {
-      const exist = table.meals.find((m) => m.mealId === mealId);
-      console.log("Existing meal:", exist);
-      if (!exist) {
-        setTable({...table, meals:[{ mealId: mealId._id, quantity: 1 }]});
-      } else {
-        const newTable = table.map((m) => {
-          if (m.mealId === mealId) {
-            return { mealId: m.mealId, quantity: m.quantity + 1 };
-          }
-          return m;
-        });
-        setTable(newTable);
-      }
-    } else setTable([{ mealId: mealId._id, quantity: 1 }]);
-  }
 
-  function decreaseQuantity(mealId) {
-    
-    const exist = table.meals.find((m) => m.id._id === mealId);
-    
-    if (!exist) return;
-  
-    if (exist.quantity > 1) {
-      const updatedMeals = table.meals.map((m) => {
-        if (m.id._id === mealId) {
-          return { ...m, quantity: m.quantity - 1 };
-        }
-        return m;
+  const { mutateAsync: createOrEditTable } = useMutation({
+    mutationKey: ['createOrEditTable'],
+    mutationFn: async (data) => {
+      const response = await axios({
+        method: table ? 'PUT' : 'POST',
+        data: data,
+        url: table ? `/tables/edit-table-by-id/${table._id}` : '/tables/create-table'
       });
-  
-      setTable({
-        ...table,
-        meals: updatedMeals
-      });
-    } else {
-      const updatedMeals = table.meals.filter((m) => m.id._id !== mealId);
-      setTable({
-        ...table,
-        meals: updatedMeals
-      });
-    }
+      return response.data
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['getTableByUserId'] })
+      console.log("data", data)
+      return data
+    },
+    onError: (error) => console.log(error)
+  })
+
+  async function increaseQuantity(mealId) {
+    const updatedTableMeals = tableMeals.map(item => ({
+      meal: item.meal._id,
+      quantity: item.meal._id === mealId ? item.quantity + 1 : item.quantity
+    }));
+    await createOrEditTable(updatedTableMeals);
+    setToggle(!toggle)
   }
-  function clearTable() {
-    setTable([]);
+  
+  async function deleteMealFromTable(mealId) {
+    const updatedTableMeals = tableMeals
+    .filter(item => item.meal._id !== mealId)
+    .map(item => ({
+      meal: item.meal._id,
+      quantity: item.quantity
+    }));
+    
+    await createOrEditTable(updatedTableMeals);
+    setToggle(!toggle)
+    
+}
+
+  function deleteTable() {
+    setTable(null);
   }
-  useEffect(() => {console.log("tableEEEEE", table)}, [table])
 
 
   const tableGlobalState = {
     table,
     setTable,
-    addMealToTable,
-    decreaseQuantity,
-    clearTable,
+    deleteTable,
+    createOrEditTable,
+    increaseQuantity,
+    deleteMealFromTable
   };
 
   return (
