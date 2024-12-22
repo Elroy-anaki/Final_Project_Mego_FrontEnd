@@ -17,7 +17,7 @@ function TableDrawer() {
           <h1 className='text-center text-3xl mb-5'>Your Table</h1>
           <ul className="flex flex-col">
             {/* Sidebar content here */}
-            {table ? table?.meals?.map((meal) => <MealTableDrawer key={meal.meal._id} meal={meal} />) : null}
+            {table && table?.meals?.map((meal) => <MealTableDrawer key={meal.meal._id} meal={meal} />)}
 
           </ul>
           <div className='flex justify-center items-center w-full'>

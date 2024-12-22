@@ -8,12 +8,10 @@ export const TableContext = createContext();
 
 
 function TableProvider({ children }) {
+  
   const queryClient = useQueryClient()
 
-  const { user, isAuth } = useContext(AuthContext)
-  const [toggle, setToggle] = useState(false)
-
-
+  
   const { mutateAsync: getTableByUserId } = useMutation({
     mutationKey: ['getTableByUserId'],
     mutationFn: async (userId) => axios.get(`tables/get-table-by-user-id/${userId}`),
@@ -21,7 +19,10 @@ function TableProvider({ children }) {
       return data.data
     },
     retry: 1
-  })
+  });
+
+  const { user, isAuth } = useContext(AuthContext)
+  const [toggle, setToggle] = useState(false)
   const [table, setTable] = useState(null);
   const [tableMeals, setTableMeals] = useState(null)
 
@@ -31,9 +32,8 @@ function TableProvider({ children }) {
         try {
           const { data } = await getTableByUserId(user._id);
           setTable(data.data);
-          console.log("user", user)
         } catch (error) {
-          console.error("Failed to fetch tables:", error);
+          console.error("Error", error);
         }
       } else {
         setTable(null);
@@ -42,15 +42,14 @@ function TableProvider({ children }) {
 
     fetchTables();
 
-  }, [user, isAuth, toggle])
+  }, [user, isAuth, toggle]);
 
   useEffect(() => {
     console.log(table)
     setTableMeals(table ? table.meals : null)
-  }, [table])
+  }, [table]);
 
   // Actions
-
   const { mutateAsync: createOrEditTable } = useMutation({
     mutationKey: ['createOrEditTable'],
     mutationFn: async (data) => {
@@ -67,41 +66,61 @@ function TableProvider({ children }) {
       return data
     },
     onError: (error) => console.log(error)
-  })
+  });
 
-  async function increaseQuantity(mealId) {
+  async function handelAdding(mealId) {
+    const mealExists = tableMeals.some(item => item.meal._id === mealId);
+  
+    const updatedTableMeals = mealExists
+      ? tableMeals.map(item => ({
+          meal: item.meal._id,
+          quantity: item.meal._id === mealId ? item.quantity + 1 : item.quantity
+        }))
+      : [...tableMeals, { meal: mealId, quantity: 1 }];
+  
+    console.log("updatedTableMeals", updatedTableMeals);
+    console.log(tableMeals);
+  
+    await createOrEditTable(updatedTableMeals);
+    setToggle(!toggle);
+  };
+
+  async function decreaseQuantity(mealId) {
     const updatedTableMeals = tableMeals.map(item => ({
       meal: item.meal._id,
-      quantity: item.meal._id === mealId ? item.quantity + 1 : item.quantity
+      quantity: item.meal._id === mealId ? item.quantity - 1 : item.quantity
     }));
+    console.log(updatedTableMeals)
     await createOrEditTable(updatedTableMeals);
     setToggle(!toggle)
-  }
-  
+  };
+
   async function deleteMealFromTable(mealId) {
     const updatedTableMeals = tableMeals
-    .filter(item => item.meal._id !== mealId)
-    .map(item => ({
-      meal: item.meal._id,
-      quantity: item.quantity
-    }));
-    
+      .filter(item => item.meal._id !== mealId)
+      .map(item => ({
+        meal: item.meal._id,
+        quantity: item.quantity
+      }));
+
     await createOrEditTable(updatedTableMeals);
     setToggle(!toggle)
-    
-}
+
+  };
 
   function deleteTable() {
     setTable(null);
-  }
+  };
 
 
   const tableGlobalState = {
     table,
+    tableMeals,
     setTable,
     deleteTable,
     createOrEditTable,
-    increaseQuantity,
+    handelAdding,
+    decreaseQuantity,
     deleteMealFromTable
   };
 
@@ -110,6 +129,6 @@ function TableProvider({ children }) {
       {children}
     </TableContext.Provider>
   );
-}
+};
 
 export default TableProvider;

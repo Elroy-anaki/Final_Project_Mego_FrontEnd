@@ -6,7 +6,7 @@ const MealTableDrawer = ({ meal }) => {
 
 
 
-    const { increaseQuantity, deleteMealFromTable } = useContext(TableContext)
+    const { handelAdding, deleteMealFromTable, decreaseQuantity } = useContext(TableContext)
     return (
         <li className="relative bg-gray-800 rounded-xl shadow-lg h-36 mb-2 hover:shadow-2xl transition-all  border border-gray-700">
             <div className="flex h-full">
@@ -33,7 +33,11 @@ const MealTableDrawer = ({ meal }) => {
                         <div className="flex  items-center space-x-4  ">
                             <div className="flex items-center space-x-2">
                                 <button
-                                    // onClick={() => decreaseQuantity(meal._id)}
+                                    onClick={() => {
+                                       meal.quantity > 1 
+                                       ? decreaseQuantity(meal.meal._id)
+                                       : deleteMealFromTable(meal.meal._id)
+                                    }}
 
                                     className="rounded-full p-2 bg-gray-700  border-none text-white"
                                 >
@@ -41,7 +45,7 @@ const MealTableDrawer = ({ meal }) => {
                                 </button>
                                 <span className="w-8 text-center font-semibold text-white">{meal.quantity}</span>
                                 <button
-                                    onClick={() => increaseQuantity(meal.meal._id)}
+                                    onClick={() => handelAdding(meal.meal._id)}
                                     className=" rounded-full p-2 bg-gray-700  border-none text-white"
                                 >
                                     <FaPlus size={12} />
