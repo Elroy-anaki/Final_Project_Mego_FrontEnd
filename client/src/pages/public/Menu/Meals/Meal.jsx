@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import {MenuContext} from '../../../../Contexts/MenuContext.jsx';
+import {TableContext} from '../../../../Contexts/TableContext.jsx'
 import AddButton  from './AddButton.jsx';
 
 
 function Meal({ key, meal }) {
-
+  const {handelAdding} = useContext(TableContext)
   const { setMeal } = useContext(MenuContext)
   
   return (
@@ -45,7 +46,10 @@ function Meal({ key, meal }) {
           
            <AddButton
            text={'Add Meal'}
-           fun={()=> alert(meal.mealPrice)}
+           fun={()=> {
+            console.log(meal)
+            handelAdding(meal._id)
+          }}
            />
         </div>
       </div>

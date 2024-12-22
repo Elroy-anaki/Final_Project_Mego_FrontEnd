@@ -36,10 +36,12 @@ function NavBar() {
             : <p className="text-2xl font-bold text-white cursor-pointer">{restaurant?.restaurantName}</p>}
 
           </div>
-          <MdOutlineTableBar
+          <label htmlFor="tableDrawer" className=""><MdOutlineTableBar
             className="text-white cursor-pointer hover:text-orange-500 transition-colors"
             size={42}
-          />
+          /></label>
+
+          
         </div>
 
         {/* Center Navigation Links */}

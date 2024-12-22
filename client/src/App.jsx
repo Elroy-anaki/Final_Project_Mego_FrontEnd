@@ -6,6 +6,7 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
+import TableModal from "./modals/TableDrawer/TableDrawer";
 
 // Import Public Pages
 const NavBar = lazy(() => import("./pages/public/NavBar/NavBar"));
@@ -22,6 +23,8 @@ const ResetPassword = lazy(()=> import("./forms/Auth/ResetPassword/ResetPassword
 const EmailVerification = lazy(() => import("./forms/Auth/EmailVerification/EmailVerification"))
 const ProfileModal = lazy(() => import("./modals/ProfileModal"));
 const MealModal = lazy(() => import('./pages/public/Menu/Modal/MealModal'))
+const TableDrawer = lazy(() => import('./modals/TableDrawer/TableDrawer'))
+
 
 
 
@@ -32,9 +35,10 @@ function Root() {
         <NavBar />
         <Outlet />
         {/* Modals */}
-        
+
         <ProfileModal />
         <MealModal />
+        <TableDrawer/>
       </div>
     </>
   )
