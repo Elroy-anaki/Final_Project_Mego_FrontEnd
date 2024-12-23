@@ -24,6 +24,7 @@ const EmailVerification = lazy(() => import("./forms/Auth/EmailVerification/Emai
 const ProfileModal = lazy(() => import("./modals/ProfileModal"));
 const MealModal = lazy(() => import('./pages/public/Menu/Modal/MealModal'))
 const TableDrawer = lazy(() => import('./modals/TableDrawer/TableDrawer'))
+const Checkout = lazy(() => import('./pages/public/Checkout/Checkout'))
 
 
 
@@ -53,6 +54,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="order-place" element={<OrderPlace />} />
         <Route path="menu" element={<MenuBoard />} />
+        <Route path="checkout" element={<Checkout />} />
         
         {/* Public Routes */}
         <Route path="/auth" element={true && <Outlet />}>

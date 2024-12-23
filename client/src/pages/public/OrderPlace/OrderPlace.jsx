@@ -117,7 +117,7 @@ function OrderPlace() {
                         </select>
                     </div>}
                     {showPeople && <div className='w-1/4 rounded-xl border-2 border-amber-500 rounded-l-lg bg-gray-800 px-4 py-3 shadow-inner space-y-3'>
-                        <p className='text-lg'>People <span className='text-rose-600 ml-4 text-sm'>Max: {remainingSeats ? remainingSeats.length : null}</span></p>
+                        <p className='text-lg'>People</p>
 
                         <select
                             value={values?.people}
