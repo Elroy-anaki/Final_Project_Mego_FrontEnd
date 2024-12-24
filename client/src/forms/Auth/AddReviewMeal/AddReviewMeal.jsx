@@ -8,7 +8,7 @@ function AddReviewMeal() {
   const [ratings, setRatings] = useState({});
   const { userId } = useParams();
 
-  async function addOrderByUserId() {
+  async function getOrderByuser() {
     try {
       const { data } = await axios.get(
         `http://localhost:3000/orders/get-order-by-user-id/${userId}`,
@@ -26,16 +26,26 @@ function AddReviewMeal() {
     }));
   };
 
-  const addReviews = order?.cart?.meals.map((item) => {
-    return {
-      userName: order?.cart?.userId?.userName,
-      userId: order?.cart?.userId?._id,
-      mealId: item.mealId._id,
-      rating: ratings[item.mealId._id],
-    };
-  });
+  // const addReviews = order?.table?.meals.map((item) => {
+  //   return {
+  //     userName: order?.table?.user?.userName,
+  //     user: order?.table?.user?.userId,
+  //     meal: item.meal._id,
+  //     rating: ratings[item.meal._id],
+  //   };
+  // });
 
   async function addReview() {
+    const addReviews = order?.table?.meals.map((item) => {
+      return {
+        userName: order?.user?.userName,
+        user: order?.user?.userId,
+        meal: item.meal._id,
+        rating: ratings[item.meal._id],
+      };
+    });
+    alert("FF")
+    console.log(addReviews)
     try {
       const { data } = await axios.post(
         `http://localhost:3000/reviews/add-reviews`,
@@ -51,46 +61,49 @@ function AddReviewMeal() {
   }
 
   useEffect(() => {
-    addOrderByUserId();
+    getOrderByuser();
   }, []);
+
+  useEffect(() => {console.log(ratings)}, [ratings])
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6 text-center">
-        hello: {order?.cart?.userId?.userName} <br /> Rate your meal
+    <div className="max-w-2xl mx-auto mt-5 p-11 border-2 border-amber-600 rounded-2xl bg-gray-200 ">
+      <h2 className="text-3xl font-bold mb-6 text-center text-black">
+        Hello, {order?.table?.user?.userName} 😀
       </h2>
+      <p className="text-lg text-center mb-5 text-black">We hope you enjoyed our food.</p>
 
       <div className="space-y-6">
-        {order?.cart?.meals.map((item) => (
+        {order?.table?.meals.map((item) => (
           <div
             key={item._id}
             className="flex items-center justify-between bg-white p-4 rounded-lg shadow"
           >
-            <div className="flex items-center space-x-4 rtl:space-x-reverse">
+            <div className="flex items-center justify-between ">
               <img
-                src={item.mealId.mealImage}
-                alt={item.mealId.mealName}
-                className="w-24 h-24 rounded-lg object-cover"
+                src={item.meal.mealImage}
+                alt={item.meal.mealName}
+                className="w-28 h-28 rounded-lg object-cover"
               />
-              <div className="text-right">
-                <h3 className="font-semibold text-lg mb-2">
-                  {item.mealId.mealName}
+              <div className="text-center ml-10 ">
+                <h3 className="font-semibold text-lg mb-2 text-black">
+                  {item.meal.mealName}
                 </h3>
-                <div className="flex flex-row-reverse gap-1">
+                <div className="flex flex-row-reverse gap-1 text-center text-black">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
                       className={`w-6 h-6 cursor-pointer ${
-                        (ratings[item.mealId._id] || 0) >= star
+                        (ratings[item.meal._id] || 0) >= star
                           ? "fill-yellow-400 stroke-yellow-400"
                           : "stroke-gray-400"
                       }`}
-                      onClick={() => handleRating(item.mealId._id, star)}
+                      onClick={() => {handleRating(item.meal._id, star)}}
                     />
                   ))}
                 </div>
-                {ratings[item.mealId._id] && (
+                {ratings[item.meal._id] && (
                   <p className="text-sm text-gray-600 mt-1">
-                    Your rating: {ratings[item.mealId._id]} stars
+                    Your rating: {ratings[item.meal._id]} stars
                   </p>
                 )}
               </div>
@@ -105,7 +118,7 @@ function AddReviewMeal() {
           onClick={addReview}
           className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-200"
         >
-          Submit a review
+          Submit  reviews
         </Link>
       </div>
     </div>
