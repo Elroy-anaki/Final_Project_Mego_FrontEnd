@@ -3,6 +3,7 @@ import { TableContext } from '../../contexts/TableContext';
 import { FaTrashAlt } from "react-icons/fa";
 
 import MealTableDrawer from './MealTableDrawer';
+import { Link } from 'react-router-dom';
 
 function TableDrawer() {
   const { table, deleteTable } = useContext(TableContext);
@@ -35,9 +36,11 @@ function TableDrawer() {
                 >
                   Clear Table
                 </button>
+                <Link to={'/checkout'}>
                 <button className="w-1/2 px-4 py-2 rounded-r-lg bg-sky-600 text-2xl text-white">
                   Checkout To Payment
                 </button>
+                </Link>
               </div>
             </>
           )}
