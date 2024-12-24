@@ -45,9 +45,11 @@ function TableProvider({ children }) {
   }, [user, isAuth, toggle]);
 
   useEffect(() => {
-    console.log(table)
+    console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", table)
     setTableMeals(table ? table.meals : null)
   }, [table]);
+  useEffect(() => {    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", tableMeals)
+  }, [tableMeals])
 
   // Actions
   const { mutateAsync: createOrEditTable } = useMutation({

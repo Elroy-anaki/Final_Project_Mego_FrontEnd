@@ -20,6 +20,9 @@ function TableDrawer() {
             {table && table?.meals?.map((meal) => <MealTableDrawer key={meal.meal._id} meal={meal} />)}
 
           </ul>
+          <div>
+            <h2 className='text-2xl '>{table?.totalPrice}</h2>
+          </div>
           <div className='flex justify-center items-center w-full'>
         <button 
         onClick={() => console.log(table)}
