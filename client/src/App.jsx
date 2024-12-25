@@ -63,7 +63,7 @@ function App() {
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="email-verification/:userId" element={<EmailVerification />} />
-          <Route path="add-reviews-by-order/:userId" element={<AddReviewMeal />} />
+          <Route path="add-reviews-by-order-id/:orderId/:guestEmail" element={<AddReviewMeal />} />
         </Route>
       </Route>
     )
