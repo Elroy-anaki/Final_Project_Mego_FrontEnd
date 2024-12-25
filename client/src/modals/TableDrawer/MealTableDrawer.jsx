@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { FaArrowRight, FaTrashAlt, FaMinus, FaPlus, FaPencilAlt } from "react-icons/fa";
 import { TableContext } from '../../contexts/TableContext';
 
-const MealTableDrawer = ({ meal }) => {
+const MealTableDrawer = ({ meal, edited = true }) => {
 
 
 
@@ -29,14 +29,14 @@ const MealTableDrawer = ({ meal }) => {
 
 
                     {/* Actions */}
-                    <div className="absolute bottom-2 right-1 flex space-x-2 py-2 ">
+                    {edited ? <div className="absolute bottom-2 right-1 flex space-x-2 py-2 ">
                         <div className="flex  items-center space-x-4  ">
                             <div className="flex items-center space-x-2">
                                 <button
                                     onClick={() => {
-                                       meal.quantity > 1 
-                                       ? decreaseQuantity(meal.meal._id)
-                                       : deleteMealFromTable(meal.meal._id)
+                                        meal.quantity > 1
+                                            ? decreaseQuantity(meal.meal._id)
+                                            : deleteMealFromTable(meal.meal._id)
                                     }}
 
                                     className="rounded-full p-2 bg-gray-700  border-none text-white"
@@ -54,11 +54,12 @@ const MealTableDrawer = ({ meal }) => {
                         </div>
 
                         <button
-                            onClick={()=> deleteMealFromTable(meal.meal._id)}
+                            onClick={() => deleteMealFromTable(meal.meal._id)}
                             className="btn btn-sm bg-gray-700 hover:bg-red-900 border-none tooltip" data-tip="Delete">
                             <FaTrashAlt size={14} className="text-red-400" />
                         </button>
                     </div>
+                        : null}
 
                     {/* Total Price */}
                     <div className="absolute bottom-0 left-5">
