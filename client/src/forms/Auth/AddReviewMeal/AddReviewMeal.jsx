@@ -57,7 +57,7 @@ function AddReviewMeal() {
 
   const { mutate: addReviews } = useMutation({
     mutationKey: ['addReviews'],
-    mutationFn: async (data) => await axios.post(`http://localhost:3000/reviews/add-reviews/${order._id}/${order.user.userId.userEmail}`, data),
+    mutationFn: async (data) => await axios.post(`http://localhost:3000/reviews/add-reviews/${order._id}/${guestEmail}`, data),
     onSuccess: (data) => {
       console.log(data);
       notifySuccess("Thanks for your comments");
@@ -80,7 +80,7 @@ function AddReviewMeal() {
   useEffect(() => { console.log(ratings) }, [ratings])
   if (!order) {
     return (<div className="space-y-4 mt-5">
-      <h2 className="text-center text-5xl ">You've already rated!</h2>
+      <h2 className="text-center text-5xl ">You've already rated! </h2>
       <h2 className="text-center text-4xl ">Thanks 🤗</h2>
     </div>)
   } else {
