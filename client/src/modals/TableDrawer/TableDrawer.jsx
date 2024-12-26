@@ -6,7 +6,7 @@ import MealTableDrawer from './MealTableDrawer'
 
 function TableDrawer() {
 
-  const { table, clearTable } = useContext(TableContext)
+  const { table, deleteTable } = useContext(TableContext)
   return (
     <div className="drawer">
       <input id="tableDrawer" type="checkbox" className="drawer-toggle" />
@@ -25,7 +25,10 @@ function TableDrawer() {
           </div>
           <div className='flex justify-center items-center w-full'>
         <button 
-        onClick={() => console.log(table)}
+        onClick={() => {
+          console.log(table)
+          deleteTable(table)
+        }}
         className='w-1/2 px-4 py-2 rounded-l-lg bg-rose-600 text-2xl text-white'>Clear Table</button>
         <button className='w-1/2 px-4 py-2 rounded-r-lg bg-sky-600 text-2xl text-white'>Checkout To Payment</button>
         </div>

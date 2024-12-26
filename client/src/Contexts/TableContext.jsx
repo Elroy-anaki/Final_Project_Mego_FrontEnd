@@ -9,9 +9,7 @@ export const TableContext = createContext();
 
 function TableProvider({ children }) {
 
-  const queryClient = useQueryClient()
-
-
+  
   const { mutateAsync: getTableByUserId } = useMutation({
     mutationKey: ['getTableByUserId'],
     mutationFn: async (userId) => axios.get(`tables/get-table-by-user-id/${userId}`),
@@ -20,7 +18,8 @@ function TableProvider({ children }) {
     },
     retry: 1
   });
-
+  const queryClient = useQueryClient()
+  
   const { user, isAuth } = useContext(AuthContext)
   const [toggle, setToggle] = useState(false)
   const [table, setTable] = useState(null);
@@ -45,13 +44,8 @@ function TableProvider({ children }) {
   }, [user, isAuth, toggle]);
 
   useEffect(() => {
-    console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", table)
     setTableMeals(table ? table.meals : [])
   }, [table]);
-
-  useEffect(() => {
-    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", tableMeals)
-  }, [tableMeals])
 
   // Actions
   const { mutateAsync: createOrEditTable } = useMutation({
@@ -72,6 +66,19 @@ function TableProvider({ children }) {
     onError: (error) => console.log(error)
   });
 
+  const { mutateAsync: deleteTable } = useMutation({
+    mutationKey: ['deleteTable'],
+    mutationFn: async (data) => axios.delete(`/tables/delete-table-by-id/${data._id}`),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['getTableByUserId'] })
+      setTable(null)
+      console.log("data", data)
+      return data
+    },
+    onError: (error) => console.log(error)
+  });
+
+
   async function handelAdding(mealId) {
     if(tableMeals.length === 0){
         const newTable = {
@@ -91,7 +98,6 @@ function TableProvider({ children }) {
     }
     else{
       const mealExists = tableMeals.some(item => item.meal._id === mealId);
-      alert(mealExists)
       const updatedTableMeals = mealExists
         ? tableMeals.map(item => ({
           meal: item.meal._id,
@@ -130,10 +136,6 @@ function TableProvider({ children }) {
     await createOrEditTable(updatedTableMeals);
     setToggle(!toggle)
 
-  };
-
-  function deleteTable() {
-    setTable(null);
   };
 
 
