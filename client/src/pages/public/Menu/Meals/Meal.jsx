@@ -19,7 +19,6 @@ function Meal({ key, meal }) {
         <img
         loading='lazy'
           onClick={() =>{ 
-            // alert(meal._id);
             setMeal(meal);
             document.getElementById('mealDatails').showModal();
           }}

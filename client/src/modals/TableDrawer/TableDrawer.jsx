@@ -1,12 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { TableContext } from '../../contexts/TableContext';
 import { FaTrashAlt } from "react-icons/fa";
 
 import MealTableDrawer from './MealTableDrawer';
 import { Link, useNavigate } from 'react-router-dom';
+import AddButton from '../../pages/public/Menu/Meals/AddButton';
 
 function TableDrawer() {
-  const { table, deleteTable } = useContext(TableContext);
+  const { table, deleteTable, addGuests } = useContext(TableContext);
+  const [toggleGuests, setToggleGuests] = useState(false)
+  const [guests, setGuests] = useState(table ? table?.SharedWith : null)
   const navigate = useNavigate()
 
   return (
@@ -26,11 +29,26 @@ function TableDrawer() {
           <div>
             <h2 className='text-2xl '>{table?.totalPrice}</h2>
           </div>
+          <div className='w-3/4 mx-auto px-3 py-1 flex flex-col gap-2 mb-2'>
+          <h1
+          onClick={()=> setToggleGuests(!toggleGuests)}
+          >Invite Friends</h1>
+          {toggleGuests && <div className='flex flex-col gap-2 mb-2'>
+            {guests?.map((guest) => (
+              <input type="email" name="" id=""  value={guest.guestEmail} className='bg-gray-200 py-2 px-3 text-black'/>
+            )) }
+            
+            
+            </div>}
+
+            
+
+          </div>
           <div className='flex justify-center items-center w-full'>
         <button 
         onClick={() => {
           console.log(table)
-          deleteTable(table)
+          // deleteTable(table)
         }}
         className='w-1/2 px-4 py-2 rounded-l-lg bg-rose-600 text-2xl text-white'>Clear Table</button>
         <button 

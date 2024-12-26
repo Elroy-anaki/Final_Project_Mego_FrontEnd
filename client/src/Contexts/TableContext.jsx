@@ -66,6 +66,19 @@ function TableProvider({ children }) {
     onError: (error) => console.log(error)
   });
 
+
+
+  const { mutateAsync: addGuests } = useMutation({
+    mutationKey: ['addGuests'],
+    mutationFn: async (data) => axios.put(`/tables/add-guests/${data._id}`),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['getTableByUserId'] })
+      console.log("data", data)
+      return data
+    },
+    onError: (error) => console.log(error)
+  });
+
   const { mutateAsync: deleteTable } = useMutation({
     mutationKey: ['deleteTable'],
     mutationFn: async (data) => axios.delete(`/tables/delete-table-by-id/${data._id}`),
@@ -147,7 +160,8 @@ function TableProvider({ children }) {
     createOrEditTable,
     handelAdding,
     decreaseQuantity,
-    deleteMealFromTable
+    deleteMealFromTable,
+    addGuests
   };
 
   return (

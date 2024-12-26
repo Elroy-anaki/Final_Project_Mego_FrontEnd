@@ -99,7 +99,10 @@ function Checkout() {
                   <h3 className="text-base text-gray-800 mb-4">Personal Details</h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <input type="text" placeholder="Full Name"
+                      <input 
+                      type="text" 
+                      name="userName"
+                      placeholder="Full Name"
                         value={values?.userName}
                         onChange={handleChange}
                         className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
@@ -107,14 +110,20 @@ function Checkout() {
 
 
                     <div>
-                      <input type="email" placeholder="Email"
+                      <input 
+                      type="email"
+                      name="userEmail"     
+                       placeholder="Email"
                         value={values?.userEmail}
                         onChange={handleChange}
                         className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
                     </div>
 
                     <div>
-                      <input type="number" placeholder="Phone No."
+                      <input 
+                      type="text"
+                      name='userPhone'
+                      placeholder="Phone No."
                         value={values?.userPhone}
                         onChange={handleChange}
                         className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
@@ -127,13 +136,14 @@ function Checkout() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <input
+                      type="date"
+                       name="date"
+                        id="date"
                         value={values?.date}
                         onChange={handleChange}
                         className="bg-gray-100 text-black w-full h-12 rounded-xl"
-                        // min={new Date().toISOString().split('T')[0]}
-
-
-                        type="date" name="date" id="date" />
+                        min={new Date().toISOString().split('T')[0]}
+                         />
                     </div>
                     <div>
 

@@ -7,10 +7,6 @@ import Meals from './Meals/Meals';
 import { OrderDetailsContext } from '../../../Contexts/OrderDetailsContext';
 
 
-
-
-
-
 function MenuBoard() {
   const {orderDetails} = useContext(OrderDetailsContext)
   console.log("orderDetails", orderDetails)
