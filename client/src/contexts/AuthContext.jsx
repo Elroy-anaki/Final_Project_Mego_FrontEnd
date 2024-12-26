@@ -7,6 +7,7 @@ import { notifyError, notifySuccess } from "../lib/Toasts";
 import MenuProvider from './MenuContext'
 import OrderDetailsProvider from "./OrderDetailsContext";
 import TableProvider from "./TableContext";
+import FullOrderProvider from "./FullOrderContext";
 
 
 
@@ -91,7 +92,7 @@ function AuthProvider({ children }) {
         onError: (error) => console.log(error),
     });
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(user)
     })
 
@@ -112,7 +113,9 @@ function AuthProvider({ children }) {
                 <MenuProvider>
                     <OrderDetailsProvider>
                         <TableProvider>
-                            {children}
+                            <FullOrderProvider>
+                                {children}
+                            </FullOrderProvider>
                         </TableProvider>
                     </OrderDetailsProvider>
                 </MenuProvider>

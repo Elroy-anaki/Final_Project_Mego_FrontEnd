@@ -1,18 +1,20 @@
-import React, { useContext } from 'react'
-import { TableContext } from '../../contexts/TableContext'
-import {  FaTrashAlt} from "react-icons/fa";
+import React, { useContext } from 'react';
+import { TableContext } from '../../contexts/TableContext';
+import { FaTrashAlt } from "react-icons/fa";
 
-import MealTableDrawer from './MealTableDrawer'
+import MealTableDrawer from './MealTableDrawer';
+import { Link } from 'react-router-dom';
 
 function TableDrawer() {
+  const { table, deleteTable } = useContext(TableContext);
 
-  const { table, deleteTable } = useContext(TableContext)
   return (
     <div className="drawer">
       <input id="tableDrawer" type="checkbox" className="drawer-toggle" />
 
       <div className="drawer-side z-50 fixed">
         <label htmlFor="tableDrawer" aria-label="close sidebar" className="drawer-overlay"></label>
+
         <div className='menu bg-base-200 text-base-content min-h-full w-2/5 p-4'>
           <h1 className='text-center text-3xl mb-5'>Your Table</h1>
           <ul className="flex flex-col">
@@ -35,8 +37,7 @@ function TableDrawer() {
         </div>
       </div>
     </div>
-
-  )
+  );
 }
 
-export default TableDrawer
+export default TableDrawer;
