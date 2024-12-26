@@ -8,10 +8,10 @@ export const TableContext = createContext();
 
 
 function TableProvider({ children }) {
-  
+
   const queryClient = useQueryClient()
 
-  
+
   const { mutateAsync: getTableByUserId } = useMutation({
     mutationKey: ['getTableByUserId'],
     mutationFn: async (userId) => axios.get(`tables/get-table-by-user-id/${userId}`),
@@ -24,7 +24,7 @@ function TableProvider({ children }) {
   const { user, isAuth } = useContext(AuthContext)
   const [toggle, setToggle] = useState(false)
   const [table, setTable] = useState(null);
-  const [tableMeals, setTableMeals] = useState(null)
+  const [tableMeals, setTableMeals] = useState([])
 
   useEffect(() => {
     const fetchTables = async () => {
@@ -45,9 +45,13 @@ function TableProvider({ children }) {
   }, [user, isAuth, toggle]);
 
   useEffect(() => {
-    console.log(table)
-    setTableMeals(table ? table.meals : null)
+    console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", table)
+    setTableMeals(table ? table.meals : [])
   }, [table]);
+
+  useEffect(() => {
+    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", tableMeals)
+  }, [tableMeals])
 
   // Actions
   const { mutateAsync: createOrEditTable } = useMutation({
@@ -69,20 +73,40 @@ function TableProvider({ children }) {
   });
 
   async function handelAdding(mealId) {
-    const mealExists = tableMeals.some(item => item.meal._id === mealId);
-  
-    const updatedTableMeals = mealExists
-      ? tableMeals.map(item => ({
+    if(tableMeals.length === 0){
+        const newTable = {
+          user: {
+            userId: user._id,
+            userName: user.userName
+          },
+          sharedWith: [],
+          meals: [{
+            meal: mealId,
+            quantity: 1 
+          }]
+        }
+      console.log(newTable)
+      await createOrEditTable(newTable);
+      setToggle(!toggle);
+    }
+    else{
+      const mealExists = tableMeals.some(item => item.meal._id === mealId);
+      alert(mealExists)
+      const updatedTableMeals = mealExists
+        ? tableMeals.map(item => ({
           meal: item.meal._id,
           quantity: item.meal._id === mealId ? item.quantity + 1 : item.quantity
         }))
-      : [...tableMeals, { meal: mealId, quantity: 1 }];
-  
-    console.log("updatedTableMeals", updatedTableMeals);
-    console.log(tableMeals);
-  
-    await createOrEditTable(updatedTableMeals);
-    setToggle(!toggle);
+        : [...tableMeals, { meal: mealId, quantity: 1 }];
+
+      console.log("updatedTableMeals", updatedTableMeals);
+      console.log(tableMeals);
+
+      await createOrEditTable(updatedTableMeals);
+      setToggle(!toggle);
+    }
+    
+
   };
 
   async function decreaseQuantity(mealId) {
