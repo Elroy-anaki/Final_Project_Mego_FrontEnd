@@ -10,9 +10,9 @@ export const TableContext = createContext();
 function TableProvider({ children }) {
 
   
-  const { mutateAsync: getTableByUserId } = useMutation({
-    mutationKey: ['getTableByUserId'],
-    mutationFn: async (userId) => axios.get(`tables/get-table-by-user-id/${userId}`),
+  const { mutateAsync: getTableByUserEmail } = useMutation({
+    mutationKey: ['getTableByUserEmail'],
+    mutationFn: async (userEmail) => axios.get(`tables/get-table-by-user-id/${userEmail}`),
     onSuccess: (data) => {
       return data.data
     },
@@ -29,8 +29,11 @@ function TableProvider({ children }) {
     const fetchTables = async () => {
       if (isAuth && user) {
         try {
-          const { data } = await getTableByUserId(user._id);
+          const { data } = await getTableByUserEmail(user.userEmail);
           setTable(data.data);
+          setTableMeals(data.data.meals)
+
+          console.log("data.data", data.data)
         } catch (error) {
           console.error("Error", error);
         }
@@ -43,9 +46,9 @@ function TableProvider({ children }) {
 
   }, [user, isAuth, toggle]);
 
-  useEffect(() => {
-    setTableMeals(table ? table.meals : [])
-  }, [table]);
+  // useEffect(() => {
+  //   setTableMeals(table ? table.meals : [])
+  // }, [table]);
 
   // Actions
   const { mutateAsync: createOrEditTable } = useMutation({
@@ -99,7 +102,10 @@ function TableProvider({ children }) {
             userId: user._id,
             userName: user.userName
           },
-          sharedWith: [],
+          sharedWith: [{
+            guestEmail: user.userEmail,
+            rated: false
+          }],
           meals: [{
             meal: mealId,
             quantity: 1 
