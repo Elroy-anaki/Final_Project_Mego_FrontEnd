@@ -11,6 +11,7 @@ function AddReviewMeal() {
   const [ratings, setRatings] = useState({});
   const [comments, setComments] = useState({})
   const { orderId, guestEmail } = useParams();
+  const [userRating, setUserRating] = useState(null)
 
 
   // Get the order
@@ -45,7 +46,7 @@ function AddReviewMeal() {
     const addReviews = order?.table?.meals.map((item) => {
       return {
         user: {
-          name: order?.user?.userName,
+          name: userRating,
           userId: order?.user?.userId._id
         },
         mealId: item.meal._id,
@@ -90,12 +91,16 @@ function AddReviewMeal() {
     return (
       <div className="max-w-4xl mx-auto mt-5 p-8 border rounded-lg shadow-lg bg-white">
         <h2 className="text-4xl font-extrabold mb-8 text-center text-gray-800">
-          Hello, {order?.user?.userName} <span className="text-amber-500">😀</span>
+          Hello, Friend! <span className="text-amber-500">😀</span>
         </h2>
         <p className="text-lg text-center mb-8 text-gray-600">
           We hope you enjoyed our food. Please share your feedback below!
         </p>
-
+        <div className="ml-6  gap-5 flex justify-center items-center">
+          <label htmlFor="userRating" className="text-black text-lg">Show as:</label>
+          <input type="text" id="userRating" placeholder="your name..." className="bg-gray-200 px-4 py-2 rounded-lg"
+          onChange={(e) => setUserRating(e.target.value)} />
+        </div>
         <div className="space-y-8">
           {order?.table?.meals.map((item) => (
             <div
