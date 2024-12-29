@@ -18,7 +18,7 @@ const MenuBoard = lazy(() => import("./pages/public/Menu/MenuBoard"));
 // Import Auth Components
 const SignUp = lazy(() => import('./forms/Auth/SingUp/SingUp'));
 const SignIn = lazy(() => import('./forms/Auth/SignIn/SignIn'));
-import AddReviewMeal from "./forms/Auth/AddReviewMeal/AddReviewMeal";
+const AddReviewMeal = lazy(() => import("./forms/Auth/AddReviewMeal/AddReviewMeal"));
 const ForgotPassword = lazy(() => import("./forms/Auth/ForgotPassword/ForgotPassword"));
 const ResetPassword = lazy(()=> import("./forms/Auth/ResetPassword/ResetPassword"))
 const EmailVerification = lazy(() => import("./forms/Auth/EmailVerification/EmailVerification"))
@@ -55,7 +55,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="order-place" element={<OrderPlace />} />
         <Route path="menu" element={<MenuBoard />} />
-        <Route path="checkout" element={<Checkout />} />
+          <Route path="add-reviews-by-order-id/:orderId/:guestEmail" element={<AddReviewMeal />} />
         
         {/* Public Routes */}
         <Route path="/auth" element={true && <Outlet />}>
@@ -65,7 +65,6 @@ function App() {
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="email-verification/:userId" element={<EmailVerification />} />
-          <Route path="add-reviews-by-order/:userId" element={<AddReviewMeal />} />
         </Route>
       </Route>
     )

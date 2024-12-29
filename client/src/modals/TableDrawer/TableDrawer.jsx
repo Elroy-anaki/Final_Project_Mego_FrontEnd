@@ -20,7 +20,6 @@ function TableDrawer() {
 
       <div className="drawer-side z-50 fixed">
         <label id='closeDrawer' htmlFor="tableDrawer" aria-label="close sidebar" className="drawer-overlay"></label>
-
         <div className='menu bg-base-200 text-base-content min-h-full w-2/5 p-4'>
           <h1 className='text-center text-3xl mb-5'>Your Table</h1>
           <div className='flex justify-between w-full mx-auto px-2 mb-3'>
@@ -46,25 +45,13 @@ function TableDrawer() {
 
 
           <div className='flex justify-center items-center w-full'>
-            <button
-              onClick={() => {
-                deleteTable(table)
-                console.log(table)
-              }}
-              className='w-1/2 px-4 py-2 rounded-l-lg bg-rose-600 text-2xl text-white'
-            >
-              Clear Table
-            </button>
-            <button
-              onClick={() => {
-                navigate('/checkout');
-                document.getElementById('closeDrawer').click();
-              }}
-              className='w-1/2 px-4 py-2 rounded-r-lg bg-sky-600 text-2xl text-white'
-            >
-              Checkout To Payment
-            </button>
-          </div>
+        <button 
+        onClick={() => console.log(table)}
+        className='w-1/2 px-4 py-2 rounded-l-lg bg-rose-600 text-2xl text-white'>Clear Table</button>
+        <button
+        onClick={() => document.getElementById("closeDrawer").click()}
+        className='w-1/2 px-4 py-2 rounded-r-lg bg-sky-600 text-2xl text-white'>Checkout To Payment</button>
+        </div>
         </div>
       </div>
     </div>
