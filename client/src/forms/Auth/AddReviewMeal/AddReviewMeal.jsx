@@ -17,7 +17,10 @@ function AddReviewMeal() {
   const { mutate: getOrderByOrderId } = useMutation({
     mutationKey: ['getOrderByUserId'],
     mutationFn: async (data) => await axios.get(`http://localhost:3000/orders/get-order-by-order-id?orderId=${orderId}&guestEmail=${guestEmail}`),
-    onSuccess: (data) => { setOrder(data.data.data) },
+    onSuccess: (data) => { 
+      console.log(data)
+      setOrder(data.data.data) 
+    },
     onError: (error) => console.log(error.response.data.msg)
   });
 
