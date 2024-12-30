@@ -8,13 +8,13 @@ export const MenuContext = createContext()
 function MenuProvider({ children }) {
     const [menu, setMenu] = useState([]);
     const [meal, setMeal] = useState(null);
-    const [chosenCategory, setChosenCategory] = useState('') 
+    const [chosenCategory, setChosenCategory] = useState({}) 
 
 
-    const { mutate:getMutateCategory } = useMutation({
-        mutationKey: ["GetMealsByCategory"],
-        mutationFn: async (_id) =>
-            await axios.get(`/meals/get-meals-by-category/${_id}`),
+    const { mutate:GetMealsByCategory } = useMutation({
+        mutationKey: ["GetMealsByCategory", chosenCategory],
+        mutationFn: async () =>
+            await axios.get(`/meals/get-meals-by-category/${chosenCategory._id}`),
         onSuccess: (data) => {
             setMenu(data.data.data);
             console.log(data.data.data);
@@ -30,7 +30,7 @@ function MenuProvider({ children }) {
         chosenCategory,
         setMeal,
         setMenu,
-        getMutateCategory,
+        GetMealsByCategory,
         setChosenCategory
     }
 

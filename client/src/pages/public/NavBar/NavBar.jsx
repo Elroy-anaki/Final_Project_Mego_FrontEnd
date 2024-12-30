@@ -10,7 +10,7 @@ import { TableContext } from '../../../Contexts/TableContext';
 function NavBar() {
   const { isAuth, signOut, user } = useContext(AuthContext);
   const { restaurant } = useContext(RestaurantContex)
-  const {tableMeals} = useContext(TableContext)
+  const { tableMeals } = useContext(TableContext)
   const navigate = useNavigate()
 
   return (
@@ -32,22 +32,22 @@ function NavBar() {
           </Link>
           <div className='flex items-center gap-5'>
 
-            {isAuth ? <p 
-            onClick={()=> document.getElementById('profileModal').showModal()}
-            className="text-2xl font-bold text-white cursor-pointer">{user?.userName} </p> 
-            : <p className="text-2xl font-bold text-white cursor-pointer">{restaurant?.restaurantName}</p>}
+            {isAuth ? <p
+              onClick={() => document.getElementById('profileModal').showModal()}
+              className="text-2xl font-bold text-white cursor-pointer">{user?.userName} </p>
+              : <p className="text-2xl font-bold text-white cursor-pointer">{restaurant?.restaurantName}</p>}
 
           </div>
           <div className='absolute top-0 left-[255px] bg-rose-700/80  rounded-xl px-2 py-0.5'>
 
-          <p className=' text-white text-xl '>{tableMeals?.length}</p>
+            <p className=' text-white text-xl '>{tableMeals?.length}</p>
           </div>
           <label htmlFor="tableDrawer" className=""><MdOutlineTableBar
             className="text-white cursor-pointer hover:text-orange-500 transition-colors"
             size={42}
           /></label>
 
-          
+
         </div>
 
         {/* Center Navigation Links */}

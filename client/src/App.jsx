@@ -1,12 +1,14 @@
-import { lazy } from "react";
+import { lazy, useContext } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   Outlet,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
 import TableModal from "./modals/TableDrawer/TableDrawer";
+import { AuthContext } from "./contexts/AuthContext";
 
 // Import Public Pages
 const NavBar = lazy(() => import("./pages/public/NavBar/NavBar"));
@@ -28,8 +30,6 @@ const EmailVerification = lazy(() => import("./forms/Auth/EmailVerification/Emai
 const ProfileModal = lazy(() => import("./modals/ProfileModal"));
 const MealModal = lazy(() => import('./pages/public/Menu/Modal/MealModal'));
 const TableDrawer = lazy(() => import('./modals/TableDrawer/TableDrawer'));
-const MealModal = lazy(() => import('./pages/public/Menu/Modal/MealModal'))
-const TableDrawer = lazy(() => import('./modals/TableDrawer/TableDrawer'))
 const Checkout = lazy(() => import('./pages/public/Checkout/Checkout'))
 
 
@@ -50,20 +50,21 @@ function Root() {
 }
 
 function App() {   
+  const {isAuth} = useContext(AuthContext)
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />} errorElement={<ErrorPage />}>
         <Route index element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="Contact-Us" element={<ContactUs />} />
+        <Route path="contact-us" element={<ContactUs />} />
         <Route path="order-place" element={<OrderPlace />} />
         <Route path="menu" element={<MenuBoard />} />
         <Route path="checkout" element={<Checkout />} />
-          <Route path="add-reviews-by-order-id/:orderId/:guestEmail" element={<AddReviewMeal />} />
+        <Route path="add-reviews-by-order-id/:orderId/:guestEmail" element={<AddReviewMeal />} />
         
         {/* Public Routes */}
-        <Route path="/auth" element={true && <Outlet />}>
+        <Route path="/auth" element={!isAuth ? <Outlet /> : <Navigate to={'/'}/>}>
           <Route index element={<SignIn />} />
           <Route path="sign-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />

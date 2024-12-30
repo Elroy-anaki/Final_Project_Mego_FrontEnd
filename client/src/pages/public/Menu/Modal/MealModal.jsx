@@ -5,6 +5,7 @@ import { Star, Clock, MessageCircle } from 'lucide-react';
 import CaloriesSlider from './CaloriesSlider';
 import AddButton from '../Meals/AddButton';
 import { TableContext } from '../../../../Contexts/TableContext'
+import { AuthContext } from '../../../../contexts/AuthContext';
 
 
 
@@ -12,6 +13,7 @@ function MealModal() {
     const [isOpen, setIsOpen] = useState(false);
     const { meal } = useContext(MenuContext);
     const { handelAdding } = useContext(TableContext)
+    const {isAuth} = useContext(AuthContext)
 
 
     return (
@@ -107,7 +109,7 @@ function MealModal() {
                             </div>
 
                             {/* Reviews */}
-                            <div className="bg-gray-100 rounded-xl p-6">
+                            {isAuth ?<div className="bg-gray-100 rounded-xl p-6">
                                 <div className="flex items-center gap-2 mb-4">
                                     <MessageCircle className="w-6 h-6 text-gray-700" />
                                     <h2 className="text-xl font-semibold text-gray-800">
@@ -136,6 +138,8 @@ function MealModal() {
                                     ))}
                                 </div>
                             </div>
+                             : null}
+                            
                         </div>
 
                         {/* Action Button */}

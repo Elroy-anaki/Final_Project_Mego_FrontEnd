@@ -73,6 +73,7 @@ function AuthProvider({ children }) {
                 const { data } = await axios.get('/auth/sign-out')
                 console.log(data);
                 setIsAuth(false);
+                setUser(null)
             } catch (error) {
                 console.log(error);
                 alert(data)

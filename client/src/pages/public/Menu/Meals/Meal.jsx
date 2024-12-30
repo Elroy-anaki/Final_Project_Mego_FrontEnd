@@ -11,7 +11,7 @@ function Meal({ key, meal }) {
   return (
     <div
       key={key}
-      className="max-w-sm w-72 h-72 mx-auto
+      className="max-w-sm w-72 h-72 mx-auto 
       overflow-hidden rounded-2xl shadow-xl bg-gradient-to-b from-white to-amber-100 
       transform hover:scale-105 transition-transform duration-300 mb-5"
     >
@@ -28,28 +28,30 @@ function Meal({ key, meal }) {
         />
       </div>
 
-      <div className="p-6 flex flex-col justify-between">
+      <div className="px-6 py-2 flex flex-col justify-between hover:bg-amber-200">
         <div>
-          <h3 className="text-xl font-bold text-amber-900 mb-2 truncate">
+          <h3 className="text-3xl font-bold text-amber-900 mb-2 truncate">
             {meal.mealName}
           </h3>
-          <p className="text-sm text-gray-600 mb-4 truncate">
+          <p className="text-base text-gray-600 mb-4 truncate">
             {meal.ingredients ? meal.ingredients.join(', ') : 'No ingredients listed'}
           </p>
         </div>
 
         <div className="flex justify-between items-center">
-          <span className="text-lg font-extrabold text-amber-700">
-            ₪{meal.mealPrice}
-          </span>
+          
           
            <AddButton
-           text={'Add Meal'}
+           text="I'm Hungry 😋"
            fun={()=> {
             console.log(meal)
             handelAdding(meal._id)
           }}
+          className='px-3 py-2 hover:bg-amber-800'
            />
+           <span className="text-2xl font-extrabold text-amber-700">
+            ${meal.mealPrice}
+          </span>
         </div>
       </div>
     </div>
