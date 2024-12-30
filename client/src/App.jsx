@@ -18,7 +18,7 @@ const MenuBoard = lazy(() => import("./pages/public/Menu/MenuBoard"));
 // Import Auth Components
 const SignUp = lazy(() => import('./forms/Auth/SingUp/SingUp'));
 const SignIn = lazy(() => import('./forms/Auth/SignIn/SignIn'));
-const AddReviewMeal = lazy(() => import("./forms/Auth/AddReviewMeal/AddReviewMeal"));
+const AddReviewMeal = lazy(() => import("./pages/public/AddReviewMeal/AddReviewMeal"));
 const ForgotPassword = lazy(() => import("./forms/Auth/ForgotPassword/ForgotPassword"));
 const ResetPassword = lazy(()=> import("./forms/Auth/ResetPassword/ResetPassword"))
 const EmailVerification = lazy(() => import("./forms/Auth/EmailVerification/EmailVerification"))
@@ -36,8 +36,8 @@ function Root() {
       <div className="flex flex-col" >
         <NavBar />
         <Outlet />
-        {/* Modals */}
 
+        {/* Modals */}
         <ProfileModal />
         <MealModal />
         <TableDrawer/>
