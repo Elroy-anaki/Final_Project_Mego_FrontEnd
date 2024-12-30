@@ -22,7 +22,7 @@ function ResetPassword() {
     },
     onSuccess: (data) => {
       notifySuccess(data.msg);
-      navigate('/')
+      navigate('/auth/sign-in')
      },
      onError: (data) => {
        console.log("cxzcxzcz",data)

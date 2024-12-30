@@ -5,6 +5,7 @@ import { MenuContext } from '../../../../Contexts/MenuContext'
 function Meals({}) {
 
   const { menu } = useContext(MenuContext)
+  console.log(menu)
 
   return (
     <div className="w-full mx-auto">

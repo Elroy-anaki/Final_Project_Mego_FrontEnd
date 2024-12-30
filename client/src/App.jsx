@@ -12,6 +12,7 @@ import TableModal from "./modals/TableDrawer/TableDrawer";
 const NavBar = lazy(() => import("./pages/public/NavBar/NavBar"));
 const Home = lazy(() => import("./pages/public/Home/Home"));
 const About = lazy(() => import("./pages/public/About/About"));
+const ContactUs = lazy(() => import("./pages/public/ContactUs/ContactUs"));
 const OrderPlace = lazy(() => import("./pages/public/OrderPlace/OrderPlace"));
 const MenuBoard = lazy(() => import("./pages/public/Menu/MenuBoard"));
 const ErrorPage = lazy(() => import('./pages/ErrorPage/ErrorPage'));
@@ -20,14 +21,16 @@ const ErrorPage = lazy(() => import('./pages/ErrorPage/ErrorPage'));
 // Import Auth Components
 const SignUp = lazy(() => import('./forms/Auth/SingUp/SingUp'));
 const SignIn = lazy(() => import('./forms/Auth/SignIn/SignIn'));
+const AddReviewMeal = lazy(() => import("./pages/public/AddReviewMeal/AddReviewMeal"));
 const ForgotPassword = lazy(() => import("./forms/Auth/ForgotPassword/ForgotPassword"));
 const ResetPassword = lazy(()=> import("./forms/Auth/ResetPassword/ResetPassword"))
 const EmailVerification = lazy(() => import("./forms/Auth/EmailVerification/EmailVerification"))
 const ProfileModal = lazy(() => import("./modals/ProfileModal"));
 const MealModal = lazy(() => import('./pages/public/Menu/Modal/MealModal'));
 const TableDrawer = lazy(() => import('./modals/TableDrawer/TableDrawer'));
-
-
+const MealModal = lazy(() => import('./pages/public/Menu/Modal/MealModal'))
+const TableDrawer = lazy(() => import('./modals/TableDrawer/TableDrawer'))
+const Checkout = lazy(() => import('./pages/public/Checkout/Checkout'))
 
 
 function Root() {
@@ -36,8 +39,8 @@ function Root() {
       <div className="flex flex-col" >
         <NavBar />
         <Outlet />
-        {/* Modals */}
 
+        {/* Modals */}
         <ProfileModal />
         <MealModal />
         <TableDrawer/>
@@ -53,8 +56,11 @@ function App() {
         <Route index element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route path="about" element={<About />} />
+        <Route path="Contact-Us" element={<ContactUs />} />
         <Route path="order-place" element={<OrderPlace />} />
         <Route path="menu" element={<MenuBoard />} />
+        <Route path="checkout" element={<Checkout />} />
+          <Route path="add-reviews-by-order-id/:orderId/:guestEmail" element={<AddReviewMeal />} />
         
         {/* Public Routes */}
         <Route path="/auth" element={true && <Outlet />}>

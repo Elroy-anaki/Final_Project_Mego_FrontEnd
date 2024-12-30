@@ -26,14 +26,16 @@ const initValues = {
 
 function OrderPlace() {
     // Context + Utils
-    const { setOrderDetails, orderDetails } = useContext(OrderDetailsContext)
+    const { setOrderDetails, orderDetails, setRemainingSeats,remainingSeats, getRemainingSeats } = useContext(OrderDetailsContext)
     const navigate = useNavigate()
     // Local Hooks
     const [values, setValues] = useState(orderDetails ? orderDetails : initValues)
-    const [remainingSeats, setRemainingSeats] = useState(null)
+    // const [remainingSeats, setRemainingSeats] = useState(null)
     const [showTime, setShowTime] = useState(orderDetails ? true : false)
     const [showPeople, setShowPeople] = useState(orderDetails ? true : false)
     // const [date, setDate] = useState(new Date());
+
+   
 
 
     async function handleChange(e) {
@@ -45,18 +47,6 @@ function OrderPlace() {
             [name]: value
         }));
     }
-
-    const { mutate: getRemainingSeats } = useMutation({
-        mutationKey: ['getRemainingSeats'],
-        mutationFn: async (data) => await axios.post(`/restaurant/get-remaining-seats`, data),
-        onSuccess: (data) => {
-            const numberOfEaters = []
-            for (let i = 1; i <= data.data.data[0].remaining; i++)numberOfEaters.push(i)
-            console.log(numberOfEaters);
-            setRemainingSeats(numberOfEaters)
-            console.log(data)
-        }
-    })
 
     useEffect(() => {
         if (!values?.time) return;
@@ -108,7 +98,9 @@ function OrderPlace() {
                             value={values?.time}
                             className="bg-gray-600 text-white w-full h-12 rounded-xl"
                             onChange={(e) => {
-                                handleChange(e)
+                                handleChange(e),
+                                getRemainingSeats(values)
+
                                 setShowPeople(true)
                             }}
                             name="time"
@@ -117,7 +109,7 @@ function OrderPlace() {
                         </select>
                     </div>}
                     {showPeople && <div className='w-1/4 rounded-xl border-2 border-amber-500 rounded-l-lg bg-gray-800 px-4 py-3 shadow-inner space-y-3'>
-                        <p className='text-lg'>People <span className='text-rose-600 ml-4 text-sm'>Max: {remainingSeats ? remainingSeats.length : null}</span></p>
+                        <p className='text-lg'>People</p>
 
                         <select
                             value={values?.people}

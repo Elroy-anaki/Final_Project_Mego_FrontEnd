@@ -1,91 +1,146 @@
 import React, { useContext, useState } from 'react';
 import { MenuContext } from '../../../../Contexts/MenuContext';
 import { IoClose } from 'react-icons/io5';
+import { Star, Clock, MessageCircle } from 'lucide-react';
 import CaloriesSlider from './CaloriesSlider';
 import AddButton from '../Meals/AddButton';
+import { TableContext } from '../../../../Contexts/TableContext'
+
+
 
 function MealModal() {
     const [isOpen, setIsOpen] = useState(false);
     const { meal } = useContext(MenuContext);
+    const { handelAdding } = useContext(TableContext)
+
 
     return (
         <div>
             <dialog
                 id="mealDatails"
-                className="modal bg-white shadow-2xl rounded-lg overflow-hidden border-0 w-[90%] max-w-3xl max-h-[100vh] mx-auto"
+                className="modal bg-white shadow-2xl rounded-2xl overflow-hidden border-0 w-[90%] max-w-4xl max-h-[90vh] mx-auto"
             >
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4">
-                    <div className="shrink-0 max-w-md lg:max-w-xl mx-auto flex justify-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+                    {/* Image Section */}
+                    <div className="relative group">
                         <img
-                            className="w-70 h-70 lg:w-96 lg:h-96 rounded-xl object-cover shadow-md"
+                            className="w-full h-[400px] rounded-xl object-cover shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
                             src={meal?.mealImage}
                             alt={meal?.mealName}
                         />
+                        <div className="mt-6">
+                            <AddButton
+                                text="I'm Hungry 😋"
+                                fun={() => {
+                                    console.log(meal)
+                                    handelAdding(meal._id)
+                                    document.getElementById('mealDatails').close();
+
+
+                                }}
+                                 className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                            />
+                        </div>
+                        <div className="absolute top-4 right-4">
+                            <button
+                                onClick={() => {
+                                    document.getElementById('mealDatails').close();
+                                }}
+                                className="bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-lg hover:bg-white transition-colors duration-200"
+                            >
+                                <IoClose size={24} className="text-gray-700" />
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="flex flex-col justify-between">
-                        <div>
-                            <div className="flex flex-col justify-between">
-                                <div>
-                                    <div className="flex justify-between items-start gap-2 mb-4">
-                                        <h1 className="text-3xl font-extrabold text-gray-800">
-                                            {meal?.mealName}
-                                        </h1>
-                                        <button
-                                            onClick={() => {
-                                                document.getElementById('mealDatails').close();
-                                            }}
-                                            className="text-gray-500 hover:text-gray-800 focus:outline-none"
-                                        >
-                                            <IoClose size={30} />
-                                        </button>
+                    {/* Content Section */}
+                    <div className="flex flex-col h-full">
+                        <div className="flex-grow">
+                            {/* Header */}
+                            <div className="mb-2">
+                                <h1 className="text-4xl font-bold text-gray-800 text-center mb-8">
+                                    {meal?.mealName}
+                                </h1>
+                                <div className="flex  gap-2 flex-wrap flex-col justify-start items-start">
+                                    <span className="text-2xl font-bold text-amber-600">
+                                        <span className='text-3xl text-black font-medium mr-2'>Price:</span>
+
+                                        ${meal?.mealPrice}
+                                    </span>
+                                    <div className="flex items-center gap-2">
+                                        <span className='text-lg text-black font-medium'>Rating:</span>
+                                        <Star className="w-5 h-5 text-amber-500 fill-amber-500" />
+                                        <span className="font-semibold">
+                                            {Number(meal?.rating?.avgOfRating).toFixed(1)}
+                                            <span className='ml-2 text-xs'>(Rated {meal?.reviews?.length})</span>
+                                        </span>
                                     </div>
+                                    <div
+                                        onClick={() => setIsOpen(prev => !prev)}
+                                        className="flex items-center gap-2 cursor-pointer hover:text-amber-600 transition-colors"
+                                    >
+                                        <span className='text-lg text-black font-medium'>Calories:</span>
+                                        <Clock className="w-5 h-5" />
+                                        <span className="font-semibold">{meal?.amoutnOfCalories} cal</span>
+                                    </div>
+
                                 </div>
                             </div>
 
+                            {isOpen && <CaloriesSlider calories={meal?.amoutnOfCalories} setIsOpen={setIsOpen} />}
 
-
-                            <p className="text-3xl font-semibold text-amber-600 mb-2">
-                                ₪{meal?.mealPrice}
-                            </p>
-
-                            <div className="flex items-center gap-2 mb-3">
-                                <span className="text-gray-600 font-medium">Rating:</span>
-                                <span className="text-amber-500 font-bold">5.0</span>
-                                <span className="text-gray-600 font-medium">Calories:</span>
-
-                                <span onClick={() => { setIsOpen((prev) => !prev) }}
-                                    className="text-amber-500 cursor-pointer font-semibold">
-                                    {meal?.amoutnOfCalories}
-                                </span>
+                            {/* Ingredients */}
+                            <div className="mb-6">
+                                <h2 className="text-xl font-semibold text-gray-800 mb-3">
+                                    Ingredients
+                                </h2>
+                                <div className="flex flex-wrap gap-2">
+                                    {meal?.ingredients?.map((ingredient, index) => (
+                                        <span
+                                            key={index}
+                                            className="inline-block bg-gradient-to-r from-amber-50 to-amber-100 text-amber-700 px-4 py-2 rounded-full shadow-sm text-sm font-medium hover:shadow-md transition-shadow duration-200"
+                                        >
+                                            {ingredient}
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
-                            {isOpen && (<CaloriesSlider calories={meal?.amoutnOfCalories} setIsOpen={setIsOpen} />)}
 
-                            <p className="font-semibold text-lg text-gray-700 mb-4"> Ingredients: </p>
-
-                            <div className="flex flex-wrap gap-2">
-                                {meal?.ingredients?.map((ingredient, index) => (
-                                    <span key={index} className="inline-block bg-amber-100 text-amber-700 px-3 py-1 rounded-full shadow-sm text-sm font-medium" >
-                                        {ingredient}
-                                    </span>
-                                ))}
+                            {/* Reviews */}
+                            <div className="bg-gray-100 rounded-xl p-6">
+                                <div className="flex items-center gap-2 mb-4">
+                                    <MessageCircle className="w-6 h-6 text-gray-700" />
+                                    <h2 className="text-xl font-semibold text-gray-800">
+                                        Reviews
+                                    </h2>
+                                </div>
+                                <div className="space-y-4 max-h-[200px] overflow-y-auto pr-2">
+                                    {meal?.reviews?.map((review, index) => (
+                                        <div
+                                            key={index}
+                                            className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-200"
+                                        >
+                                            <div className="flex items-center justify-between mb-2">
+                                                <span className="font-semibold text-gray-800">
+                                                    {review.user.name}
+                                                </span>
+                                                <div className="flex items-center gap-1">
+                                                    <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                                                    <span className="font-medium text-amber-600">
+                                                        {review.rating}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <p className="text-gray-600">{review.comment}</p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
 
-                        <div className="bg-gray-100 rounded-lg p-4 mt-2">
-                            <h3 className="text-lg font-bold text-gray-800 mb-2">
-                                Reviews
-                            </h3>
-                            <p className="text-gray-600 italic">
-                                "Amazing taste and presentation! Highly recommend."
-                            </p>
-                        </div>
+                        {/* Action Button */}
+
                     </div>
-                </div>
-
-                <div className="p-5 text-xl font-semibold bg-gray-50 border-t border-gray-100 flex justify-center">
-                    <AddButton text="I Hungry 😋" fun={() => alert(meal.mealPrice)} className="w-full max-w-xs" />
                 </div>
             </dialog>
         </div>
@@ -93,6 +148,3 @@ function MealModal() {
 }
 
 export default MealModal;
-
-
-
