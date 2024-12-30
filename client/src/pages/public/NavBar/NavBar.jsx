@@ -4,18 +4,20 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import { MdOutlineTableBar } from "react-icons/md";
 import { RestaurantContex } from '../../../contexts/RestaurantContex'
 import { PiSignOut } from "react-icons/pi";
+import { TableContext } from '../../../Contexts/TableContext';
 
 
 function NavBar() {
   const { isAuth, signOut, user } = useContext(AuthContext);
   const { restaurant } = useContext(RestaurantContex)
+  const {tableMeals} = useContext(TableContext)
   const navigate = useNavigate()
 
   return (
     <nav className="w-full bg-gradient-to-r from-gray-900 via-gray-700 to-gray-800  ">
       <div className="max-w-screen-2xl w-11/12 mx-auto flex justify-between items-center py-3 ">
         {/* Logo and Restaurant Info */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 relative">
           <Link
             to="/"
             className="transition-transform hover:scale-105 flex items-center gap-4"
@@ -35,6 +37,10 @@ function NavBar() {
             className="text-2xl font-bold text-white cursor-pointer">{user?.userName} </p> 
             : <p className="text-2xl font-bold text-white cursor-pointer">{restaurant?.restaurantName}</p>}
 
+          </div>
+          <div className='absolute top-0 left-[255px] bg-rose-700/80  rounded-xl px-2 py-0.5'>
+
+          <p className=' text-white text-xl '>{tableMeals?.length}</p>
           </div>
           <label htmlFor="tableDrawer" className=""><MdOutlineTableBar
             className="text-white cursor-pointer hover:text-orange-500 transition-colors"

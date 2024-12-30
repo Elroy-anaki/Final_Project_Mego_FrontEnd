@@ -7,6 +7,7 @@ import AddButton from '../Meals/AddButton';
 import { TableContext } from '../../../../Contexts/TableContext'
 
 
+
 function MealModal() {
     const [isOpen, setIsOpen] = useState(false);
     const { meal } = useContext(MenuContext);
