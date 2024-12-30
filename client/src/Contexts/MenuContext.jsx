@@ -11,8 +11,8 @@ function MenuProvider({ children }) {
     const [chosenCategory, setChosenCategory] = useState({}) 
 
 
-    const { mutate:GetMealsByCategory } = useMutation({
-        mutationKey: ["GetMealsByCategory", chosenCategory],
+    const { mutate: GetMealsByCategory } = useMutation({
+        mutationKey: ["GetMealsByCategory"],
         mutationFn: async () =>
             await axios.get(`/meals/get-meals-by-category/${chosenCategory._id}`),
         onSuccess: (data) => {

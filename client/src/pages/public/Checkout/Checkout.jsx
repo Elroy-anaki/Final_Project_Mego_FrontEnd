@@ -14,9 +14,9 @@ import axios from 'axios'
 function Checkout() {
   const navigate = useNavigate()
 
-  const { fullOrder, setFullOrder, setValuesByOrderSchema } = useContext(FullOrderContext)
+  const {  setValuesByOrderSchema } = useContext(FullOrderContext)
 
-  const { table, tableMeals } = useContext(TableContext)
+  const { table, setTable } = useContext(TableContext)
   const { user } = useContext(AuthContext)
   const { orderDetails, remainingSeats, setRemainingSeats, getRemainingSeats } = useContext(OrderDetailsContext)
 
@@ -87,6 +87,7 @@ function Checkout() {
                 const order = setValuesByOrderSchema(values)
                 console.log(order)
                 createOrder(order)
+                setTable(null)
                 navigate('/home')
               }
               
@@ -178,7 +179,11 @@ function Checkout() {
                   </div>
 
                   <div className="flex gap-4 max-md:flex-col mt-8">
-                    <button type="button" className="rounded-md px-6 py-3 w-full text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-gray-800 max-md:order-1">Cancel</button>
+                    <button 
+                    onClick={() => {
+                      navigate('/')
+                    }}
+                    type="button" className="rounded-md px-6 py-3 w-full text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-gray-800 max-md:order-1">Cancel</button>
                     <button type="submit" className="rounded-md px-6 py-3 w-full text-sm tracking-wide bg-blue-600 hover:bg-blue-700 text-white">Complete Purchase</button>
                   </div>
                 </div>

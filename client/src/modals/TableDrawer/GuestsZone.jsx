@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { notifyError, notifySuccess } from '../../lib/Toasts';
 
-function GuestsZone() {
+function GuestsZone({setToggle, toggle}) {
     const { table } = useContext(TableContext);
     const [guests, setGuests] = useState(table ? table?.sharedWith : []);
 
@@ -35,7 +35,9 @@ function GuestsZone() {
       })
     
       const handleSubmitGuests = () => {
-        addGuests(guests)
+        addGuests(guests);
+        setToggle(!toggle)
+
       };
 
 
