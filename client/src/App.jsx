@@ -12,6 +12,7 @@ import TableModal from "./modals/TableDrawer/TableDrawer";
 const NavBar = lazy(() => import("./pages/public/NavBar/NavBar"));
 const Home = lazy(() => import("./pages/public/Home/Home"));
 const About = lazy(() => import("./pages/public/About/About"));
+const ContactUs = lazy(() => import("./pages/public/ContactUs/ContactUs"));
 const OrderPlace = lazy(() => import("./pages/public/OrderPlace/OrderPlace"));
 const MenuBoard = lazy(() => import("./pages/public/Menu/MenuBoard"));
 
@@ -53,6 +54,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route path="about" element={<About />} />
+        <Route path="Contact-Us" element={<ContactUs />} />
         <Route path="order-place" element={<OrderPlace />} />
         <Route path="menu" element={<MenuBoard />} />
         <Route path="checkout" element={<Checkout />} />
