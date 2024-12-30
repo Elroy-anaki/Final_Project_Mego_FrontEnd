@@ -55,6 +55,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="order-place" element={<OrderPlace />} />
         <Route path="menu" element={<MenuBoard />} />
+        <Route path="checkout" element={<Checkout />} />
           <Route path="add-reviews-by-order-id/:orderId/:guestEmail" element={<AddReviewMeal />} />
         
         {/* Public Routes */}

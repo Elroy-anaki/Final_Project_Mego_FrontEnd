@@ -49,7 +49,7 @@ function TableDrawer() {
         onClick={() => console.log(table)}
         className='w-1/2 px-4 py-2 rounded-l-lg bg-rose-600 text-2xl text-white'>Clear Table</button>
         <button
-        onClick={() => document.getElementById("closeDrawer").click()}
+        onClick={() => {document.getElementById("closeDrawer").click(); navigate('/checkout')}}
         className='w-1/2 px-4 py-2 rounded-r-lg bg-sky-600 text-2xl text-white'>Checkout To Payment</button>
         </div>
         </div>

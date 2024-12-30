@@ -6,19 +6,28 @@ import { hours } from '../../../helpers/restaurant'
 import { OrderDetailsContext } from '../../../contexts/OrderDetailsContext'
 import { Formik } from 'formik'
 import { FullOrderContext } from '../../../contexts/FullOrderContext'
-import { notifyError } from '../../../lib/Toasts'
+import { notifyError, notifySuccess } from '../../../lib/Toasts'
 import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 
 function Checkout() {
   const navigate = useNavigate()
 
   const { fullOrder, setFullOrder, setValuesByOrderSchema } = useContext(FullOrderContext)
 
-  const { table } = useContext(TableContext)
+  const { table, tableMeals } = useContext(TableContext)
   const { user } = useContext(AuthContext)
   const { orderDetails, remainingSeats, setRemainingSeats, getRemainingSeats } = useContext(OrderDetailsContext)
 
   const [initValues, setInitValues] = useState(null)
+
+  const {mutate: createOrder} = useMutation({
+    mutationKey:['createOrder'],
+    mutationFn: async (order) => await axios.post('/orders/add-order', order),
+    onSuccess:(data) => notifySuccess(data.data.msg),
+    onError:(error) => notifyError(error.response.data.msg)
+  })
 
 
 
@@ -27,7 +36,6 @@ function Checkout() {
     setInitValues({
       userName: user?.userName || "",
       userEmail: user?.userEmail || "",
-      userPhone: "",
       numberOfGuests: orderDetails?.people || 85,
       time: orderDetails?.time || "17:00-18:00",
       date: orderDetails?.date || "12/19/2024",
@@ -78,7 +86,8 @@ function Checkout() {
               } else {
                 const order = setValuesByOrderSchema(values)
                 console.log(order)
-                navigate('/about')
+                createOrder(order)
+                navigate('/home')
               }
               
 
@@ -119,15 +128,7 @@ function Checkout() {
                         className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
                     </div>
 
-                    <div>
-                      <input 
-                      type="text"
-                      name='userPhone'
-                      placeholder="Phone No."
-                        value={values?.userPhone}
-                        onChange={handleChange}
-                        className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
-                    </div>
+                    
                   </div>
                 </div>
 

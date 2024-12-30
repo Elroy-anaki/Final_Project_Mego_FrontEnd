@@ -1,11 +1,13 @@
 import { createContext, useContext, useState } from "react";
 import { AuthContext } from "./AuthContext";
+import { TableContext } from "./TableContext";
 
 export const FullOrderContext = createContext();
 
 function FullOrderProvider({children}){
 
     const {user, isAuth} = useContext(AuthContext)
+    const {tableMeals, table} = useContext(TableContext)
 
     const [fullOrder, setFullOrder] = useState(null)
 
@@ -20,6 +22,12 @@ function FullOrderProvider({children}){
             time: values.time
            },
            numberOfGuests: values.numberOfGuests,
+           table: {
+            sharedWith:table.sharedWith,
+            meals: table.meals.map((meal) => {
+              return {meal: meal.meal._id, quantity: meal.quantity}
+            })
+           }
            
         }
         return orderValues

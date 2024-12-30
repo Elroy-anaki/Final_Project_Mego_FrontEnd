@@ -25,6 +25,7 @@ const MealTableDrawer = ({ meal, edited = true }) => {
                 <div className="flex-1 py-8 pl-6 relative ">
                     <h2 className="text-2xl font-bold text-white mb-2 ">{meal.meal.mealName}</h2>
                     <p className="text-xl font-semibold text-emerald-400 mb-3">{meal.meal.mealPrice} $</p>
+                    {!edited && <p className="text-lg font-semibold text-gtay-200 ml-28">Quantity: {meal.quantity} </p>}
 
 
 
