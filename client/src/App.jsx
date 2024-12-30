@@ -15,6 +15,8 @@ const About = lazy(() => import("./pages/public/About/About"));
 const ContactUs = lazy(() => import("./pages/public/ContactUs/ContactUs"));
 const OrderPlace = lazy(() => import("./pages/public/OrderPlace/OrderPlace"));
 const MenuBoard = lazy(() => import("./pages/public/Menu/MenuBoard"));
+const ErrorPage = lazy(() => import('./pages/ErrorPage/ErrorPage'));
+
 
 // Import Auth Components
 const SignUp = lazy(() => import('./forms/Auth/SingUp/SingUp'));
@@ -24,11 +26,11 @@ const ForgotPassword = lazy(() => import("./forms/Auth/ForgotPassword/ForgotPass
 const ResetPassword = lazy(()=> import("./forms/Auth/ResetPassword/ResetPassword"))
 const EmailVerification = lazy(() => import("./forms/Auth/EmailVerification/EmailVerification"))
 const ProfileModal = lazy(() => import("./modals/ProfileModal"));
+const MealModal = lazy(() => import('./pages/public/Menu/Modal/MealModal'));
+const TableDrawer = lazy(() => import('./modals/TableDrawer/TableDrawer'));
 const MealModal = lazy(() => import('./pages/public/Menu/Modal/MealModal'))
 const TableDrawer = lazy(() => import('./modals/TableDrawer/TableDrawer'))
 const Checkout = lazy(() => import('./pages/public/Checkout/Checkout'))
-
-
 
 
 function Root() {
@@ -50,7 +52,7 @@ function Root() {
 function App() {   
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Root />}>
+      <Route path="/" element={<Root />} errorElement={<ErrorPage />}>
         <Route index element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route path="about" element={<About />} />
