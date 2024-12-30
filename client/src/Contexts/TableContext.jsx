@@ -9,7 +9,7 @@ export const TableContext = createContext();
 
 function TableProvider({ children }) {
 
-  
+  // Get Table In Mounting
   const { mutateAsync: getTableByUserEmail } = useMutation({
     mutationKey: ['getTableByUserEmail'],
     mutationFn: async (userEmail) => axios.get(`tables/get-table-by-user-id/${userEmail}`),
@@ -46,9 +46,9 @@ function TableProvider({ children }) {
 
   }, [user, isAuth, toggle]);
 
-  // useEffect(() => {
-  //   setTableMeals(table ? table.meals : [])
-  // }, [table]);
+  useEffect(() => {
+    setTableMeals(table ? table.meals : [])
+  }, [table]);
 
   // Actions
   const { mutateAsync: createOrEditTable } = useMutation({
@@ -70,7 +70,6 @@ function TableProvider({ children }) {
   });
 
 
-
   const { mutateAsync: addGuests } = useMutation({
     mutationKey: ['addGuests'],
     mutationFn: async (data) => axios.put(`/tables/add-guests/${data._id}`),
@@ -82,21 +81,22 @@ function TableProvider({ children }) {
     onError: (error) => console.log(error)
   });
 
+
   const { mutateAsync: deleteTable } = useMutation({
     mutationKey: ['deleteTable'],
     mutationFn: async (data) => axios.delete(`/tables/delete-table-by-id/${data._id}`),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['getTableByUserId'] })
       setTable(null)
+      queryClient.invalidateQueries({ queryKey: ['getTableByUserId'] })
       console.log("data", data)
       return data
     },
     onError: (error) => console.log(error)
   });
 
-
+  // Hndel Events
   async function handelAdding(mealId) {
-    if(tableMeals.length === 0){
+    if(tableMeals.length === 0 || !table){
         const newTable = {
           user: {
             userId: user._id,
@@ -124,8 +124,6 @@ function TableProvider({ children }) {
         }))
         : [...tableMeals, { meal: mealId, quantity: 1 }];
 
-      console.log("updatedTableMeals", updatedTableMeals);
-      console.log(tableMeals);
 
       await createOrEditTable(updatedTableMeals);
       setToggle(!toggle);
@@ -139,7 +137,6 @@ function TableProvider({ children }) {
       meal: item.meal._id,
       quantity: item.meal._id === mealId ? item.quantity - 1 : item.quantity
     }));
-    console.log(updatedTableMeals)
     await createOrEditTable(updatedTableMeals);
     setToggle(!toggle)
   };

@@ -24,7 +24,7 @@ function Checkout() {
 
   const {mutate: createOrder} = useMutation({
     mutationKey:['createOrder'],
-    mutationFn: async (order) => await axios.post('/orders/add-order', order),
+    mutationFn: async (order) => await axios.post(`/orders/add-order/${table._id}`, order),
     onSuccess:(data) => notifySuccess(data.data.msg),
     onError:(error) => notifyError(error.response.data.msg)
   })
