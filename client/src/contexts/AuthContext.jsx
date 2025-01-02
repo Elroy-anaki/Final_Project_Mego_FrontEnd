@@ -8,8 +8,10 @@ import MenuProvider from './MenuContext'
 import OrderDetailsProvider from "./OrderDetailsContext";
 import TableProvider from "./TableContext";
 import FullOrderProvider from "./FullOrderContext";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
+const CLIENT_ID = "941180979275-pn53d30kqqqrnf8uqgorcbvrrfqvdfrr.apps.googleusercontent.com"
 
 export const AuthContext = createContext()
 
@@ -115,7 +117,9 @@ function AuthProvider({ children }) {
                     <OrderDetailsProvider>
                         <TableProvider>
                             <FullOrderProvider>
+                                <GoogleOAuthProvider clientId={CLIENT_ID}>
                                 {children}
+                                </GoogleOAuthProvider>
                             </FullOrderProvider>
                         </TableProvider>
                     </OrderDetailsProvider>
