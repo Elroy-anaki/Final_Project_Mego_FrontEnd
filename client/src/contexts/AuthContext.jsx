@@ -67,6 +67,19 @@ function AuthProvider({ children }) {
             notifyError(error)
         }
     });
+    const { mutate: signUpGoogle } = useMutation({
+        mutationKey: ["signUpWithGoogle"],
+        mutationFn: async (data) => (await axios.post("/users/sign-up/google", data)),
+        onSuccess: (data) => {
+            console.log(data.data)
+            notifySuccess('Welcome!')
+            
+        },
+        onError: (error) => {
+            console.log(error)
+            notifyError(error)
+        }
+    });
 
     const { refetch: signOut, data: signOutData, } = useQuery({
         queryKey: ["signOut"],
@@ -105,6 +118,7 @@ function AuthProvider({ children }) {
         isAuth,
         setIsAuth,
         signUp,
+        signUpGoogle,
         signIn,
         signOut,
         verifyEmail,

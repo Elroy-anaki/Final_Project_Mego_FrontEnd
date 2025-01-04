@@ -4,6 +4,8 @@ import {validationSignInSchema} from "../../../schemas/userForms";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { notifyError, notifySuccess } from "../../../lib/Toasts";
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 
 
@@ -15,6 +17,14 @@ const initialUserValues = {
 function SignIn() {
   const { signIn } = useContext(AuthContext)
   const navigate = useNavigate()
+  async function signInWithGoogle(credentials) {
+    const signInValues = {
+      userEmail: credentials.email,
+      userPassword: credentials.sub,
+    };
+    await signIn(signInValues);
+
+  }
   
 
   return (
@@ -114,6 +124,23 @@ function SignIn() {
               >
                 {isSubmitting ? "Processing..." : "Sign In"}
               </button>
+              <div className="w-full py-3 px-6 text-white rounded-lg font-semibold tracking-wide flex justify-center items-center "
+              >
+              <GoogleLogin
+                  onSuccess={(credentialResponse) => {
+                    signInWithGoogle(jwtDecode(credentialResponse.credential));
+
+                    navigate("/auth/sign-in");
+                  }}
+                  onError={() => console.log("Login failed")}
+                  auto_select={true}
+                  size="large"
+                  shape="circle"
+                  logo_alignment="left"
+                  login_uri=""
+                />
+              
+              </div>
   
               <div className="text-center text-gray-600 text-sm mt-4">
                 <p>

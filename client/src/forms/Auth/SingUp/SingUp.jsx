@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { GoogleLogin , googleLogout} from "@react-oauth/google";
-import {jwtDecode} from "jwt-decode";
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
 import { Formik } from "formik";
@@ -12,14 +12,24 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
 function SingUp() {
-  const { signUp } = useContext(AuthContext);
+  const { signUp, signIn, signUpGoogle } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
- 
+  async function signUpWithGoogle(credentials) {
+    const signUpValues = {
+      userName: credentials.name,
+      userEmail: credentials.email,
+      userPassword: credentials.sub,
+      verify: true,
+    };
+
+    await signUpGoogle(signUpValues);
+    console.log("Sign-up successful");
+  }
 
   function handlelogout() {
-    googleLogout()
+    googleLogout();
   }
 
   return (
@@ -108,24 +118,20 @@ function SingUp() {
               >
                 {isSubmitting ? "Creating Account..." : "Join Now"}
               </button>
-              <button className="w-full py-3 px-6 text-black rounded-lg font-semibold tracking-wide border-2 text-center flex items-center justify-center gap-2">
+              <button className="w-full py-3 px-6 text-white rounded-lg font-semibold tracking-wide flex justify-center items-center">
                 <GoogleLogin
-                 onSuccess={(credentialResponse)=>{
-                  console.log("1111111",credentialResponse)
-                  console.log("2222222",jwtDecode(credentialResponse.credential))
-                  navigate("/")
-                }
-                  
-                 }
-                 onError={()=>console.log("Login failed")
-                 }
-                 auto_select={true}
-                 size="large"
-                 shape="circle"
-                 logo_alignment="left"
-                 login_uri=""
-                  
-                  />
+                  onSuccess={(credentialResponse) => {
+                    signUpWithGoogle(jwtDecode(credentialResponse.credential));
+
+                    navigate("/auth/sign-in");
+                  }}
+                  onError={() => console.log("Login failed")}
+                  auto_select={true}
+                  size="large"
+                  shape="circle"
+                  logo_alignment="left"
+                  login_uri=""
+                />
                 {/* <FcGoogle className="w-5 h-5" />
                 Sign up with Google */}
               </button>
