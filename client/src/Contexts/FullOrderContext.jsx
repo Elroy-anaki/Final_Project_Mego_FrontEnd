@@ -6,10 +6,11 @@ export const FullOrderContext = createContext();
 
 function FullOrderProvider({children}){
 
-    const {user, isAuth} = useContext(AuthContext)
-    const {tableMeals, table} = useContext(TableContext)
+    const {user, isAuth} = useContext(AuthContext);
+    const {tableMeals, table} = useContext(TableContext);
 
-    const [fullOrder, setFullOrder] = useState(null)
+    const [fullOrder, setFullOrder] = useState(null);
+    const [priceChoice, setPriceChoice] = useState('full price');
 
     function setValuesByOrderSchema(values){
         const orderValues = {
@@ -37,7 +38,9 @@ function FullOrderProvider({children}){
     const fullOrderGlobalState = {
         fullOrder,
         setFullOrder,
-        setValuesByOrderSchema
+        setValuesByOrderSchema,
+        priceChoice,
+        setPriceChoice
 
     }
 

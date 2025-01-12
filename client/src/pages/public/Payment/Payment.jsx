@@ -1,0 +1,67 @@
+import { PayPalButtons } from '@paypal/react-paypal-js';
+import React, { useContext } from 'react';
+import axios from 'axios'
+import { TableContext } from '../../../contexts/TableContext';
+import { FullOrderContext } from '../../../contexts/FullOrderContext';
+import { notifyError } from '../../../lib/Toasts';
+import { useMutation } from '@tanstack/react-query';
+
+function Payment() {
+    const {table, setTable} = useContext(TableContext)
+    const {fullOrder} = useContext(FullOrderContext)
+
+      const { mutate: addOrder } = useMutation({
+        mutationKey: ['createOrder'],
+        mutationFn: async (order) => await axios.post(`/orders/add-order/${table._id}`, order),
+        onSuccess: (data) => {notifySuccess(data.data.msg); setTable(null);
+        },
+        onError: (error) => notifyError(error.response.data.msg)
+      })
+    
+    
+
+    const createOrder = async (data) => {
+        console.log(table)
+        const response = await axios({
+          url: "/orders/payment/create-order",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data:JSON.stringify({table:table})
+        });
+        return response.data.orderId;
+      };
+    
+      const onApprove = async (data) => {
+      const response = await axios({
+          url: "/orders/payment/complete-order",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify({ orderId: data.orderID }),
+        });
+
+        if(response.status === 200){
+            addOrder(fullOrder)
+        } else{
+            notifyError("Order failed for some reason!")
+        }
+        return response.data;
+      };
+
+  return (
+    <div className="w-full mx-auto bg-white space-y-28 mt-10">
+        <h2 onClick={() => console.log(table)} className='text-3xl text-black text-center'>Payment Page</h2>
+      <div className="w-1/2 mx-auto">
+      {table && <PayPalButtons 
+        createOrder={(data, actions) => createOrder(data, actions)}
+        onApprove={(data, actions) => onApprove(data, actions)}
+        />}
+      </div>
+    </div>
+  );
+}
+
+export default Payment;
