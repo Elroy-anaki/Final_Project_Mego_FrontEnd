@@ -70,16 +70,28 @@ function AuthProvider({ children }) {
     const { mutate: signUpGoogle } = useMutation({
         mutationKey: ["signUpWithGoogle"],
         mutationFn: async (data) => (await axios.post("/users/sign-up/google", data)),
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             console.log(data.data)
-            notifySuccess('Welcome!')
-            
+            await signInWithGoogle(data.data.data)
+            notifySuccess('Welcome To Our Restaurant Please sign in!')
+
         },
         onError: (error) => {
             console.log(error)
             notifyError(error)
         }
     });
+
+    async function signInWithGoogle(credentials, afterSignUp = true) {
+        console.log(credentials)
+        const signInValues = {
+            userEmail: afterSignUp ? credentials.userEmail : credentials.email,
+            userPassword: afterSignUp ? credentials.userPassword : credentials.sub
+        }
+        console.log(signInValues)
+        await signIn(signInValues);
+        }
+    
 
     const { refetch: signOut, data: signOutData, } = useQuery({
         queryKey: ["signOut"],
@@ -119,6 +131,7 @@ function AuthProvider({ children }) {
         setIsAuth,
         signUp,
         signUpGoogle,
+        signInWithGoogle,
         signIn,
         signOut,
         verifyEmail,
@@ -132,7 +145,7 @@ function AuthProvider({ children }) {
                         <TableProvider>
                             <FullOrderProvider>
                                 <GoogleOAuthProvider clientId={CLIENT_ID}>
-                                {children}
+                                    {children}
                                 </GoogleOAuthProvider>
                             </FullOrderProvider>
                         </TableProvider>

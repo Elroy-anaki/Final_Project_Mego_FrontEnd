@@ -8,9 +8,9 @@ function Meals({}) {
   console.log(menu)
 
   return (
-    <div className="w-full mx-auto">
+    <div className="w-full mt-5 mx-auto">
       
-      <div className="flex flex-wrap justify-center ">
+      <div className="flex  justify-start flex-wrap ">
         {menu?.map((meal) => <Meal key={meal._id} meal={meal} />)}
       </div>
     </div>

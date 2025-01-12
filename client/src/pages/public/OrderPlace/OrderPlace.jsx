@@ -2,6 +2,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { RiResetLeftFill } from "react-icons/ri";
+import { CiSaveUp2 } from "react-icons/ci";
+
+
 import axios from 'axios';
 
 // Import Context + Utils
@@ -132,9 +136,12 @@ function OrderPlace() {
 
 
                         }}
-                        className='absolute bottom-2 left-2 w-28 px-6 py-2 rounded-2xl bg-gradient-to-r from-rose-700 to-rose-600 text-black text-lg font-bold hover:from-rose-600 hover:to-rose-500 shadow-xl   hover:bottom-3 right-6 transition-all transform hover:scale-105'
+                        className='absolute flex justify-center items-center gap-3  bottom-2 left-2 w-36 px-6 py-2 rounded-2xl bg-gradient-to-r from-rose-700 to-rose-600 text-black text-lg font-bold hover:from-rose-600 hover:to-rose-500 shadow-xl   hover:bottom-3 right-6 transition-all transform hover:scale-105'
                     >
-                        Reset
+                       <p>Reset</p>
+                        <RiResetLeftFill size={20}/>
+
+
                     </button>
                     <button
                         onClick={() => {
@@ -142,9 +149,12 @@ function OrderPlace() {
                             navigate('/menu')
 
                         }}
-                        className='absolute bottom-2 right-2 px-6 py-2 rounded-2xl bg-gradient-to-r from-green-600 to-green-500 text-black text-lg font-bold hover:from-green-500 hover:to-green-400 shadow-xl hover:bottom-3 transition-all transform hover:scale-105'
+                        className='absolute flex justify-center items-center gap-3   bottom-2 right-2 w-62 px-6 py-2 rounded-2xl bg-gradient-to-r from-green-600 to-green-500 text-black text-lg font-bold hover:from-green-500 hover:to-green-400 shadow-xl hover:bottom-3 transition-all transform hover:scale-105'
                     >
-                        Save and Continue
+                        <p>Save and Continue</p>
+                        <CiSaveUp2 size={25}/>
+
+                        
                     </button>
 
 

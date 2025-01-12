@@ -19,7 +19,7 @@ function MealModal() {
     return (
         <div>
             <dialog
-                id="mealDatails"
+                id="mealDetails"
                 className="modal bg-white shadow-2xl rounded-2xl overflow-hidden border-0 w-[90%] max-w-4xl max-h-[90vh] mx-auto"
             >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
@@ -36,7 +36,7 @@ function MealModal() {
                                 fun={() => {
                                     console.log(meal)
                                     handelAdding(meal._id)
-                                    document.getElementById('mealDatails').close();
+                                    document.getElementById('mealDetails').close();
 
 
                                 }}
@@ -46,7 +46,7 @@ function MealModal() {
                         <div className="absolute top-4 right-4">
                             <button
                                 onClick={() => {
-                                    document.getElementById('mealDatails').close();
+                                    document.getElementById('mealDetails').close();
                                 }}
                                 className="bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-lg hover:bg-white transition-colors duration-200"
                             >

@@ -15,16 +15,9 @@ const initialUserValues = {
 };
 
 function SignIn() {
-  const { signIn } = useContext(AuthContext)
+  const { signIn, signInWithGoogle } = useContext(AuthContext)
   const navigate = useNavigate()
-  async function signInWithGoogle(credentials) {
-    const signInValues = {
-      userEmail: credentials.email,
-      userPassword: credentials.sub,
-    };
-    await signIn(signInValues);
-
-  }
+  
   
 
   return (
@@ -128,7 +121,7 @@ function SignIn() {
               >
               <GoogleLogin
                   onSuccess={(credentialResponse) => {
-                    signInWithGoogle(jwtDecode(credentialResponse.credential));
+                    signInWithGoogle(jwtDecode(credentialResponse.credential), false);
 
                     navigate("/auth/sign-in");
                   }}

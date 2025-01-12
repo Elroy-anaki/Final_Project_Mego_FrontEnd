@@ -11,8 +11,8 @@ function Meal({ key, meal }) {
   return (
     <div
       key={key}
-      className="max-w-sm w-72 h-72 mx-auto 
-      overflow-hidden rounded-2xl shadow-xl bg-gradient-to-b from-white to-amber-100 
+      className="max-w-sm w-72 h-72 mx-2
+      overflow-hidden rounded-3xl shadow-xl bg-gradient-to-b from-white to-amber-100 
       transform hover:scale-105 transition-transform duration-300 mb-5"
     >
       <div className=" h-36">
@@ -20,7 +20,7 @@ function Meal({ key, meal }) {
         loading='lazy'
           onClick={() =>{ 
             setMeal(meal);
-            document.getElementById('mealDatails').showModal();
+            document.getElementById('mealDetails').showModal();
           }}
           src={meal.mealImage}
           alt={meal.mealName}

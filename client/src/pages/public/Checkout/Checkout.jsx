@@ -79,24 +79,14 @@ function Checkout() {
               } else {
                 setFullOrder(setValuesByOrderSchema(values))
                 navigate('/payment')
-                return
-                const order = setValuesByOrderSchema(values)
-                console.log(order)
-                createOrder(order)
-                setTable(null)
-                navigate('/home')
               }
-
 
             }}
           >
             {({
               values,
               handleChange,
-              handleBlur,
               handleSubmit,
-              isSubmitting,
-              /* and other goodies */
             }) => (
               <form
                 onSubmit={handleSubmit}

@@ -3,17 +3,22 @@ import React, { useContext } from 'react';
 import axios from 'axios'
 import { TableContext } from '../../../contexts/TableContext';
 import { FullOrderContext } from '../../../contexts/FullOrderContext';
-import { notifyError } from '../../../lib/Toasts';
+import { notifyError, notifySuccess } from '../../../lib/Toasts';
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 function Payment() {
     const {table, setTable} = useContext(TableContext)
     const {fullOrder} = useContext(FullOrderContext)
+    const navigate = useNavigate()
 
       const { mutate: addOrder } = useMutation({
         mutationKey: ['createOrder'],
         mutationFn: async (order) => await axios.post(`/orders/add-order/${table._id}`, order),
-        onSuccess: (data) => {notifySuccess(data.data.msg); setTable(null);
+        onSuccess: (data) => {
+          notifySuccess(data.data.msg); 
+          alert("YES")
+          
         },
         onError: (error) => notifyError(error.response.data.msg)
       })
@@ -42,9 +47,14 @@ function Payment() {
           },
           data: JSON.stringify({ orderId: data.orderID }),
         });
-
+        console.log(response)
         if(response.status === 200){
             addOrder(fullOrder)
+            notifySuccess("Thank you for choosing to eat at my place. See you later!")
+            navigate('/home')
+            setTable(null);
+            
+
         } else{
             notifyError("Order failed for some reason!")
         }
