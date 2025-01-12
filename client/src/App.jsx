@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import TableModal from "./modals/TableDrawer/TableDrawer";
 import { AuthContext } from "./contexts/AuthContext";
+import Payment from "./pages/public/Payment/Payment";
 
 // Import Public Pages
 const NavBar = lazy(() => import("./pages/public/NavBar/NavBar"));
@@ -61,6 +62,7 @@ function App() {
         <Route path="order-place" element={<OrderPlace />} />
         <Route path="menu" element={<MenuBoard />} />
         <Route path="checkout" element={<Checkout />} />
+        <Route path="payment" element={<Payment/>}/>
         <Route path="add-reviews-by-order-id/:orderId/:guestEmail" element={<AddReviewMeal />} />
         
         {/* Public Routes */}
