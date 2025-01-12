@@ -8,8 +8,10 @@ import MenuProvider from './MenuContext'
 import OrderDetailsProvider from "./OrderDetailsContext";
 import TableProvider from "./TableContext";
 import FullOrderProvider from "./FullOrderContext";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
+const CLIENT_ID = "941180979275-pn53d30kqqqrnf8uqgorcbvrrfqvdfrr.apps.googleusercontent.com"
 
 export const AuthContext = createContext()
 
@@ -65,6 +67,19 @@ function AuthProvider({ children }) {
             notifyError(error.response.data.msg)
         }
     });
+    const { mutate: signUpGoogle } = useMutation({
+        mutationKey: ["signUpWithGoogle"],
+        mutationFn: async (data) => (await axios.post("/users/sign-up/google", data)),
+        onSuccess: (data) => {
+            console.log(data.data)
+            notifySuccess('Welcome!')
+            
+        },
+        onError: (error) => {
+            console.log(error)
+            notifyError(error)
+        }
+    });
 
     const { refetch: signOut, data: signOutData, } = useQuery({
         queryKey: ["signOut"],
@@ -103,6 +118,7 @@ function AuthProvider({ children }) {
         isAuth,
         setIsAuth,
         signUp,
+        signUpGoogle,
         signIn,
         signOut,
         verifyEmail,
@@ -115,7 +131,9 @@ function AuthProvider({ children }) {
                     <OrderDetailsProvider>
                         <TableProvider>
                             <FullOrderProvider>
+                                <GoogleOAuthProvider clientId={CLIENT_ID}>
                                 {children}
+                                </GoogleOAuthProvider>
                             </FullOrderProvider>
                         </TableProvider>
                     </OrderDetailsProvider>
