@@ -9,7 +9,7 @@ function GuestsZone({setToggle, toggle}) {
     const { table } = useContext(TableContext);
     const [guests, setGuests] = useState(table ? table?.sharedWith : []);
 
-    const MAX_GUESTS = 3;
+    const MAX_GUESTS = 4;
     const handleAddGuest = () => {
         if (guests.length < MAX_GUESTS) {
           setGuests([...guests, { guestEmail: "", rated: false }]); 

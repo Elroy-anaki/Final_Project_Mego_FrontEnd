@@ -14,20 +14,13 @@ import axios from 'axios'
 function Checkout() {
   const navigate = useNavigate()
 
-  const {  setValuesByOrderSchema } = useContext(FullOrderContext)
+  const { setValuesByOrderSchema, setPriceChoice, priceChoice, setFullOrder } = useContext(FullOrderContext)
 
   const { table, setTable } = useContext(TableContext)
   const { user } = useContext(AuthContext)
   const { orderDetails, remainingSeats, setRemainingSeats, getRemainingSeats } = useContext(OrderDetailsContext)
 
   const [initValues, setInitValues] = useState(null)
-
-  const {mutate: createOrder} = useMutation({
-    mutationKey:['createOrder'],
-    mutationFn: async (order) => await axios.post(`/orders/add-order/${table._id}`, order),
-    onSuccess:(data) => notifySuccess(data.data.msg),
-    onError:(error) => notifyError(error.response.data.msg)
-  })
 
 
 
@@ -78,19 +71,22 @@ function Checkout() {
             initialValues={initValues}
             enableReinitialize
             onSubmit={async (values, actions) => {
-              
-              await getRemainingSeats({date: values.date, time: values.time })
-              if(remainingSeats.length === 0) {
+
+              await getRemainingSeats({ date: values.date, time: values.time })
+              if (remainingSeats.length === 0) {
                 return notifyError("The restaurant is Full!!!!!")
-                
+
               } else {
+                setFullOrder(setValuesByOrderSchema(values))
+                navigate('/payment')
+                return
                 const order = setValuesByOrderSchema(values)
                 console.log(order)
                 createOrder(order)
                 setTable(null)
                 navigate('/home')
               }
-              
+
 
             }}
           >
@@ -109,10 +105,10 @@ function Checkout() {
                   <h3 className="text-base text-gray-800 mb-4">Personal Details</h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <input 
-                      type="text" 
-                      name="userName"
-                      placeholder="Full Name"
+                      <input
+                        type="text"
+                        name="userName"
+                        placeholder="Full Name"
                         value={values?.userName}
                         onChange={handleChange}
                         className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
@@ -120,16 +116,16 @@ function Checkout() {
 
 
                     <div>
-                      <input 
-                      type="email"
-                      name="userEmail"     
-                       placeholder="Email"
+                      <input
+                        type="email"
+                        name="userEmail"
+                        placeholder="Email"
                         value={values?.userEmail}
                         onChange={handleChange}
                         className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600" />
                     </div>
 
-                    
+
                   </div>
                 </div>
 
@@ -138,25 +134,25 @@ function Checkout() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <input
-                      type="date"
-                       name="date"
+                        type="date"
+                        name="date"
                         id="date"
                         value={values?.date}
                         onChange={handleChange}
                         className="bg-gray-100 text-black w-full h-12 rounded-xl"
                         min={new Date().toISOString().split('T')[0]}
-                         />
+                      />
                     </div>
                     <div>
 
                       <select
                         value={values?.time}
                         className="bg-gray-100 text-gray-800 w-full h-12 rounded-xl"
-                        onChange={async(e) => {
+                        onChange={async (e) => {
                           handleChange(e)
-                          const data = await getRemainingSeats({date: values.date, time: e.target.value })
+                          const data = await getRemainingSeats({ date: values.date, time: e.target.value })
                           console.log(data.data.data[0].remaining)
-                          if(data.data.data[0].remaining === 0) {notifyError("The restaurant is Full!!!!!")} 
+                          if (data.data.data[0].remaining === 0) { notifyError("The restaurant is Full!!!!!") }
                         }}
                         name="time"
                         id="time">
@@ -177,13 +173,25 @@ function Checkout() {
                     </div>
 
                   </div>
+                  <div className='space-y-2 flex items-center gap-5 border-t-2 border-t-gray-300 my-3'>
+                    <h2 className='text-xl text-center text-black'>Choose Your Payment:</h2>
+                    <div className=' text-black justify-center items-center  flex cursor-pointer'>
+                      <div
+                        onClick={() => setPriceChoice('full price')}
+                        className={`px-5 py-3 rounded-l-xl ${priceChoice === 'full price' ? 'bg-blue-700' : 'bg-blue-500'} hover:bg-blue-700`}>Full Price</div>
+                      <div
+                        onClick={() => setPriceChoice('20%')}
+
+                        className={`px-5 py-3 rounded-r-xl ${priceChoice !== 'full price' ? 'bg-blue-700' : 'bg-blue-500'} hover:bg-blue-700`}>20%</div>
+                    </div>
+                  </div>
 
                   <div className="flex gap-4 max-md:flex-col mt-8">
-                    <button 
-                    onClick={() => {
-                      navigate('/')
-                    }}
-                    type="button" className="rounded-md px-6 py-3 w-full text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-gray-800 max-md:order-1">Cancel</button>
+                    <button
+                      onClick={() => {
+                        navigate('/')
+                      }}
+                      type="button" className="rounded-md px-6 py-3 w-full text-sm tracking-wide bg-transparent hover:bg-gray-100 border border-gray-300 text-gray-800 max-md:order-1">Cancel</button>
                     <button type="submit" className="rounded-md px-6 py-3 w-full text-sm tracking-wide bg-blue-600 hover:bg-blue-700 text-white">Complete Purchase</button>
                   </div>
                 </div>

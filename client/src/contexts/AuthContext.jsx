@@ -64,7 +64,7 @@ function AuthProvider({ children }) {
         },
         onError: (error) => {
             console.log(error)
-            notifyError(error)
+            notifyError(error.response.data.msg)
         }
     });
     const { mutate: signUpGoogle } = useMutation({
