@@ -32,10 +32,38 @@ function NavBar() {
           </Link>
           <div className='flex items-center gap-5'>
 
-            {isAuth ? <p
-              onClick={() => document.getElementById('profileModal').showModal()}
-              className="text-2xl font-bold text-white cursor-pointer">{user?.userName} </p>
-              : <p className="text-2xl font-bold text-white cursor-pointer">{restaurant?.restaurantName}</p>}
+            {isAuth ? (
+              <div className="dropdown relative inline-block text-left">
+                <button  
+                className="dropdown-button text-2xl bg-gray-50 font-bold text-black rounded-t-lg px-3 py-1 w-full border border-gray-300 shadow-sm cursor-pointer">
+                  {user?.userName}
+                </button>
+                <div className="dropdown-content absolute left-0 bg-gray-50 w-full text-center rounded-b-lg border border-t-0 border-gray-300 shadow-md">
+                <button
+                    onClick={() => {document.getElementById('profileModal').showModal();}}
+                    className="text-base font-bold text-black cursor-pointer py-2  hover:bg-gray-200"
+                  >
+                    Profile
+                  </button>
+                  <Link to={"/orders-history"}
+                  onClick={() => {
+                    document.querySelector('.dropdown-content').classList.add('hidden');
+                  }}
+                  >
+                    <p className="text-base font-bold text-black cursor-pointer py-2 hover:bg-gray-200">
+                      Orders
+                    </p>
+                  </Link>
+                  
+                </div>
+              </div>
+            ) : (
+              <p className="text-2xl font-bold text-white cursor-pointer">
+                {restaurant?.restaurantName}
+              </p>
+            )}
+
+
 
           </div>
           <div className='absolute top-0 left-[255px] bg-rose-700/80  rounded-xl px-2 py-0.5'>

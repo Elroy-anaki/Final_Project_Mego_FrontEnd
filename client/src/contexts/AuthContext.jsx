@@ -45,7 +45,7 @@ function AuthProvider({ children }) {
         mutationKey: ["signIn"],
         mutationFn: async (data) => (await axios.post(`/users/sign-in`, data)),
         onSuccess: (data) => {
-            console.log(data.data.data.userName)
+            console.log("data.data.data.userName", data.data.data.userName)
             setIsAuth(true)
             console.log(data.data.data)
             setUser(data.data.data)

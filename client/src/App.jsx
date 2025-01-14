@@ -10,6 +10,7 @@ import {
 import TableModal from "./modals/TableDrawer/TableDrawer";
 import { AuthContext } from "./contexts/AuthContext";
 import Payment from "./pages/public/Payment/Payment";
+import OrdersHistory from "./pages/public/OrdersHistory/OrdersHistory";
 
 // Import Public Pages
 const NavBar = lazy(() => import("./pages/public/NavBar/NavBar"));
@@ -64,6 +65,7 @@ function App() {
         <Route path="checkout" element={<Checkout />} />
         <Route path="payment" element={<Payment/>}/>
         <Route path="add-reviews-by-order-id/:orderId/:guestEmail" element={<AddReviewMeal />} />
+        <Route path="orders-history" element={<OrdersHistory/>} />
         
         {/* Public Routes */}
         <Route path="/auth" element={!isAuth ? <Outlet /> : <Navigate to={'/'}/>}>

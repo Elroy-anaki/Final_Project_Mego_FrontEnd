@@ -59,8 +59,8 @@ function OrderPlace() {
 
     return (
         <div
-            className='bg-gradient-to-br from-gray-800 to-gray-700 pb-48 '>
-            <h2 className='text-center text-3xl font-bold text-amber-500 py-4'>
+            className='bg-gradient-to-br from-gray-800 to-gray-700 pb-48 pt-5 '>
+            <h2 className='text-5xl font-extrabold text-white text-center mb-6'>
                 Welcome to Our Restaurant!
             </h2>
             {/* <Calendar

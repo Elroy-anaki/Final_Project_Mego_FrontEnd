@@ -51,7 +51,7 @@ function ProfileModal() {
                             validationSchema={validationEditProfileSchema}
                             enableReinitialize={true}
                             onSubmit={async (values, actions) => {
-                                 editUserDetails(values)
+                                editUserDetails(values)
                             }}
                         >
                             {({
