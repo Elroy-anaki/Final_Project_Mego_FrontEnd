@@ -16,8 +16,7 @@ function Payment() {
         mutationKey: ['createOrder'],
         mutationFn: async (order) => await axios.post(`/orders/add-order/${table._id}`, order),
         onSuccess: (data) => {
-          notifySuccess(data.data.msg); 
-          alert("YES")
+          notifySuccess("Thank you for choosing to eat at my place. See you later!")
           
         },
         onError: (error) => notifyError(error.response.data.msg)
@@ -50,7 +49,6 @@ function Payment() {
         console.log(response)
         if(response.status === 200){
             addOrder(fullOrder)
-            notifySuccess("Thank you for choosing to eat at my place. See you later!")
             navigate('/home')
             setTable(null);
             

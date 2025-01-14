@@ -88,7 +88,7 @@ function OrderPlace() {
                         <input
                             value={values?.date}
                             className="bg-gray-600 text-white w-full h-12 rounded-xl"
-                            // min={new Date().toISOString().split('T')[0]}
+                            min={new Date().toISOString().split('T')[0]}
                             onChange={(e) => {
                                 handleChange(e)
                                 setShowTime(true)
