@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AuthContext } from "./AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { notifyError } from "../lib/Toasts";
 
 export const TableContext = createContext();
 
@@ -94,8 +95,11 @@ function TableProvider({ children }) {
     onError: (error) => console.log(error)
   });
 
-  // Hndel Events
+  // Handel Events
   async function handelAdding(mealId) {
+    if(!isAuth){
+      return notifyError("You need to sign in if you want to eat!")
+    }
     if(tableMeals.length === 0 || !table){
         const newTable = {
           user: {
