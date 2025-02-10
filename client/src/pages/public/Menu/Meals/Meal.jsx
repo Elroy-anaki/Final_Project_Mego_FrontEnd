@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import {MenuContext} from '../../../../Contexts/MenuContext.jsx';
-import {TableContext} from '../../../../Contexts/TableContext.jsx'
+import {MenuContext} from '../../../../context/MenuContext.jsx';
+import {TableContext} from '../../../../context/TableContext.jsx'
 import AddButton  from './AddButton.jsx';
 
 

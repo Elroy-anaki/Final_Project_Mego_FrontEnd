@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { RestaurantContex } from '../../../Contexts/RestaurantContex';
+import { RestaurantContex } from '../../../context/RestaurantContex';
 
 function About() {
   const { restaurant } = useContext(RestaurantContex);

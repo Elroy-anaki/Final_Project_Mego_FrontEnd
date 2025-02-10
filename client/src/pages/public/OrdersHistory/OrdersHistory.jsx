@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { useContext } from 'react'
-import { AuthContext } from '../../../contexts/AuthContext'
+import { AuthContext } from '../../../context/AuthContext'
 import Order from './Order'
 
 function OrdersHistory() {

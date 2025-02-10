@@ -4,7 +4,7 @@ import App from './App.jsx';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios from 'axios';
-import AuthProvider from './contexts/AuthContext.jsx';
+import AuthProvider from './context/AuthContext.jsx';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 import { ToastContainer } from 'react-toastify';

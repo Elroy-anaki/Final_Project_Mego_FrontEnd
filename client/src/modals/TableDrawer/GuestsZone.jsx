@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { TableContext } from '../../contexts/TableContext';
+import { TableContext } from '../../context/TableContext';
 import AddButton from '../../pages/public/Menu/Meals/AddButton';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';

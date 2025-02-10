@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { FaArrowRight, FaTrashAlt, FaMinus, FaPlus, FaPencilAlt } from "react-icons/fa";
-import { TableContext } from '../../contexts/TableContext';
+import { TableContext } from '../../context/TableContext';
 
 const MealTableDrawer = ({ meal, edited = true }) => {
 

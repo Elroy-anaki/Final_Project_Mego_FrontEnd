@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Formik } from "formik";
 import {validationSignInSchema} from "../../../schemas/userForms";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 import { notifyError, notifySuccess } from "../../../lib/Toasts";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";

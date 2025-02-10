@@ -1,8 +1,8 @@
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import React, { useContext } from 'react';
 import axios from 'axios'
-import { TableContext } from '../../../contexts/TableContext';
-import { FullOrderContext } from '../../../contexts/FullOrderContext';
+import { TableContext } from '../../../context/TableContext';
+import { FullOrderContext } from '../../../context/FullOrderContext';
 import { notifyError, notifySuccess } from '../../../lib/Toasts';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';

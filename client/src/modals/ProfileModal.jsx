@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Formik } from "formik";
-import { AuthContext } from '../Contexts/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import { notifyError, notifySuccess } from "../lib/Toasts";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useQuery, useMutation } from '@tanstack/react-query';

@@ -8,7 +8,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import TableModal from "./modals/TableDrawer/TableDrawer";
-import { AuthContext } from "./contexts/AuthContext";
+import { AuthContext } from "./context/AuthContext";
 import Payment from "./pages/public/Payment/Payment";
 import OrdersHistory from "./pages/public/OrdersHistory/OrdersHistory";
 

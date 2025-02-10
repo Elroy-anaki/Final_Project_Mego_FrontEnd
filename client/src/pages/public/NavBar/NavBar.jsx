@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../contexts/AuthContext';
+import { AuthContext } from '../../../context/AuthContext';
 import { MdOutlineTableBar } from "react-icons/md";
-import { RestaurantContex } from '../../../contexts/RestaurantContex'
+import { RestaurantContex } from '../../../context/RestaurantContex'
 import { PiSignOut } from "react-icons/pi";
-import { TableContext } from '../../../Contexts/TableContext';
+import { TableContext } from '../../../context/TableContext';
 
 
 function NavBar() {

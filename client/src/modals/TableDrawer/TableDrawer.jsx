@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { TableContext } from '../../contexts/TableContext';
+import { TableContext } from '../../context/TableContext';
 import { FaTrashAlt } from "react-icons/fa";
 import MealTableDrawer from './MealTableDrawer';
 import { Link, useNavigate } from 'react-router-dom';

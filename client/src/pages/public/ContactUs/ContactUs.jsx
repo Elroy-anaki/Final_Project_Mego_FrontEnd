@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { MapPin, Mail, Clock } from 'lucide-react';
-import { RestaurantContex } from '../../../Contexts/RestaurantContex';
+import { RestaurantContex } from '../../../context/RestaurantContex';
 
 function ContactUs() {
   const { restaurant } = useContext(RestaurantContex);

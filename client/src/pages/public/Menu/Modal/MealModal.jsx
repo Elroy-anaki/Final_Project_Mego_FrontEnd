@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { MenuContext } from '../../../../Contexts/MenuContext';
+import { MenuContext } from '../../../../context/MenuContext';
 import { IoClose } from 'react-icons/io5';
 import { Star, Clock, MessageCircle } from 'lucide-react';
 import CaloriesSlider from './CaloriesSlider';
 import AddButton from '../Meals/AddButton';
-import { TableContext } from '../../../../Contexts/TableContext'
-import { AuthContext } from '../../../../contexts/AuthContext';
+import { TableContext } from '../../../../context/TableContext'
+import { AuthContext } from '../../../../context/AuthContext';
 
 
 

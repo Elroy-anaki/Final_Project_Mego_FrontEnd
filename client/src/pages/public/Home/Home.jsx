@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import CubeLink from './CubeLink'
-import { AuthContext } from '../../../contexts/AuthContext'
+import { AuthContext } from '../../../context/AuthContext'
 
 const cubeLinks = [
   {name:"Menu", link:"menu", image:"https://images.unsplash.com/photo-1710732652617-264d6f860546?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudCUyMG1lbnV8ZW58MHx8MHx8fDA%3D"},

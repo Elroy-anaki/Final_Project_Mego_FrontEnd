@@ -3,7 +3,7 @@ import axios from 'axios'
 import React, { useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { notifySuccess } from '../../../lib/Toasts'
-import { AuthContext } from '../../../contexts/AuthContext'
+import { AuthContext } from '../../../context/AuthContext'
 
 function EmailVerification() {
 

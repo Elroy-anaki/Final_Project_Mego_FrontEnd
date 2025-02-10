@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import SideBar from './SideBar/Sidebar';
 import Meals from './Meals/Meals';
-import { OrderDetailsContext } from '../../../Contexts/OrderDetailsContext';
+import { OrderDetailsContext } from '../../../context/OrderDetailsContext';
 
 
 function MenuBoard() {
