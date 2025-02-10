@@ -82,7 +82,11 @@ function App() {
 
   return (
     <div>
-      <RouterProvider router={router} />
+      <RouterProvider 
+      router={router}
+      future={{ 
+        v7_startTransition: true,
+        v7_relativeSplatPath: true}} />
     </div>
   );
 }
