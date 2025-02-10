@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, } from "react";
 import RestaurantProvider from "./RestaurantContex";
 import { notifyError, notifySuccess } from "../lib/Toasts";
-import MenuProvider from './MenuContext'
+import MenuProvider from "./MenuContext";
 import OrderDetailsProvider from "./OrderDetailsContext";
 import TableProvider from "./TableContext";
 import FullOrderProvider from "./FullOrderContext";
