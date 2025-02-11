@@ -12,7 +12,7 @@ function RestaurantProvider({ children }) {
     const {data, isError, isLoading} = useQuery({
         queryKey:['getRestaurant'],
         queryFn: async () => {
-            const {data} = await axios.get('https://plate-ahead-server.onrender.com/restaurant/get-restaurant');
+            const {data} = await axios.get('https://plate-ahead-client.vercel.app//restaurant/get-restaurant');
             setRestaurant(data.data)
             console.log(data.data)
             return data
