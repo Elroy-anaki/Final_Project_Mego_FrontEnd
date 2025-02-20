@@ -11,7 +11,6 @@ import FullOrderProvider from "./FullOrderContext";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
-
 export const AuthContext = createContext()
 
 function AuthProvider({ children }) {
@@ -137,6 +136,8 @@ function AuthProvider({ children }) {
     }
 
     return (
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}>
+
         <AuthContext.Provider value={authGlobalState}>
             <RestaurantProvider>
                 <MenuProvider>
@@ -151,6 +152,8 @@ function AuthProvider({ children }) {
                 </MenuProvider>
             </RestaurantProvider>
         </AuthContext.Provider>
+              </GoogleOAuthProvider>
+        
 
 
     )
