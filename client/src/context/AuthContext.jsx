@@ -11,7 +11,7 @@ import FullOrderProvider from "./FullOrderContext";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
-const CLIENT_ID = "941180979275-pn53d30kqqqrnf8uqgorcbvrrfqvdfrr.apps.googleusercontent.com"
+const CLIENT_ID = "921804082949-mavj61adi6iovel91r6d8lf639kfr95u.apps.googleusercontent.com"
 
 export const AuthContext = createContext()
 
