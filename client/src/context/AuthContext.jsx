@@ -11,7 +11,6 @@ import FullOrderProvider from "./FullOrderContext";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
-const CLIENT_ID = "921804082949-mavj61adi6iovel91r6d8lf639kfr95u.apps.googleusercontent.com"
 
 export const AuthContext = createContext()
 
@@ -144,9 +143,8 @@ function AuthProvider({ children }) {
                     <OrderDetailsProvider>
                         <TableProvider>
                             <FullOrderProvider>
-                                <GoogleOAuthProvider clientId={CLIENT_ID}>
+                               
                                     {children}
-                                </GoogleOAuthProvider>
                             </FullOrderProvider>
                         </TableProvider>
                     </OrderDetailsProvider>
