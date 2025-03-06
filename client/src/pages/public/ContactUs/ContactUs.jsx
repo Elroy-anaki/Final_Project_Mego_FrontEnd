@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { MapPin, Mail, Clock } from 'lucide-react';
 import { RestaurantContex } from '../../../context/RestaurantContex';
 
 function ContactUs() {
   const { restaurant } = useContext(RestaurantContex);
+    useEffect(() => {document.title = "Contact Us"});
+  
 
   if (!restaurant) {
     return (

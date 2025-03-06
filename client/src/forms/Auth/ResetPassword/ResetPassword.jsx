@@ -29,19 +29,7 @@ function ResetPassword() {
       notifyError(data.msg)
     }
   })
-
-
-
-  // const handleSubmit = async (e) => {
-
-  //   try {
-  //     data.success && navigate('/sign-in');
-
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-
-  // }
+  useEffect(() => {document.title = "Reset Password"});
 
   return (
     <div className="font-sans  min-h-screen flex items-center justify-center w-full p-4">

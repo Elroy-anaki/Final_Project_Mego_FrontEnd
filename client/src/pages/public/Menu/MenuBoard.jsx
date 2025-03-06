@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -19,7 +19,7 @@ function MenuBoard() {
         select: (data) => data.data.data,
       });
 
-
+      useEffect(() => {document.title = "Menu"}, [])
 
 
       if (isLoading) return <p>Loading...</p>;

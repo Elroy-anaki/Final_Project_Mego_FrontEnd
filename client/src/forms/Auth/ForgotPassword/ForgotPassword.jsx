@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { notifySuccess } from '../../../lib/Toasts.jsx'
 
@@ -19,6 +19,7 @@ function ForgotPassword() {
       console.log("Error", error);
     }
   };
+  useEffect(() => {document.title = "Forgot Password"});
 
   return (
     <div className="font-sans min-h-screen bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center w-full mx-auto p-4">

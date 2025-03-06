@@ -1,7 +1,13 @@
+<<<<<<< Updated upstream
 import React, { useContext, useState } from "react";
 import CubeLink from "./CubeLink";
 import { AuthContext } from "../../../context/AuthContext";
 import ProjectDescription from "../../../ProjectDescription";
+=======
+import React, { useContext, useEffect } from 'react'
+import CubeLink from './CubeLink'
+import { AuthContext } from '../../../context/AuthContext'
+>>>>>>> Stashed changes
 
 const cubeLinks = [
   {
@@ -25,9 +31,15 @@ const cubeLinks = [
 ];
 
 function Home() {
+<<<<<<< Updated upstream
   const { user } = useContext(AuthContext);
   const [toggleDescription, setToggleDescription] = useState(true);
 
+=======
+  const {user} = useContext(AuthContext)
+        useEffect(() => {document.title = "Home"}, [])
+  
+>>>>>>> Stashed changes
   return (
     <div className="text-center">
       {toggleDescription ? (

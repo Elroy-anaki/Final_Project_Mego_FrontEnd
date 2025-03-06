@@ -21,7 +21,7 @@ function Checkout() {
   const { orderDetails, remainingSeats, setRemainingSeats, getRemainingSeats } = useContext(OrderDetailsContext)
 
   const [initValues, setInitValues] = useState(null)
-
+  useEffect(() => {document.title = "Checkout"});
 
 
 

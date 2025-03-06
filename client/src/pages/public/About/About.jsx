@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { RestaurantContex } from '../../../context/RestaurantContex';
 
 function About() {
   const { restaurant } = useContext(RestaurantContex);
+  useEffect(() => {document.title = "About"});
 
   if (!restaurant) {
     return (

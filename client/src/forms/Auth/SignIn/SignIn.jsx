@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Formik } from "formik";
 import {validationSignInSchema} from "../../../schemas/userForms";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,6 +17,8 @@ const initialUserValues = {
 function SignIn() {
   const { signIn, signInWithGoogle } = useContext(AuthContext)
   const navigate = useNavigate()
+  
+    useEffect(() => {document.title = "Sign In"});
   
   
 

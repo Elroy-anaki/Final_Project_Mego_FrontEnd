@@ -1,12 +1,8 @@
 // Import Hooks +  Network utils
 import { useContext, useEffect, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { RiResetLeftFill } from "react-icons/ri";
 import { CiSaveUp2 } from "react-icons/ci";
-
-
-import axios from 'axios';
 
 // Import Context + Utils
 import { OrderDetailsContext } from '../../../context/OrderDetailsContext';
@@ -51,7 +47,8 @@ function OrderPlace() {
             [name]: value
         }));
     }
-
+    useEffect(() => {document.title = "Order Place"});
+    
     useEffect(() => {
         if (!values?.time) return;
         getRemainingSeats(values)

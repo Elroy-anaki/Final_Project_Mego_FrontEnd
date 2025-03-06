@@ -1,5 +1,5 @@
 import { PayPalButtons } from '@paypal/react-paypal-js';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from 'axios'
 import { TableContext } from '../../../context/TableContext';
 import { FullOrderContext } from '../../../context/FullOrderContext';
@@ -11,6 +11,7 @@ function Payment() {
     const {table, setTable} = useContext(TableContext)
     const {fullOrder} = useContext(FullOrderContext)
     const navigate = useNavigate()
+  useEffect(() => {document.title = "Payment"});
 
       const { mutate: addOrder } = useMutation({
         mutationKey: ['createOrder'],

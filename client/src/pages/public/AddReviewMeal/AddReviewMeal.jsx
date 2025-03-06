@@ -24,6 +24,7 @@ function AddReviewMeal() {
     },
     onError: (error) => console.log(error.response.data.msg)
   });
+  useEffect(() => {document.title = "Reviews Page"});
 
   useEffect(() => {
     getOrderByOrderId();
