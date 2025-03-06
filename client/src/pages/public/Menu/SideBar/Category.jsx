@@ -1,34 +1,25 @@
 import React, { useContext } from 'react';
-import { MenuContext } from '../../../../context/MenuContext'
+import { MenuContext } from '../../../../context/MenuContext';
 
-
-function Category({ _id ,categoryName , categoryImage }) {
-    const { GetMealsByCategory, setChosenCategory, chosenCategory } = useContext(MenuContext)
-
-
-    const handleCubeClick = () => {
-        setChosenCategory({name:categoryName, _id: _id})
-        GetMealsByCategory(_id);
-    };
-   
+function Category({ _id, categoryName, categoryImage, isSelected, onClick }) {
     return (
-        <div
-            onClick={handleCubeClick}
+        <button
+            onClick={onClick}
             style={{
                 backgroundImage: `url(${categoryImage})`,
             }}
-            className='relative overflow-hidden group 
-                bg-cover bg-center 
-                w-full h-28
-                flex justify-center items-center cursor-pointer'
+            className={`relative overflow-hidden group 
+                bg-cover bg-center w-full h-28
+                flex justify-center items-center cursor-pointer
+                ${isSelected ? 'ring-4 ring-amber-500' : ''}`}
         >
-            <div className={`absolute inset-0 ${chosenCategory.name === categoryName ? 'bg-lime-400/40' : 'bg-black/40' } group-hover:bg-transparent transition-all duration-300 z-100`}></div>
+            <div className={`absolute inset-0 ${isSelected ? 'bg-lime-400/40' : 'bg-black/70'} group-hover:bg-black/40 transition-all duration-300`}></div>
             
-            <p className={`relative z-20 text-3xl  ${chosenCategory.name === categoryName ?  'text-black font-semibold text-4xl ': 'text-amber-500'} group-hover:text-amber-500 group-hover:text-4xl group-hover:font-semibold transition-all duration-300`}>
+            <p className={`relative z-20 text-3xl ${isSelected ? 'text-black font-semibold text-4xl' : 'text-amber-500'} group-hover:text-amber-500 group-hover:text-4xl group-hover:font-semibold transition-all duration-300`}>
                 {categoryName}
             </p>
-        </div>
-    )
+        </button>
+    );
 }
 
-export default Category
+export default Category;
