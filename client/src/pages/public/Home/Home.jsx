@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import CubeLink from "./CubeLink";
 import { AuthContext } from "../../../context/AuthContext";
-import ProjectDescription from "../../../projectDescription";
+import ProjectDescription from "../../../ProjectDescription";
 
 const cubeLinks = [
   {
