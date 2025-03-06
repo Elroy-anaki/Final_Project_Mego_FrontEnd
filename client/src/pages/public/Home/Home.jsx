@@ -2,9 +2,7 @@ import React, { useContext, useState } from "react";
 import CubeLink from "./CubeLink";
 import { AuthContext } from "../../../context/AuthContext";
 import ProjectDescription from "../../../ProjectDescription";
-import React, { useContext, useEffect } from 'react'
-import CubeLink from './CubeLink'
-import { AuthContext } from '../../../context/AuthContext'
+
 
 const cubeLinks = [
   {
