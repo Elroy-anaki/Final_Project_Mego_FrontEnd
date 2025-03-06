@@ -3,7 +3,6 @@ import CubeLink from "./CubeLink";
 import { AuthContext } from "../../../context/AuthContext";
 import ProjectDescription from "../../../ProjectDescription";
 
-
 const cubeLinks = [
   {
     name: "Menu",
@@ -26,15 +25,13 @@ const cubeLinks = [
 ];
 
 function Home() {
-<<<<<<< Updated upstream
   const { user } = useContext(AuthContext);
   const [toggleDescription, setToggleDescription] = useState(true);
 
-=======
-  const {user} = useContext(AuthContext)
-        useEffect(() => {document.title = "Home"}, [])
-  
->>>>>>> Stashed changes
+  useEffect(() => {
+    document.title = "Home";
+  }, []);
+
   return (
     <div className="text-center">
       {toggleDescription ? (
