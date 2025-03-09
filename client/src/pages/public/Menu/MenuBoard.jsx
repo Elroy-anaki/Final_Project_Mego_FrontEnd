@@ -5,13 +5,11 @@ import axios from "axios";
 import SideBar from './SideBar/Sidebar';
 import Meals from './Meals/Meals';
 import { OrderDetailsContext } from '../../../context/OrderDetailsContext';
+import { Helmet } from 'react-helmet-async';
+import {helmetAbout} from "../../../helmet/menu"
 
 
 function MenuBoard() {
-  const {orderDetails} = useContext(OrderDetailsContext)
-  console.log("orderDetails", orderDetails)
-
-
 
     const { data, isLoading } = useQuery({
         queryKey: ["getCategories"],
@@ -19,13 +17,12 @@ function MenuBoard() {
         select: (data) => data.data.data,
       });
 
-      useEffect(() => {document.title = "Menu"}, [])
-
 
       if (isLoading) return <p>Loading...</p>;
   return (
     
     <div className='flex min-h-screen border-t-2 border-white'>
+      <Helmet {...helmetAbout}/>
         <div className='w-1/6 bg-gray-800 h-[575px] flex flex-col shadow-2xl border-x-2 border-x-white border-b-2 border-b-white' >
       <SideBar categories={data}/>
       </div>

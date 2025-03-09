@@ -6,24 +6,20 @@ import { hours } from '../../../helpers/restaurant'
 import { OrderDetailsContext } from '../../../context/OrderDetailsContext'
 import { Formik } from 'formik'
 import { FullOrderContext } from '../../../context/FullOrderContext'
-import { notifyError, notifySuccess } from '../../../lib/Toasts'
+import { notifyError} from '../../../lib/Toasts'
 import { useNavigate } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
+import { Helmet } from 'react-helmet-async'
+import {helmetCheckout} from "../../../helmet/checkout"
+
 
 function Checkout() {
+
   const navigate = useNavigate()
-
   const { setValuesByOrderSchema, setPriceChoice, priceChoice, setFullOrder } = useContext(FullOrderContext)
-
-  const { table, setTable } = useContext(TableContext)
+  const { table} = useContext(TableContext)
   const { user } = useContext(AuthContext)
-  const { orderDetails, remainingSeats, setRemainingSeats, getRemainingSeats } = useContext(OrderDetailsContext)
-
+  const { orderDetails, remainingSeats, getRemainingSeats } = useContext(OrderDetailsContext)
   const [initValues, setInitValues] = useState(null)
-  useEffect(() => {document.title = "Checkout"});
-
-
 
   useEffect(() => {
     setInitValues({
@@ -36,9 +32,10 @@ function Checkout() {
     })
     console.log(user)
   }, [user])
-  useEffect(() => console.log(initValues, [initValues]))
+
   return (
     <div className="font-[sans-serif] bg-white">
+      <Helmet {...helmetCheckout}/> 
       <div className="flex max-sm:flex-col gap-12 max-lg:gap-4 h-full">
         <div className="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 sm:h-screen sm:sticky sm:top-0 lg:min-w-[480px] sm:min-w-[300px]">
           <div className="relative h-full">

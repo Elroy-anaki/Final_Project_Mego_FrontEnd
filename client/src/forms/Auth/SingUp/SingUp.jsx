@@ -1,8 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
-import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
-
 import { Formik } from "formik";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -10,9 +8,12 @@ import { validationSingUpSchema } from "../../../schemas/userForms";
 import Input from "./Input";
 import { AuthContext } from "../../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { helmetSignUp } from "../../../helmet/signUp";
 
 function SingUp() {
-  const { signUp, signIn, signUpGoogle } = useContext(AuthContext);
+
+  const { signUp, signUpGoogle } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -28,14 +29,10 @@ function SingUp() {
     console.log("Sign-up successful");
   }
 
-  function handlelogout() {
-    googleLogout();
-  }
-    useEffect(() => {document.title = "Sign Up"});
-  
 
   return (
     <div className=" bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800  flex items-center justify-center py-3">
+      <Helmet {...helmetSignUp} />
       <Formik
         initialValues={{
           userName: "",
@@ -124,7 +121,6 @@ function SingUp() {
                 <GoogleLogin
                   onSuccess={(credentialResponse) => {
                     signUpWithGoogle(jwtDecode(credentialResponse.credential));
-
                     navigate("/auth/sign-in");
                   }}
                   onError={() => console.log("Login failed")}

@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { RestaurantContex } from '../../../context/RestaurantContex';
+import { helmetAbout } from "../../../helmet/about"
+import { Helmet } from 'react-helmet-async';
 
 function About() {
   const { restaurant } = useContext(RestaurantContex);
-  useEffect(() => {document.title = "About"});
 
   if (!restaurant) {
     return (
@@ -15,6 +16,7 @@ function About() {
 
   return (
     <div className="w-10/12 h-full mx-auto p-6 space-y-8">
+      <Helmet {...helmetAbout} />
       <section>
         <h2 className="text-5xl font-extrabold text-white text-center mb-6">About Us</h2>
         <div className="bg-gray-700 rounded-lg shadow-2xl overflow-hidden border-2 border-gray-500">

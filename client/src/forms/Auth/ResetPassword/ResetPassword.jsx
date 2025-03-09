@@ -3,8 +3,9 @@ import { Link, useNavigate, useSearchParams } from "react-router";
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query'
 import { notifyError, notifySuccess } from '../../../lib/Toasts.jsx';
+import { Helmet } from 'react-helmet-async';
+import {helmetResetPassword} from "../../../helmet/resetPassword.jsx"
 
-//TODO check how to update the user for the dashboard
 
 function ResetPassword() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function ResetPassword() {
       const { newPassword } = e.target;
       const userId = queryParams.get("userId")
       const forgotPasswordId = queryParams.get("forgotPasswordId")
-      const { data } = await axios.post(`http://localhost:3000/auth/reset-password?userId=${userId}&forgotPasswordId=${forgotPasswordId}`, { password: newPassword.value, premission: 'user' })
+      const { data } = await axios.post(`/auth/reset-password?userId=${userId}&forgotPasswordId=${forgotPasswordId}`, { password: newPassword.value, premission: 'user' })
       return data;
     },
     onSuccess: (data) => {
@@ -25,14 +26,13 @@ function ResetPassword() {
       navigate('/auth/sign-in')
      },
      onError: (data) => {
-       console.log("cxzcxzcz",data)
       notifyError(data.msg)
     }
   })
-  useEffect(() => {document.title = "Reset Password"});
 
   return (
     <div className="font-sans  min-h-screen flex items-center justify-center w-full p-4">
+      <Helmet {...helmetResetPassword}/>
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl border border-sky-100 overflow-hidden">
         <div className="bg-gradient-to-r from-orange-600 to-orange-400 text-white p-6 text-center">
           <h1 className="text-3xl font-bold tracking-tight">Reset Password</h1>

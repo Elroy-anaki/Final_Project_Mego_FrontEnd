@@ -1,9 +1,13 @@
-import axios from "axios";
 import React, { useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { notifySuccess } from '../../../lib/Toasts.jsx'
+import { Helmet } from "react-helmet-async";
+import {helmetForgotPassword} from "../../../helmet/forgotPassword.jsx"
+
 
 function ForgotPassword() {
+
   const sendforgotPasswordEmail = async (e) => {
     e.preventDefault();
     notifySuccess("Check Your Email...");
@@ -11,7 +15,7 @@ function ForgotPassword() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/auth/forgot-password",
+        "/forgot-password",
         { email: e.target.email.value ,premission: 'user' }
       );
       console.log(data);
@@ -19,10 +23,10 @@ function ForgotPassword() {
       console.log("Error", error);
     }
   };
-  useEffect(() => {document.title = "Forgot Password"});
 
   return (
     <div className="font-sans min-h-screen bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center w-full mx-auto p-4">
+      <Helmet {...helmetForgotPassword}/>
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl border border-sky-100 overflow-hidden">
         <div className="bg-gradient-to-r from-orange-600 to-orange-400 text-white p-6 text-center">
           <h1 className="text-3xl font-bold tracking-tight">

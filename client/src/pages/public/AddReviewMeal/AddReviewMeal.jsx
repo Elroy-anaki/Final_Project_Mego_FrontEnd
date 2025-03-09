@@ -4,8 +4,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Heading1, Star } from "lucide-react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { notifyError, notifySuccess } from "../../../lib/Toasts";
+import { Helmet } from "react-helmet-async";
+import {helmetAddReview} from "../../../helmet/addReview"
 
 function AddReviewMeal() {
+  
   const navigate = useNavigate()
   const [order, setOrder] = useState(null);
   const [ratings, setRatings] = useState({});
@@ -17,14 +20,13 @@ function AddReviewMeal() {
   // Get the order
   const { mutate: getOrderByOrderId } = useMutation({
     mutationKey: ['getOrderByUserId'],
-    mutationFn: async (data) => await axios.get(`http://localhost:3000/orders/get-order-by-order-id?orderId=${orderId}&guestEmail=${guestEmail}`),
+    mutationFn: async (data) => await axios.get(`/orders/get-order-by-order-id?orderId=${orderId}&guestEmail=${guestEmail}`),
     onSuccess: (data) => { 
       console.log(data)
       setOrder(data.data.data) 
     },
     onError: (error) => console.log(error.response.data.msg)
   });
-  useEffect(() => {document.title = "Reviews Page"});
 
   useEffect(() => {
     getOrderByOrderId();
@@ -75,14 +77,6 @@ function AddReviewMeal() {
     }
   });
 
-
-
-
-
-  useEffect(() => { console.log(order) }, [order])
-  useEffect(() => { console.log(comments), [comments] })
-
-  useEffect(() => { console.log(ratings) }, [ratings])
   if (!order) {
     return (<div className="space-y-4 mt-5">
       <h2 className="text-center text-5xl ">You've already rated! </h2>
@@ -91,6 +85,7 @@ function AddReviewMeal() {
   } else {
     return (
       <div className="max-w-4xl mx-auto mt-5 p-8 border rounded-lg shadow-lg bg-white">
+        <Helmet {...helmetAddReview}/>
         <h2 className="text-4xl font-extrabold mb-8 text-center text-gray-800">
           Hello, Friend! <span className="text-amber-500">😀</span>
         </h2>

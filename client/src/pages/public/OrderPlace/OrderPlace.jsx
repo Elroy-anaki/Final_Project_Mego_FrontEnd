@@ -7,12 +7,14 @@ import { CiSaveUp2 } from "react-icons/ci";
 // Import Context + Utils
 import { OrderDetailsContext } from '../../../context/OrderDetailsContext';
 import { hours } from '../../../helpers/restaurant';
+import { Helmet } from 'react-helmet-async';
 // import Calendar from 'react-calendar';
 // import 'react-calendar/dist/Calendar.css';
-
+import {helmetOrderPlace} from "../../../helmet/orderPlace"
 
 
 const formatDateToLocal = (date) => {
+
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
         .toISOString()
         .split('T')[0];
@@ -25,6 +27,7 @@ const initValues = {
 }
 
 function OrderPlace() {
+
     // Context + Utils
     const { setOrderDetails, orderDetails, setRemainingSeats,remainingSeats, getRemainingSeats } = useContext(OrderDetailsContext)
     const navigate = useNavigate()
@@ -47,7 +50,6 @@ function OrderPlace() {
             [name]: value
         }));
     }
-    useEffect(() => {document.title = "Order Place"});
     
     useEffect(() => {
         if (!values?.time) return;
@@ -57,6 +59,7 @@ function OrderPlace() {
     return (
         <div
             className='bg-gradient-to-br from-gray-800 to-gray-700 pb-48 pt-5 '>
+                <Helmet {...helmetOrderPlace}/>
             <h2 className='text-5xl font-extrabold text-white text-center mb-6'>
                 Welcome to Our Restaurant!
             </h2>

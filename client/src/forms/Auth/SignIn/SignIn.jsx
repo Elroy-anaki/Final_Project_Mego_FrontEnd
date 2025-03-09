@@ -6,6 +6,8 @@ import { AuthContext } from "../../../context/AuthContext";
 import { notifyError, notifySuccess } from "../../../lib/Toasts";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { Helmet } from "react-helmet-async";
+import {helmetSignIn} from "../../../helmet/signIn"
 
 
 
@@ -15,15 +17,14 @@ const initialUserValues = {
 };
 
 function SignIn() {
+  
   const { signIn, signInWithGoogle } = useContext(AuthContext)
   const navigate = useNavigate()
-  
-    useEffect(() => {document.title = "Sign In"});
-  
-  
+    
 
   return (
     <div className="bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center py-16">
+      <Helmet {...helmetSignIn}/>
       <Formik
         initialValues={initialUserValues}
         validationSchema={validationSignInSchema}

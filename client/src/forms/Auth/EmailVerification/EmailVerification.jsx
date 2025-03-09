@@ -1,22 +1,19 @@
-import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
-import React, { useContext, useEffect } from 'react'
+
+import React, { useContext} from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { notifySuccess } from '../../../lib/Toasts'
 import { AuthContext } from '../../../context/AuthContext'
+import { Helmet } from 'react-helmet-async';
+import {helmetEmailVerification} from "../../../helmet/emailVerification";
 
 function EmailVerification() {
 
     const navigate = useNavigate();
     const { userId } = useParams();
-
     const {verifyEmail} = useContext(AuthContext)
-  useEffect(() => {document.title = "Email Verification"});
-
-    
 
     return (
         <div className="flex flex-col items-center h-screen pt-10 bg-gray-800 text-white">
+            <Helmet {...helmetEmailVerification}/>
             <h1 className="text-5xl text-center font-bold mb-8">
                 Click the Button Below to Verify Your Email
             </h1>

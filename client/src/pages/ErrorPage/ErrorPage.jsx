@@ -1,9 +1,13 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { BiError } from 'react-icons/bi';
+import {helmetErrorPage} from "../../helmet/errorPage"
+
 
 const ErrorPage = () => {
   return (
     <div className="min-h-screen bg-orange-50 flex items-center justify-center p-4">
+      <Helmet {... helmetErrorPage}/>
       <div className="max-w-lg w-full bg-white rounded-lg shadow-lg p-8 text-center border-2 border-orange-200">
         <div className="flex justify-center mb-6">
           <BiError className="h-16 w-16 text-orange-500" />

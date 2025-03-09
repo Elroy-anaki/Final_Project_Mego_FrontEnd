@@ -1,10 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { MapPin, Mail, Clock } from 'lucide-react';
 import { RestaurantContex } from '../../../context/RestaurantContex';
+import { Helmet } from 'react-helmet-async';
+import {helmetContactUs} from "../../../helmet/contactUs"
+
 
 function ContactUs() {
+  
   const { restaurant } = useContext(RestaurantContex);
-    useEffect(() => {document.title = "Contact Us"});
   
 
   if (!restaurant) {
@@ -17,6 +20,7 @@ function ContactUs() {
 
   return (
     <div className="w-8/12 mx-auto p-6 space-y-8">
+      <Helmet {...helmetContactUs}/>
       <section>
         <h2 className="text-5xl font-extrabold text-white text-center mb-6">Contact Us</h2>
         <div className="bg-gray-700 rounded-lg shadow-2xl overflow-hidden border-2 border-gray-500">
