@@ -21,8 +21,6 @@ function AuthProvider({ children }) {
     queryFn: async () => {
       try {
         const { data } = await axios.get("/auth/verify-token");
-        console.log("data", data);
-        console.log(data.data.payload);
         setIsAuth(data.success);
         setUser(data.data.payload);
         return data;
@@ -35,6 +33,8 @@ function AuthProvider({ children }) {
     retry: 1,
   });
 
+
+  
   const { mutateAsync: signIn } = useMutation({
     mutationKey: ["signIn"],
     mutationFn: async (data) => await axios.post(`/users/sign-in`, data),
